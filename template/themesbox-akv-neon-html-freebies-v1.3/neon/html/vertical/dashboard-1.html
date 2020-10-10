@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Neon is a Responsive Bootstrap 4 Admin Dashboard Template">
+    <meta name="keywords" content="admin, admin template, admin panel, dashboard template, ui kits, web app, crm, cms, responsive, bootstrap 4, html, sass support, scss">
+    <meta name="author" content="Themesbox">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+
+    <title>eyentelligence - My Dashboard</title>
+
+    <!-- Fevicon -->
+    <link rel="shortcut icon" href="assets/images/favicon2.ico">
+
+    <!-- Start CSS -->
+    <!-- Chartist Chart CSS -->
+    <link rel="stylesheet" href="assets/plugins/chartist-js/chartist.min.css">
+
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/icons.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/style.css" rel="stylesheet" type="text/css">
+    <!-- End CSS -->
+
+    <style>
+        /*.xp-vertical-menu .xp-vertical-submenu > li > a {
+            padding-left: 35px !important;
+        }*/
+        .xp-vertical-menu .xp-vertical-submenu > hr {
+            margin-left: 25px !important;
+        }
+        .xp-badge-up {
+            font-size: 11px !important;
+        }
+    </style>
+</head>
+
+<body class="xp-vertical">
+    <!-- Search Modal -->
+    <div class="modal search-modal fade" id="xpSearchModal" tabindex="-1" role="dialog" aria-labelledby="xpSearchModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="xp-searchbar">
+                        <form>
+                            <div class="input-group">
+                                <input type="search" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="button-addon2">
+                                <div class="input-group-append">
+                                    <button class="btn" type="submit" id="button-addon2">GO</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="xpLeaveModal" tabindex="-1" role="dialog" aria-labelledby="xpLeaveModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document" style="max-width: 700px;">
+            <div class="modal-content">
+                <div class="modal-body" style="padding: 40px 60px 40px 60px;">
+                    <div class="xp-modalhbar">
+                        <form>
+                            <h5 class="text-black" style="padding-bottom: 15px;">Are you sure you want to leave SuperTeam?</h5>
+                            <div class="text-warning" style="padding-bottom: 80px;">Warning: By leaving the team as an Owner, a new Owner will have to be assigned.</div>
+                            <button type="button" class="btn btn-danger" style="margin-right: 15px;">Leave Team</button>
+                            <button type="button" class="btn btn-light">Cancel</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Start XP Container -->
+    <div id="xp-container">
+
+        <!-- Start XP Leftbar -->
+        <div class="xp-leftbar">    
+
+            <!-- Start XP Sidebar -->
+            <div class="xp-sidebar">
+
+                <!-- Start XP Logobar -->
+                <div class="xp-logobar text-center">
+                    <a href="overview.html" class="xp-logo"><img src="assets/images/logo2.png" class="img-fluid" alt="logo"></a>
+                </div>
+                <!-- End XP Logobar -->
+
+                <!-- Start XP Navigationbar -->
+                <div class="xp-navigationbar">
+                    <ul class="xp-vertical-menu">
+                        <li class="xp-vertical-header">Main</li>
+                        <li>
+                            <a href="overview.html">
+                              <i class="icon-doc"></i><span>Overview</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <i class="icon-list"></i><span>Statistics</span>
+                            </a>
+                        </li>
+                        <li class="xp-vertical-header">Teams / Organizations</li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <i class="icon-briefcase"></i><span>SuperTeam</span><i class="icon-arrow-right pull-right"></i>
+                            </a>
+                            <ul class="xp-vertical-submenu">
+                                <li><a href="javascript:void(0)">Home</a></li>
+                                <li><a href="dashboard-1.html">My Dashboard</a></li>
+                                <li><a href="javascript:void(0)">My Dashboard #2</a></li>
+                                <hr>
+                                <li><a href="javascript:void(0)">Dashboards...</a></li>
+                                <li><a href="javascript:void(0)">Members...</a></li>
+                                <!--<li><a href="javascript:void(0)" class="text-danger">Leave Team</a></li>-->
+                                <li><a href="#" class="text-danger" data-toggle="modal" data-target="#xpLeaveModal">Leave Team</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <i class="icon-briefcase"></i><span>Company Inc.</span><i class="icon-arrow-right pull-right"></i>
+                            </a>
+                            <ul class="xp-vertical-submenu">
+                                <li><a href="javascript:void(0)">Home</a></li>
+                                <li><a href="javascript:void(0)">My Dashboard</a></li>
+                                <li><a href="javascript:void(0)">My Dashboard #2</a></li>
+                                <hr>
+                                <li><a href="javascript:void(0)">Dashboards...</a></li>
+                                <li><a href="javascript:void(0)">Members...</a></li>
+                                <li><a href="javascript:void(0)" class="text-danger">Leave Team</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <i class="icon-briefcase"></i><span>Europe Sales</span><i class="icon-arrow-right pull-right"></i>
+                            </a>
+                            <ul class="xp-vertical-submenu">
+                                <li><a href="javascript:void(0)">Home</a></li>
+                                <li><a href="javascript:void(0)">My Dashboard</a></li>
+                                <li><a href="javascript:void(0)">My Dashboard #2</a></li>
+                                <hr>
+                                <li><a href="javascript:void(0)">Dashboards...</a></li>
+                                <li><a href="javascript:void(0)">Members...</a></li>
+                                <li><a href="javascript:void(0)" class="text-danger">Leave Team</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <i class="icon-briefcase"></i><span>Asia Sales</span><i class="icon-arrow-right pull-right"></i>
+                            </a>
+                            <ul class="xp-vertical-submenu">
+                                <li><a href="javascript:void(0)">Home</a></li>
+                                <li><a href="javascript:void(0)">My Dashboard</a></li>
+                                <li><a href="javascript:void(0)">My Dashboard #2</a></li>
+                                <hr>
+                                <li><a href="javascript:void(0)">Dashboards...</a></li>
+                                <li><a href="javascript:void(0)">Members...</a></li>
+                                <li><a href="javascript:void(0)" class="text-danger">Leave Team</a></li>
+                            </ul>
+                        </li>
+                        <li class="xp-vertical-header">Extras</li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <i class="icon-plus"></i><span>Join a Team</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <i class="icon-people"></i><span>Create a New Team</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- End XP Navigationbar -->
+
+            </div>
+            <!-- End XP Sidebar -->
+
+        </div>
+        <!-- End XP Leftbar -->
+
+        <!-- Start XP Rightbar -->
+        <div class="xp-rightbar">
+
+            <!-- Start XP Topbar -->
+            <div class="xp-topbar">
+
+                <!-- Start XP Row -->
+                <div class="row"> 
+
+                    <!-- Start XP Col -->
+                    <div class="col-2 col-md-1 col-lg-1 order-2 order-md-1 align-self-center">
+                        <div class="xp-menubar">
+                            <a class="xp-menu-hamburger" href="javascript:void(0)">
+                               <i class="icon-menu font-20 text-white"></i>
+                             </a>
+                         </div>
+                    </div> 
+                    <!-- End XP Col -->
+
+                    <!-- Start XP Col -->
+                    <div class="col-10 col-md-11 col-lg-11 order-1 order-md-2">
+                        <div class="xp-profilebar text-right">
+                            <ul class="list-inline mb-0">
+                                <li class="list-inline-item">
+                                    <div class="xp-search">
+                                        <a href="#" class="text-white" data-toggle="modal" data-target="#xpSearchModal"><i class="icon-magnifier"></i></a>
+                                    </div>
+                                </li>
+                                <li class="list-inline-item">
+                                    <div class="dropdown xp-message">
+                                        <a class="dropdown-toggle  text-white" href="#" role="button" id="xp-message" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="icon-speech font-18 v-a-m"></i>
+                                            <span class="badge badge-pill bg-success-gradient xp-badge-up">8</span>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="xp-message">
+                                            <ul class="list-unstyled">
+                                                <li class="media">
+                                                    <div class="media-body">
+                                                        <h5 class="mt-0 mb-0 py-3 text-white text-center font-16">8 New Messages</h5>
+                                                    </div>
+                                                </li>
+                                                <li class="media xp-msg">
+                                                    <img class="mr-3 align-self-center rounded-circle" src="assets/images/topbar/user-message-1.jpg" alt="Generic placeholder image">
+                                                    <div class="media-body">
+                                                        <a href="#">
+                                                            <h5 class="mt-0 mb-1 font-14">Ariel Blue<span class="font-12 f-w-4 float-right">3 min ago</span></h5>
+                                                            <p class="mb-0 font-13">Thank you for attending...<span class="badge badge-pill badge-success float-right">2</span></p>
+                                                        </a>
+                                                    </div>
+                                                </li>
+                                                <li class="media xp-msg">
+                                                    <img class="mr-3 align-self-center rounded-circle" src="assets/images/topbar/user-message-2.jpg" alt="Generic placeholder image">
+                                                    <div class="media-body">
+                                                        <a href="#">
+                                                            <h5 class="mt-0 mb-1 font-14">Jammy Moon<span class="font-12 f-w-4 float-right">5 min ago</span></h5>
+                                                            <p class="mb-0 font-13">Hey no worries! Trust me...<span class="badge badge-pill badge-success float-right">3</span></p>
+                                                    </a>
+                                                </div>
+                                              </li>
+                                              <li class="media xp-msg">
+                                                 <img class="mr-3 align-self-center rounded-circle" src="assets/images/topbar/user-message-3.jpg" alt="Generic placeholder image">
+                                                <div class="media-body">
+                                                    <a href="#">
+                                                        <h5 class="mt-0 mb-1 font-14">Lisa Ross<span class="font-12 f-w-4 float-right">5:25 PM</span></h5>
+                                                        <p class="mb-0 font-13">Remedies for colic? i don't...<span class="badge badge-pill badge-success float-right">5</span></p>
+                                                    </a>
+                                                </div>
+                                              </li>
+                                              <li class="media">
+                                                <div class="media-body">
+                                                    <h5 class="mt-0 mb-0 py-3 text-black text-center font-14">
+                                                        <a href="#" class="text-primary">View all</a>
+                                                    </h5>
+                                                </div>
+                                              </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-inline-item">
+                                    <div class="dropdown xp-notification">
+                                        <a class="dropdown-toggle  text-white" href="#" role="button" id="xp-notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="icon-bell font-18 v-a-m"></i>
+                                            <span class="badge badge-pill bg-danger-gradient xp-badge-up">3</span>
+                                        </a>
+
+                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="xp-notification">
+                                            <ul class="list-unstyled">
+                                              <li class="media">
+                                                <div class="media-body">
+                                                  <h5 class="mt-0 mb-0 py-3 text-white text-center font-16">3 New Notifications</h5>
+                                                </div>
+                                              </li>  
+                                              <li class="media xp-noti">                                                
+                                                <div class="mr-3 xp-noti-icon primary-rgba"><i class="icon-user-follow text-primary"></i></div>
+                                                <div class="media-body">
+                                                    <a href="#">  
+                                                        <h5 class="mt-0 mb-1 font-14">New user registered</h5>
+                                                        <p class="mb-0 font-12 f-w-4">2 min ago</p>
+                                                    </a>
+                                                </div>
+                                              </li>
+                                              <li class="media xp-noti">
+                                                <div class="mr-3 xp-noti-icon success-rgba"><i class="icon-basket-loaded text-success"></i></div>
+                                                <div class="media-body">
+                                                    <a href="#">
+                                                        <h5 class="mt-0 mb-1 font-14">New order placed</h5>
+                                                        <p class="mb-0 font-12 f-w-4">8:45 PM</p>
+                                                    </a>
+                                                </div>
+                                              </li>
+                                              <li class="media xp-noti">
+                                                <div class="mr-3 xp-noti-icon danger-rgba"><i class="icon-like text-danger"></i></div>
+                                                <div class="media-body">
+                                                    <a href="#">
+                                                        <h5 class="mt-0 mb-1 font-14">John like your photo.</h5>
+                                                        <p class="mb-0 font-12 f-w-4">Yesterday</p>
+                                                    </a>
+                                                </div>
+                                              </li>
+                                              <li class="media">
+                                                <div class="media-body">
+                                                    <h5 class="mt-0 mb-0 py-3 text-black text-center font-14">
+                                                        <a href="#" class="text-primary">View all</a>
+                                                    </h5>
+                                                </div>
+                                              </li>
+                                            </ul>                                            
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-inline-item mr-0">
+                                    <div class="dropdown xp-userprofile">
+                                        <a class="dropdown-toggle " href="#" role="button" id="xp-userprofile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="assets/images/topbar/user2.svg" alt="user-profile" class="rounded-circle img-fluid"><span class="xp-user-live"></span></a>
+
+                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="xp-userprofile">
+                                            <a class="dropdown-item py-3 text-white text-center font-16" href="#">Welcome, John Doe</a>
+                                            <a class="dropdown-item" href="#"><i class="icon-user text-primary mr-2"></i> Profile</a>
+                                            <a class="dropdown-item" href="#"><i class="icon-wallet text-success mr-2"></i> Billing</a>
+                                            <a class="dropdown-item" href="#"><i class="icon-settings text-warning mr-2"></i> Setting</a>
+                                            <a class="dropdown-item" href="#"><i class="icon-lock text-info mr-2"></i> Lock Screen</a>
+                                            <a class="dropdown-item" href="#"><i class="icon-power text-danger mr-2"></i> Logout</a>
+                                        </div>
+                                    </div>                                   
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- End XP Col -->
+
+                </div> 
+                <!-- End XP Row -->
+
+            </div>
+            <!-- End XP Topbar -->
+            
+            <!-- Start XP Breadcrumbbar -->                    
+            <div class="xp-breadcrumbbar">
+                <div class="row">
+                    <div class="col-md-6 col-lg-6">
+                        <h4 class="xp-page-title">My Dashboard</h4>
+                    </div>
+                    <div class="col-md-6 col-lg-6">
+                        <div class="xp-breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html"><i class="icon-home"></i></a></li>
+                                <li class="breadcrumb-item"><a href="#">Teams</a></li>
+                                <li class="breadcrumb-item"><a href="#">SuperTeam</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">My Dashboard</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>          
+            </div>
+            <!-- End XP Breadcrumbbar -->
+
+            <!-- Start XP Contentbar -->    
+            <div class="xp-contentbar">
+
+                <!-- Start XP Row -->
+                <div class="row">
+
+                    <!-- Start XP Col -->
+                    <div class="col-lg-12">
+
+                        <!-- Start XP Col -->
+                        <div class="card m-b-30" style="height: 74vh;">
+
+                            <!-- Start XP Card Header -->
+                            <div class="card-header bg-white">
+                                <button type="button" class="btn btn-rounded btn-outline-primary" style="float: right;">
+                                    <i class="icon-pencil mr-2"></i>&nbsp;Edit
+                                </button>
+                            </div>
+                            <!-- End XP Card Header -->
+
+                            <!-- Start XP Col -->
+                            <div class="card-body">
+                                <div class="card m-b-30" style="width: 270px !important; float: left;">
+                                    <div class="card-body" style="padding: 3.25rem !important; text-align: center;">
+                                        <h1 class="text-success-gradient mb-3"><i class="icon-arrow-up mr-2"></i>58%</h1>
+                                        <h5>test</h5>
+                                    </div>
+                                </div>
+                                <span style="width: 30px; float: left; visibility: hidden;">.</span>
+                                <div class="card m-b-30" style="width: 365px !important; height: 420px;">
+                                    <div class="card-body" style="padding: 3.25rem !important; text-align: center; height: 420px;">
+                                        <svg xmlns:ct="http://gionkunz.github.com/chartist-js/ct" width="100%" height="100%" class="ct-chart-bar" style="width: 100%; height: 100%;"><g class="ct-grids"><line x1="50" x2="50" y1="15" y2="285" class="ct-grid ct-horizontal"></line><line x1="67.78333282470703" x2="67.78333282470703" y1="15" y2="285" class="ct-grid ct-horizontal"></line><line x1="85.56666564941406" x2="85.56666564941406" y1="15" y2="285" class="ct-grid ct-horizontal"></line><line x1="103.3499984741211" x2="103.3499984741211" y1="15" y2="285" class="ct-grid ct-horizontal"></line><line x1="121.13333129882812" x2="121.13333129882812" y1="15" y2="285" class="ct-grid ct-horizontal"></line><line x1="138.91666412353516" x2="138.91666412353516" y1="15" y2="285" class="ct-grid ct-horizontal"></line><line x1="156.6999969482422" x2="156.6999969482422" y1="15" y2="285" class="ct-grid ct-horizontal"></line><line x1="174.48332977294922" x2="174.48332977294922" y1="15" y2="285" class="ct-grid ct-horizontal"></line><line x1="192.26666259765625" x2="192.26666259765625" y1="15" y2="285" class="ct-grid ct-horizontal"></line><line x1="210.04999542236328" x2="210.04999542236328" y1="15" y2="285" class="ct-grid ct-horizontal"></line><line x1="227.8333282470703" x2="227.8333282470703" y1="15" y2="285" class="ct-grid ct-horizontal"></line><line x1="245.61666107177734" x2="245.61666107177734" y1="15" y2="285" class="ct-grid ct-horizontal"></line><line y1="285" y2="285" x1="50" x2="263.3999938964844" class="ct-grid ct-vertical"></line><line y1="251.25" y2="251.25" x1="50" x2="263.3999938964844" class="ct-grid ct-vertical"></line><line y1="217.5" y2="217.5" x1="50" x2="263.3999938964844" class="ct-grid ct-vertical"></line><line y1="183.75" y2="183.75" x1="50" x2="263.3999938964844" class="ct-grid ct-vertical"></line><line y1="150" y2="150" x1="50" x2="263.3999938964844" class="ct-grid ct-vertical"></line><line y1="116.25" y2="116.25" x1="50" x2="263.3999938964844" class="ct-grid ct-vertical"></line><line y1="82.5" y2="82.5" x1="50" x2="263.3999938964844" class="ct-grid ct-vertical"></line><line y1="48.75" y2="48.75" x1="50" x2="263.3999938964844" class="ct-grid ct-vertical"></line><line y1="15" y2="15" x1="50" x2="263.3999938964844" class="ct-grid ct-vertical"></line></g><g><g class="ct-series ct-series-a"><line x1="58.891666412353516" x2="58.891666412353516" y1="285" y2="177" class="ct-bar" ct:value="800000" style="stroke-width: 10px"></line><line x1="76.67499923706055" x2="76.67499923706055" y1="285" y2="123" class="ct-bar" ct:value="1200000" style="stroke-width: 10px"></line><line x1="94.45833206176758" x2="94.45833206176758" y1="285" y2="96" class="ct-bar" ct:value="1400000" style="stroke-width: 10px"></line><line x1="112.24166488647461" x2="112.24166488647461" y1="285" y2="109.5" class="ct-bar" ct:value="1300000" style="stroke-width: 10px"></line><line x1="130.02499771118164" x2="130.02499771118164" y1="285" y2="177" class="ct-bar" ct:value="800000" style="stroke-width: 10px"></line><line x1="147.80833053588867" x2="147.80833053588867" y1="285" y2="123" class="ct-bar" ct:value="1200000" style="stroke-width: 10px"></line><line x1="165.5916633605957" x2="165.5916633605957" y1="285" y2="96" class="ct-bar" ct:value="1400000" style="stroke-width: 10px"></line><line x1="183.37499618530273" x2="183.37499618530273" y1="285" y2="109.5" class="ct-bar" ct:value="1300000" style="stroke-width: 10px"></line><line x1="201.15832901000977" x2="201.15832901000977" y1="285" y2="177" class="ct-bar" ct:value="800000" style="stroke-width: 10px"></line><line x1="218.9416618347168" x2="218.9416618347168" y1="285" y2="123" class="ct-bar" ct:value="1200000" style="stroke-width: 10px"></line><line x1="236.72499465942383" x2="236.72499465942383" y1="285" y2="96" class="ct-bar" ct:value="1400000" style="stroke-width: 10px"></line><line x1="254.50832748413086" x2="254.50832748413086" y1="285" y2="109.5" class="ct-bar" ct:value="1300000" style="stroke-width: 10px"></line></g><g class="ct-series ct-series-b"><line x1="58.891666412353516" x2="58.891666412353516" y1="177" y2="150" class="ct-bar" ct:value="200000" style="stroke-width: 10px"></line><line x1="76.67499923706055" x2="76.67499923706055" y1="123" y2="69" class="ct-bar" ct:value="400000" style="stroke-width: 10px"></line><line x1="94.45833206176758" x2="94.45833206176758" y1="96" y2="28.5" class="ct-bar" ct:value="500000" style="stroke-width: 10px"></line><line x1="112.24166488647461" x2="112.24166488647461" y1="109.5" y2="69" class="ct-bar" ct:value="300000" style="stroke-width: 10px"></line><line x1="130.02499771118164" x2="130.02499771118164" y1="177" y2="150" class="ct-bar" ct:value="200000" style="stroke-width: 10px"></line><line x1="147.80833053588867" x2="147.80833053588867" y1="123" y2="69" class="ct-bar" ct:value="400000" style="stroke-width: 10px"></line><line x1="165.5916633605957" x2="165.5916633605957" y1="96" y2="28.5" class="ct-bar" ct:value="500000" style="stroke-width: 10px"></line><line x1="183.37499618530273" x2="183.37499618530273" y1="109.5" y2="69" class="ct-bar" ct:value="300000" style="stroke-width: 10px"></line><line x1="201.15832901000977" x2="201.15832901000977" y1="177" y2="150" class="ct-bar" ct:value="200000" style="stroke-width: 10px"></line><line x1="218.9416618347168" x2="218.9416618347168" y1="123" y2="69" class="ct-bar" ct:value="400000" style="stroke-width: 10px"></line><line x1="236.72499465942383" x2="236.72499465942383" y1="96" y2="28.5" class="ct-bar" ct:value="500000" style="stroke-width: 10px"></line><line x1="254.50832748413086" x2="254.50832748413086" y1="109.5" y2="69" class="ct-bar" ct:value="300000" style="stroke-width: 10px"></line></g></g><g class="ct-labels"><foreignObject style="overflow: visible;" x="50" y="290" width="17.78333282470703" height="20"><span class="ct-label ct-horizontal ct-end" xmlns="http://www.w3.org/2000/xmlns/" style="width: 18px; height: 20px;">Q1</span></foreignObject><foreignObject style="overflow: visible;" x="67.78333282470703" y="290" width="17.78333282470703" height="20"><span class="ct-label ct-horizontal ct-end" xmlns="http://www.w3.org/2000/xmlns/" style="width: 18px; height: 20px;">Q2</span></foreignObject><foreignObject style="overflow: visible;" x="85.56666564941406" y="290" width="17.78333282470703" height="20"><span class="ct-label ct-horizontal ct-end" xmlns="http://www.w3.org/2000/xmlns/" style="width: 18px; height: 20px;">Q3</span></foreignObject><foreignObject style="overflow: visible;" x="103.3499984741211" y="290" width="17.78333282470703" height="20"><span class="ct-label ct-horizontal ct-end" xmlns="http://www.w3.org/2000/xmlns/" style="width: 18px; height: 20px;">Q4</span></foreignObject><foreignObject style="overflow: visible;" x="121.13333129882812" y="290" width="17.78333282470703" height="20"><span class="ct-label ct-horizontal ct-end" xmlns="http://www.w3.org/2000/xmlns/" style="width: 18px; height: 20px;">Q5</span></foreignObject><foreignObject style="overflow: visible;" x="138.91666412353516" y="290" width="17.78333282470703" height="20"><span class="ct-label ct-horizontal ct-end" xmlns="http://www.w3.org/2000/xmlns/" style="width: 18px; height: 20px;">Q6</span></foreignObject><foreignObject style="overflow: visible;" x="156.6999969482422" y="290" width="17.78333282470703" height="20"><span class="ct-label ct-horizontal ct-end" xmlns="http://www.w3.org/2000/xmlns/" style="width: 18px; height: 20px;">Q7</span></foreignObject><foreignObject style="overflow: visible;" x="174.48332977294922" y="290" width="17.78333282470703" height="20"><span class="ct-label ct-horizontal ct-end" xmlns="http://www.w3.org/2000/xmlns/" style="width: 18px; height: 20px;">Q8</span></foreignObject><foreignObject style="overflow: visible;" x="192.26666259765625" y="290" width="17.78333282470703" height="20"><span class="ct-label ct-horizontal ct-end" xmlns="http://www.w3.org/2000/xmlns/" style="width: 18px; height: 20px;">Q9</span></foreignObject><foreignObject style="overflow: visible;" x="210.04999542236328" y="290" width="17.78333282470703" height="20"><span class="ct-label ct-horizontal ct-end" xmlns="http://www.w3.org/2000/xmlns/" style="width: 18px; height: 20px;">Q10</span></foreignObject><foreignObject style="overflow: visible;" x="227.8333282470703" y="290" width="17.78333282470703" height="20"><span class="ct-label ct-horizontal ct-end" xmlns="http://www.w3.org/2000/xmlns/" style="width: 18px; height: 20px;">Q11</span></foreignObject><foreignObject style="overflow: visible;" x="245.61666107177734" y="290" width="30" height="20"><span class="ct-label ct-horizontal ct-end" xmlns="http://www.w3.org/2000/xmlns/" style="width: 30px; height: 20px;">Q12</span></foreignObject><foreignObject style="overflow: visible;" y="251.25" x="10" height="33.75" width="30"><span class="ct-label ct-vertical ct-start" xmlns="http://www.w3.org/2000/xmlns/" style="height: 34px; width: 30px;">0k</span></foreignObject><foreignObject style="overflow: visible;" y="217.5" x="10" height="33.75" width="30"><span class="ct-label ct-vertical ct-start" xmlns="http://www.w3.org/2000/xmlns/" style="height: 34px; width: 30px;">250k</span></foreignObject><foreignObject style="overflow: visible;" y="183.75" x="10" height="33.75" width="30"><span class="ct-label ct-vertical ct-start" xmlns="http://www.w3.org/2000/xmlns/" style="height: 34px; width: 30px;">500k</span></foreignObject><foreignObject style="overflow: visible;" y="150" x="10" height="33.75" width="30"><span class="ct-label ct-vertical ct-start" xmlns="http://www.w3.org/2000/xmlns/" style="height: 34px; width: 30px;">750k</span></foreignObject><foreignObject style="overflow: visible;" y="116.25" x="10" height="33.75" width="30"><span class="ct-label ct-vertical ct-start" xmlns="http://www.w3.org/2000/xmlns/" style="height: 34px; width: 30px;">1000k</span></foreignObject><foreignObject style="overflow: visible;" y="82.5" x="10" height="33.75" width="30"><span class="ct-label ct-vertical ct-start" xmlns="http://www.w3.org/2000/xmlns/" style="height: 34px; width: 30px;">1250k</span></foreignObject><foreignObject style="overflow: visible;" y="48.75" x="10" height="33.75" width="30"><span class="ct-label ct-vertical ct-start" xmlns="http://www.w3.org/2000/xmlns/" style="height: 34px; width: 30px;">1500k</span></foreignObject><foreignObject style="overflow: visible;" y="15" x="10" height="33.75" width="30"><span class="ct-label ct-vertical ct-start" xmlns="http://www.w3.org/2000/xmlns/" style="height: 34px; width: 30px;">1750k</span></foreignObject><foreignObject style="overflow: visible;" y="-15" x="10" height="30" width="30"><span class="ct-label ct-vertical ct-start" xmlns="http://www.w3.org/2000/xmlns/" style="height: 30px; width: 30px;">2000k</span></foreignObject></g></svg>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End XP Row -->
+                        </div>
+                        <!-- End XP Card Body -->
+                    </div>
+                    <!-- End XP Card -->
+                </div>
+                <!-- End XP Col -->
+
+            </div>
+            <!-- End XP Row -->
+
+        </div>
+        <!-- End XP Contentbar -->
+
+        <!-- Start XP Footerbar -->
+        <div class="xp-footerbar">
+            <footer class="footer">
+                <p class="mb-0">&copy; 2020 Eyentelligence - All Rights Reserved.</p>
+            </footer>
+        </div>
+        <!-- End XP Footerbar -->
+
+        </div>
+        <!-- End XP Rightbar -->
+
+    </div>
+    <!-- End XP Container -->
+
+    <!-- Start JS -->        
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/modernizr.min.js"></script>
+    <script src="assets/js/detect.js"></script>
+    <script src="assets/js/jquery.slimscroll.js"></script>
+    <script src="assets/js/sidebar-menu.js"></script>
+    
+    <!-- Main JS -->
+    <script src="assets/js/main.js"></script>
+    <!-- End JS -->
+
+</body>
+</html>

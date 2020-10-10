@@ -28,7 +28,7 @@ $(document).ready(function() {
 
     /* -----  Menu Scrollbar ----- */
     $('.xp-vertical-menu').slimscroll({
-        height: '700',
+        height: '1400',
         position: 'right',
         size: "7px",
         color: '#CFD8DC'
