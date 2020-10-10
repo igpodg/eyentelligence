@@ -1,32 +1,73 @@
 <template>
-    <div id="app">
-        <div id="nav">
-            <router-link to="/">Home</router-link> |
-            <router-link to="/about">About</router-link>
-        </div>
-        <router-view/>
+    <div id="xp-container">
+        <left-bar/>
     </div>
 </template>
 
+<script>
+import LeftBar from "@/components/LeftBar.vue";
+
+export default {
+    components: {
+        LeftBar
+    }
+}
+</script>
+
 <style lang="scss">
-#app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
+@import url("https://fonts.googleapis.com/css?family=Comfortaa:300,400,700");
+html {
+    position: relative;
+    min-height: 100%;
 }
 
-#nav {
-    padding: 30px;
+body {
+    font-family: "Comfortaa", cursive;
+    margin: 0;
+    background: #F0F4F9;
+    font-size: 15px;
+    font-weight: 400;
+    color: #8A98AC;
+    line-height: 1.5;
+}
 
-    a {
-        font-weight: bold;
-        color: #2c3e50;
+p {
+    line-height: 1.3;
+    margin-bottom: 10px;
+}
 
-        &.router-link-exact-active {
-            color: #42b983;
-        }
+* {
+    outline: none !important;
+}
+
+a {
+    color: #4c7cf3;
+}
+a:hover {
+    color: #346bf1;
+    outline: 0;
+    text-decoration: none;
+}
+a:active {
+    color: #346bf1;
+    outline: 0;
+    text-decoration: none;
+}
+a:focus {
+    color: #346bf1;
+    outline: 0;
+    text-decoration: none;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    body {
+        overflow-x: hidden;
+    }
+}
+
+@media (max-width: 767px) {
+    body {
+        overflow-x: hidden;
     }
 }
 </style>
