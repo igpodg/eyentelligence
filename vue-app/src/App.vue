@@ -103,18 +103,8 @@ p {
     left: 0;
 }
 
-.xp-toggle-menu .xp-leftbar {
-    position: fixed;
-    left: -250px;
-    transition: all 0.3s ease;
-}
-
 .xp-toggle-menu .xp-rightbar {
     margin-left: 0;
-}
-
-.xp-toggle-menu .xp-topbar {
-    left: 0;
 }
 
 .xp-toggle-menu .xp-leftbar {
@@ -122,6 +112,11 @@ p {
     left: 0;
     z-index: 9999;
 }*/
+
+
+
+
+
 
 
 .xp-toggle-menu .xp-topbar {

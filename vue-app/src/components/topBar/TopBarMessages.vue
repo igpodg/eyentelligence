@@ -3,7 +3,7 @@
         <div class="dropdown xp-message">
             <a class="dropdown-toggle text-white" href="#" role="button" id="xp-message" data-toggle="dropdown"
                aria-haspopup="true" aria-expanded="false">
-                <i class="icon-speech font-18 v-a-m"></i>
+                <i class="icon-speech font-18 v-a-m"></i>&nbsp;
                 <span v-if="badge !== undefined" class="badge badge-pill bg-success-gradient xp-badge-up">
                     {{ badge }}
                 </span>

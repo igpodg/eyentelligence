@@ -10,10 +10,7 @@
 
 <script>
 export default {
-    name: "TopBarSearch",
-    props: {
-        a: String
-    }
+    name: "TopBarSearch"
 }
 </script>
 

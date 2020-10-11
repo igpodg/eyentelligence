@@ -3,7 +3,7 @@
         <div class="dropdown xp-notification">
             <a class="dropdown-toggle text-white" href="#" role="button" id="xp-notification" data-toggle="dropdown"
                aria-haspopup="true" aria-expanded="false">
-                <i class="icon-bell font-18 v-a-m"></i>
+                <i class="icon-bell font-18 v-a-m"></i>&nbsp;
                 <span v-if="badge !== undefined" class="badge badge-pill bg-danger-gradient xp-badge-up">
                     {{ badge }}
                 </span>

@@ -12,9 +12,9 @@
             <div class="col-10 col-md-11 col-lg-11 order-1 order-md-2">
                 <div class="xp-profilebar text-right">
                     <ul class="list-inline mb-0">
-                        <top-bar-search/>
-                        <top-bar-messages badge="8"/>
-                        <top-bar-notifications badge="3"/>
+                        <top-bar-search/>&nbsp;
+                        <top-bar-messages badge="8"/>&nbsp;
+                        <top-bar-notifications badge="3"/>&nbsp;
                         <top-bar-profile avatar-url="img/user.svg"/>
                     </ul>
                 </div>
@@ -46,6 +46,10 @@ export default {
 </script>
 
 <style lang="scss">
+
+
+
+
 .xp-menu-hamburger {
     color: #4c7cf3;
     text-decoration: none;
