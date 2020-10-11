@@ -33,11 +33,11 @@
 </template>
 
 <script>
-import LeftBarHeading from "@/components/LeftBarHeading.vue";
-import LeftBarStatic from "@/components/LeftBarStatic.vue";
-import LeftBarStaticMini from "@/components/LeftBarStaticMini.vue";
-import LeftBarStaticModal from "@/components/LeftBarStaticModal.vue";
-import LeftBarDropdown from "@/components/LeftBarDropdown.vue";
+import LeftBarHeading from "@/components/leftBar/LeftBarHeading.vue";
+import LeftBarStatic from "@/components/leftBar/LeftBarStatic.vue";
+import LeftBarStaticMini from "@/components/leftBar/LeftBarStaticMini.vue";
+import LeftBarStaticModal from "@/components/leftBar/LeftBarStaticModal.vue";
+import LeftBarDropdown from "@/components/leftBar/LeftBarDropdown.vue";
 
 export default {
     name: "LeftBar",

@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import LeftBar from "@/components/LeftBar.vue";
+import LeftBar from "@/components/leftBar/LeftBar.vue";
 import TopBar from "@/components/TopBar.vue";
 
 export default {
