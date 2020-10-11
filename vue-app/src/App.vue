@@ -4,17 +4,22 @@
         <div class="xp-rightbar">
             <top-bar/>
         </div>
+        <bottom-bar>
+            2020 Eyentelligence - All Rights Reserved.
+        </bottom-bar>
     </div>
 </template>
 
 <script>
 import LeftBar from "@/components/leftBar/LeftBar.vue";
 import TopBar from "@/components/topBar/TopBar.vue";
+import BottomBar from "@/components/BottomBar.vue";
 
 export default {
     components: {
         LeftBar,
-        TopBar
+        TopBar,
+        BottomBar
     }
 }
 </script>
