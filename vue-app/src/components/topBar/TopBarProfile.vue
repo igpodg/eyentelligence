@@ -19,8 +19,8 @@
 </template>
 
 <script>
-import PopupMini from "@/components/PopupMini.vue";
-import PopupMiniItem from "@/components/PopupMiniItem.vue";
+import PopupMini from "@/components/popup/PopupMini.vue";
+import PopupMiniItem from "@/components/popup/PopupMiniItem.vue";
 
 export default {
     name: "TopBarProfile",

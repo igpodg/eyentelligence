@@ -24,8 +24,8 @@
 </template>
 
 <script>
-import Popup from "@/components/Popup.vue";
-import PopupItemNoti from "@/components/PopupItemNoti.vue";
+import Popup from "@/components/popup/Popup.vue";
+import PopupItemNoti from "@/components/popup/PopupItemNoti.vue";
 
 export default {
     name: "TopBarNotifications",

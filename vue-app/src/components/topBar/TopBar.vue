@@ -24,10 +24,10 @@
 </template>
 
 <script>
-import TopBarSearch from "@/components/TopBarSearch.vue";
-import TopBarMessages from "@/components/TopBarMessages.vue";
-import TopBarNotifications from "@/components/TopBarNotifications.vue";
-import TopBarProfile from "@/components/TopBarProfile.vue";
+import TopBarSearch from "@/components/topBar/TopBarSearch.vue";
+import TopBarMessages from "@/components/topBar/TopBarMessages.vue";
+import TopBarNotifications from "@/components/topBar/TopBarNotifications.vue";
+import TopBarProfile from "@/components/topBar/TopBarProfile.vue";
 
 export default {
     name: "TopBar",

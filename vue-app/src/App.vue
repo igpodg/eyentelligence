@@ -9,7 +9,7 @@
 
 <script>
 import LeftBar from "@/components/leftBar/LeftBar.vue";
-import TopBar from "@/components/TopBar.vue";
+import TopBar from "@/components/topBar/TopBar.vue";
 
 export default {
     components: {
