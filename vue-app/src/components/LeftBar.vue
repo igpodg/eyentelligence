@@ -159,9 +159,6 @@ export default {
 .xp-vertical-menu .xp-vertical-submenu > hr {
     margin-left: 25px !important;
 }
-.xp-badge-up {
-    font-size: 11px !important;
-}
 
 
 

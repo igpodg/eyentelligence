@@ -1,15 +1,20 @@
 <template>
     <div id="xp-container">
         <left-bar logo="img/logo.png" url="/"/>
+        <div class="xp-rightbar">
+            <top-bar/>
+        </div>
     </div>
 </template>
 
 <script>
 import LeftBar from "@/components/LeftBar.vue";
+import TopBar from "@/components/TopBar.vue";
 
 export default {
     components: {
-        LeftBar
+        LeftBar,
+        TopBar
     }
 }
 </script>
@@ -69,5 +74,20 @@ a:focus {
     body {
         overflow-x: hidden;
     }
+}
+
+
+
+p {
+    line-height: 1.3;
+    margin-bottom: 10px;
+}
+
+
+.xp-rightbar {
+    margin-left: 250px;
+    overflow: hidden;
+    min-height: 500px;
+    transition: all 0.3s ease;
 }
 </style>
