@@ -3,6 +3,7 @@
         <left-bar logo="img/logo.png" url="/"/>
         <div class="xp-rightbar">
             <top-bar/>
+            <breadcrumbs title="Test" :hierarchy="hierarchy()"/>
         </div>
         <bottom-bar>
             2020 Eyentelligence - All Rights Reserved.
@@ -14,12 +15,32 @@
 import LeftBar from "@/components/leftBar/LeftBar.vue";
 import TopBar from "@/components/topBar/TopBar.vue";
 import BottomBar from "@/components/BottomBar.vue";
+import Breadcrumbs from "@/components/Breadcrumbs.vue";
 
 export default {
     components: {
         LeftBar,
         TopBar,
-        BottomBar
+        BottomBar,
+        Breadcrumbs
+    },
+    methods: {
+        hierarchy: function() {
+            return [
+                {
+                    title: "Testing1",
+                    url: "link1"
+                },
+                {
+                    title: "Testing2",
+                    url: "link2"
+                },
+                {
+                    title: "Testing3",
+                    url: "link3"
+                }
+            ];
+        }
     }
 }
 </script>
@@ -108,16 +129,18 @@ p {
     left: 0;
 }
 
-.xp-toggle-menu .xp-rightbar {
-    margin-left: 0;
-}
-
 .xp-toggle-menu .xp-leftbar {
     position: fixed;
     left: 0;
     z-index: 9999;
 }*/
 
+
+
+
+.xp-toggle-menu .xp-rightbar {
+    margin-left: 0;
+}
 
 
 
@@ -145,6 +168,27 @@ p {
     }
 }
 
+
+
+
+
+@media print {
+    .xp-rightbar {
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .xp-rightbar {
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 767px) {
+    .xp-rightbar {
+        margin-left: 0 !important;
+    }
+}
 
 
 </style>
