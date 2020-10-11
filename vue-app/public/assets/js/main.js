@@ -20,12 +20,6 @@ $(document).ready(function() {
         }
     }), 
 
-    /* -----  Menu Hamburger ----- */
-    $(".xp-menu-hamburger").on("click", function(e) {
-        e.preventDefault();
-        $("body").toggleClass("xp-toggle-menu");
-    }); 
-
     /* -----  Menu Scrollbar ----- */
     $('.xp-vertical-menu').slimscroll({
         height: '1400',
