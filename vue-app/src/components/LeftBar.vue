@@ -1,116 +1,71 @@
 <template>
     <div class="xp-leftbar">
-        <!-- Start XP Logobar -->
         <div class="xp-logobar text-center">
-            <a href="overview.html" class="xp-logo"><img src="img/logo.png" class="img-fluid"
-                                                         alt="logo"></a>
+            <router-link :to="url" class="xp-logo">
+                <img :src="logo" class="img-fluid" alt="logo">
+            </router-link>
         </div>
-        <!-- End XP Logobar -->
 
-        <!-- Start XP Navigationbar -->
         <div class="xp-navigationbar">
             <ul class="xp-vertical-menu">
-                <li class="xp-vertical-header">Main</li>
-                <li>
-                    <a href="overview.html">
-                        <i class="icon-doc"></i><span>Overview</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:void(0)">
-                        <i class="icon-list"></i><span>Statistics</span>
-                    </a>
-                </li>
-                <li class="xp-vertical-header">Teams / Organizations</li>
-                <li>
-                    <a href="javascript:void(0)">
-                        <i class="icon-briefcase"></i><span>SuperTeam</span><i
-                        class="icon-arrow-right pull-right"></i>
-                    </a>
-                    <ul class="xp-vertical-submenu">
-                        <li><a href="javascript:void(0)">Home</a></li>
-                        <li><a href="javascript:void(0)">My Dashboard</a></li>
-                        <li><a href="javascript:void(0)">My Dashboard #2</a></li>
-                        <hr>
-                        <li><a href="javascript:void(0)">Dashboards...</a></li>
-                        <li><a href="javascript:void(0)">Members...</a></li>
-                        <!--<li><a href="javascript:void(0)" class="text-danger">Leave Team</a></li>-->
-                        <li><a href="#" class="text-danger" data-toggle="modal" data-target="#xpLeaveModal">Leave
-                            Team</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="javascript:void(0)">
-                        <i class="icon-briefcase"></i><span>Company Inc.</span><i
-                        class="icon-arrow-right pull-right"></i>
-                    </a>
-                    <ul class="xp-vertical-submenu">
-                        <li><a href="javascript:void(0)">Home</a></li>
-                        <li><a href="javascript:void(0)">My Dashboard</a></li>
-                        <li><a href="javascript:void(0)">My Dashboard #2</a></li>
-                        <hr>
-                        <li><a href="javascript:void(0)">Dashboards...</a></li>
-                        <li><a href="javascript:void(0)">Members...</a></li>
-                        <li><a href="javascript:void(0)" class="text-danger">Leave Team</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="javascript:void(0)">
-                        <i class="icon-briefcase"></i><span>Europe Sales</span><i
-                        class="icon-arrow-right pull-right"></i>
-                    </a>
-                    <ul class="xp-vertical-submenu">
-                        <li><a href="javascript:void(0)">Home</a></li>
-                        <li><a href="javascript:void(0)">My Dashboard</a></li>
-                        <li><a href="javascript:void(0)">My Dashboard #2</a></li>
-                        <hr>
-                        <li><a href="javascript:void(0)">Dashboards...</a></li>
-                        <li><a href="javascript:void(0)">Members...</a></li>
-                        <li><a href="javascript:void(0)" class="text-danger">Leave Team</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="javascript:void(0)">
-                        <i class="icon-briefcase"></i><span>Asia Sales</span><i
-                        class="icon-arrow-right pull-right"></i>
-                    </a>
-                    <ul class="xp-vertical-submenu">
-                        <li><a href="javascript:void(0)">Home</a></li>
-                        <li><a href="javascript:void(0)">My Dashboard</a></li>
-                        <li><a href="javascript:void(0)">My Dashboard #2</a></li>
-                        <hr>
-                        <li><a href="javascript:void(0)">Dashboards...</a></li>
-                        <li><a href="javascript:void(0)">Members...</a></li>
-                        <li><a href="javascript:void(0)" class="text-danger">Leave Team</a></li>
-                    </ul>
-                </li>
-                <li class="xp-vertical-header">Extras</li>
-                <li>
-                    <a href="javascript:void(0)">
-                        <i class="icon-plus"></i><span>Join a Team</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:void(0)">
-                        <i class="icon-people"></i><span>Create a New Team</span>
-                    </a>
-                </li>
+                <left-bar-heading name="Main"/>
+                <left-bar-static icon="doc" name="Overview" url=""/>
+                <left-bar-static icon="list" name="Statistics" url=""/>
+
+                <left-bar-heading name="Teams / Organizations"/>
+                <left-bar-dropdown v-for="th in tempHeadings" :key="th"
+                                   icon="briefcase" :name="th" url="">
+                    <left-bar-static-mini name="Home" url=""/>
+                    <left-bar-static-mini name="My Dashboard" url=""/>
+                    <left-bar-static-mini name="My Dashboard #2" url=""/>
+                    <hr>
+                    <left-bar-static-mini name="Dashboards..." url=""/>
+                    <left-bar-static-mini name="Members..." url=""/>
+                    <left-bar-static-modal name="Leave Team" type="danger"/>
+                </left-bar-dropdown>
+
+                <left-bar-heading name="Extras"/>
+                <left-bar-static icon="plus" name="Join a Team" url=""/>
+                <left-bar-static icon="people" name="Create a New Team" url=""/>
             </ul>
         </div>
     </div>
 </template>
 
 <script>
+import LeftBarHeading from "@/components/LeftBarHeading.vue";
+import LeftBarStatic from "@/components/LeftBarStatic.vue";
+import LeftBarStaticMini from "@/components/LeftBarStaticMini.vue";
+import LeftBarStaticModal from "@/components/LeftBarStaticModal.vue";
+import LeftBarDropdown from "@/components/LeftBarDropdown.vue";
+
 export default {
-    name: "LeftBar"/*,
+    name: "LeftBar",
+    components: {
+        LeftBarHeading,
+        LeftBarStatic,
+        LeftBarStaticMini,
+        LeftBarStaticModal,
+        LeftBarDropdown
+    },
     props: {
-        msg: String
-    }*/
+        logo: String,
+        url: String
+    },
+    data: function() {
+        return {
+            tempHeadings: [
+                "SuperTeam",
+                "Company Inc.",
+                "Europe Sales",
+                "Asia Sales"
+            ]
+        };
+    }
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .xp-logo {
     color: #313131 !important;
     font-size: 20px;
@@ -200,6 +155,17 @@ export default {
     color: #4c7cf3;
 }
 
+
+.xp-vertical-menu .xp-vertical-submenu > hr {
+    margin-left: 25px !important;
+}
+.xp-badge-up {
+    font-size: 11px !important;
+}
+
+
+
+
 .text-danger {
     color: #ff4b5b !important;
 }
@@ -209,6 +175,10 @@ a.text-danger:focus {
 }
 a.text-danger:hover {
     color: #ff3244 !important;
+}
+
+.pull-right {
+    float: right;
 }
 
 @media print {

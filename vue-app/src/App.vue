@@ -1,6 +1,6 @@
 <template>
     <div id="xp-container">
-        <left-bar/>
+        <left-bar logo="img/logo.png" url="/"/>
     </div>
 </template>
 
