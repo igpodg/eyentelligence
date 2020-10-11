@@ -9,13 +9,13 @@
                 </span>
             </a>
             <popup name="message" title="8 New Messages" bottom-text="View all">
-                <popup-item-msg icon-url="img/user-message.jpg" title="Ariel Blue" time="3 min ago" badge="2">
+                <popup-item-msg icon-url="img/user-message.jpg" title="Ariel Blue" time="3 min ago" :badge="2">
                     Thank you for attending...
                 </popup-item-msg>
-                <popup-item-msg icon-url="img/user-message.jpg" title="Jammy Moon" time="5 min ago" badge="3">
+                <popup-item-msg icon-url="img/user-message.jpg" title="Jammy Moon" time="5 min ago" :badge="3">
                     Hey no worries! Trust me...
                 </popup-item-msg>
-                <popup-item-msg icon-url="img/user-message.jpg" title="Lisa Ross" time="5:25 PM" badge="5">
+                <popup-item-msg icon-url="img/user-message.jpg" title="Lisa Ross" time="5:25 PM" :badge="5">
                     Remedies for colic? i don't...
                 </popup-item-msg>
             </popup>

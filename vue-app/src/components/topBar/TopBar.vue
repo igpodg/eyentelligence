@@ -13,8 +13,8 @@
                 <div class="xp-profilebar text-right">
                     <ul class="list-inline mb-0">
                         <top-bar-search/>&nbsp;
-                        <top-bar-messages badge="8"/>&nbsp;
-                        <top-bar-notifications badge="3"/>&nbsp;
+                        <top-bar-messages :badge="8"/>&nbsp;
+                        <top-bar-notifications :badge="3"/>&nbsp;
                         <top-bar-profile avatar-url="img/user.svg"/>
                     </ul>
                 </div>
