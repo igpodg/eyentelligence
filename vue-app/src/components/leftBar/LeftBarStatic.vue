@@ -1,6 +1,6 @@
 <template>
-    <li>
-        <router-link :to="url">
+    <li :class="(name === 'Overview' && this.$route.name === 'Overview') ? 'active' : ''">
+        <router-link :to="url" :class="(name === 'Overview' && this.$route.name === 'Overview') ? 'active' : ''">
             <i :class="'icon-' + icon"></i><span>{{ name }}</span>
         </router-link>
     </li>

@@ -161,7 +161,7 @@ a.text-success:hover {
     border: none;
     //border-radius: 5px;
 
-    background-color: #ffffff;
+    background-color: #ffffff !important;
     border-radius: 50px;
 }
 

@@ -16,7 +16,7 @@
                 <left-bar-dropdown v-for="th in tempHeadings" :key="th"
                                    icon="briefcase" :name="th" url="">
                     <left-bar-static-mini name="Home" url=""/>
-                    <left-bar-static-mini name="My Dashboard" url=""/>
+                    <left-bar-static-mini name="My Dashboard" url="/dashboard"/>
                     <left-bar-static-mini name="My Dashboard #2" url=""/>
                     <hr>
                     <left-bar-static-mini name="Dashboards..." url=""/>
@@ -83,6 +83,14 @@ export default {
     box-shadow: 0 0 30px 0 rgba(200, 200, 200, 0.2);
     z-index: 9;
     transition: all 0.3s ease;
+
+    overflow-y: auto;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* IE 10+ */
+    &::-webkit-scrollbar {
+        width: 0;
+        background: transparent; /* Chrome/Safari/Webkit */
+    }
 }
 
 
@@ -193,6 +201,21 @@ a.text-danger:hover {
 
 
 
+
+.xp-vertical-menu > li:hover > a, .xp-vertical-menu > li.active > a {
+    color: #ffffff;
+    background-image: linear-gradient(58deg, #4c7cf3 0, #4cc6f3 100%);
+    border-radius: 50px 0 0 50px;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.xp-vertical-menu li.active > a > .icon-arrow-right {
+    transform: rotate(-270deg);
+}
+
+
+.disable-scrollbars {
+}
 
 
 </style>
