@@ -1,25 +1,18 @@
 <template>
-    <div id="xp-container">
+    <div id="xp-container" v-if="!this.secondaryRoutes().includes(this.$route.name)">
         <left-bar logo="img/logo.png" url="/"/>
         <div class="xp-rightbar">
             <top-bar/>
             <breadcrumbs title="Test" :hierarchy="hierarchy()"/>
             <div class="xp-contentbar">
-                <card header="Header" subtitle="Subtitle">
-                    asd
-                </card>
-                <card-invite header="Invite new members"
-                             subtitle="Have anyone missing? Just add them using the form below."
-                             :team-names="['SuperTeam', 'Company Inc.', 'Europe Sales', 'Asia Sales']"/>
-                <card header="Header" subtitle="Subtitle">
-                    <statistics-brief :data="statisticsData()"/>
-                </card>
+                <router-view/>
             </div>
         </div>
         <bottom-bar>
             2020 Eyentelligence - All Rights Reserved.
         </bottom-bar>
     </div>
+    <router-view v-else/>
 </template>
 
 <script>
@@ -27,19 +20,13 @@ import LeftBar from "@/components/leftBar/LeftBar.vue";
 import TopBar from "@/components/topBar/TopBar.vue";
 import BottomBar from "@/components/BottomBar.vue";
 import Breadcrumbs from "@/components/Breadcrumbs.vue";
-import Card from "@/components/card/Card.vue";
-import CardInvite from "@/components/card/CardInvite.vue";
-import StatisticsBrief from "@/components/StatisticsBrief.vue";
 
 export default {
     components: {
         LeftBar,
         TopBar,
         BottomBar,
-        Breadcrumbs,
-        Card,
-        CardInvite,
-        StatisticsBrief
+        Breadcrumbs
     },
     methods: {
         hierarchy: function() {
@@ -58,22 +45,9 @@ export default {
                 }
             ];
         },
-        statisticsData: function() {
-            return [
-                {
-                    "left": ["5.3 hrs", "Avg Members Sessions", "+18.68%", "vs in last 7 days"],
-                    "right": ["6.4 hrs", "Avg Members Sessions", "+23.54%", "vs in last 7 days"]
-                },
-                {
-                    "left": ["2.1 hrs", "Avg Members Sessions", "+56.21%", "vs in last 7 days"],
-                    "right": ["4.9 hrs", "Avg Members Sessions", "+45.34%", "vs in last 7 days"]
-                },
-                {
-                    "left": ["11.2 hrs", "Avg Members Sessions", "+56.43%", "vs in last 7 days"],
-                    "right": ["0.4 hrs", "Avg Members Sessions", "+98.32%", "vs in last 7 days"]
-                }
-            ];
-        }
+        secondaryRoutes: function() {
+            return ["Login", "Invited"];
+        },
     }
 }
 </script>
