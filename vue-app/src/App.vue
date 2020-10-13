@@ -4,6 +4,14 @@
         <div class="xp-rightbar">
             <top-bar/>
             <breadcrumbs title="Test" :hierarchy="hierarchy()"/>
+            <div class="xp-contentbar">
+                <card header="Header" subtitle="Subtitle">
+                    asd
+                </card>
+                <card-invite header="Invite new members"
+                             subtitle="Have anyone missing? Just add them using the form below."
+                             :team-names="['SuperTeam', 'Company Inc.', 'Europe Sales', 'Asia Sales']"/>
+            </div>
         </div>
         <bottom-bar>
             2020 Eyentelligence - All Rights Reserved.
@@ -16,13 +24,17 @@ import LeftBar from "@/components/leftBar/LeftBar.vue";
 import TopBar from "@/components/topBar/TopBar.vue";
 import BottomBar from "@/components/BottomBar.vue";
 import Breadcrumbs from "@/components/Breadcrumbs.vue";
+import Card from "@/components/Card.vue";
+import CardInvite from "@/components/CardInvite.vue";
 
 export default {
     components: {
         LeftBar,
         TopBar,
         BottomBar,
-        Breadcrumbs
+        Breadcrumbs,
+        Card,
+        CardInvite
     },
     methods: {
         hierarchy: function() {
@@ -188,6 +200,13 @@ p {
     .xp-rightbar {
         margin-left: 0 !important;
     }
+}
+
+
+
+.xp-contentbar {
+    padding: 30px;
+    margin-bottom: 30px;
 }
 
 
