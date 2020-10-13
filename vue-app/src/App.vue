@@ -24,8 +24,8 @@ import LeftBar from "@/components/leftBar/LeftBar.vue";
 import TopBar from "@/components/topBar/TopBar.vue";
 import BottomBar from "@/components/BottomBar.vue";
 import Breadcrumbs from "@/components/Breadcrumbs.vue";
-import Card from "@/components/Card.vue";
-import CardInvite from "@/components/CardInvite.vue";
+import Card from "@/components/card/Card.vue";
+import CardInvite from "@/components/card/CardInvite.vue";
 
 export default {
     components: {
