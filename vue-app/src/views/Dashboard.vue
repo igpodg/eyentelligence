@@ -1,27 +1,48 @@
 <template>
     <div class="card m-b-30" style="height: 74vh;">
-        <div class="card-header bg-white">
+        <div class="card-header bg-white" ref="header1">
             <button type="button" class="btn btn-rounded btn-outline-primary">
                 <i class="icon-refresh mr-2"></i>&nbsp;Refresh
             </button>
             <div style="float: right;">
-                <button type="button" class="btn btn-rounded btn-outline-primary">
+                <button type="button" class="btn btn-rounded btn-outline-primary"
+                        @click="toggleEdit">
                     <i class="icon-pencil mr-2"></i>&nbsp;Edit
+                </button>
+            </div>
+        </div>
+        <div class="card-header bg-white dashboard-edit-disabled" ref="header2">
+            <div style="float: right;">
+                <button type="button" class="btn btn-rounded btn-outline-primary">
+                    <i class="icon-plus mr-2"></i>&nbsp;Add Tile
+                </button>&nbsp;
+                <button type="button" class="btn btn-rounded btn-outline-primary">
+                    <i class="icon-equalizer mr-2"></i>&nbsp;Manage Filters
+                </button>&nbsp;
+                <button type="button" class="btn btn-rounded btn-outline-success"
+                        @click="toggleEdit">
+                    <i class="icon-check mr-2"></i>&nbsp;Done
                 </button>
             </div>
         </div>
 
         <div class="card-body">
-            <div class="card m-b-30" style="width: 270px !important; float: left;">
+            <div class="card m-b-30"
+                 :style="'width: 270px !important; border: solid ' +
+                    (editEnabled ? '#4c7cf3' : 'transparent') + '; float: left;'">
                 <div class="card-body" style="padding: 3.25rem !important; text-align: center;">
+                    <span style="position: absolute; margin-top: -30px; margin-left: 95px; cursor: pointer;"
+                          class="icon-options-vertical" v-if="editEnabled"/>
                     <h1 class="text-success-gradient mb-3"><i class="icon-arrow-up mr-2"></i>58%</h1>
                     <h5>test</h5>
                 </div>
             </div>
             <span style="width: 30px; float: left; visibility: hidden;">.</span>
-            <div class="card m-b-30" style="width: 365px !important; height: 420px;">
+            <div class="card m-b-30" style="width: 365px !important; border: solid transparent; height: 420px;">
                 <div class="card-body"
                      style="padding: 3.25rem !important; text-align: center; height: 420px;">
+                    <span style="position: absolute; margin-top: -30px; margin-left: 270px; cursor: pointer;"
+                          class="icon-options-vertical" v-if="editEnabled"/>
                     <dashboard-temp-svg/>
                 </div>
             </div>
@@ -37,11 +58,30 @@ export default {
     name: "Dashboard",
     components: {
         DashboardTempSvg
+    },
+    data: function() {
+        return {
+            editEnabled: false
+        }
+    },
+    methods: {
+        toggleEdit: function() {
+            this.$refs.header1.classList.toggle("dashboard-edit-disabled");
+            this.$refs.header2.classList.toggle("dashboard-edit-disabled");
+            this.editEnabled = !this.editEnabled;
+        }
     }
 }
 </script>
 
 <style lang="scss">
+.dashboard-edit-disabled {
+    display: none;
+}
+
+
+
+
 .h1, .h5, h1, h5 {
     font-weight: 700;
 }
@@ -102,8 +142,12 @@ h5 {
     border-bottom: 1px solid rgba(43, 52, 58, 0.05);
 }
 
-.card-header:first-child {
-    border-radius: calc(15px - 1px) calc(15px - 1px) 0 0;
+//.card-header:first-child {
+//    border-radius: calc(15px - 1px) calc(15px - 1px) 0 0;
+//}
+
+.card-header {
+    border-radius: calc(15px - 1px) calc(15px - 1px) 0 0 !important;
 }
 
 .ct-grid {

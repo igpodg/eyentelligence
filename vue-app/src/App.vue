@@ -1,9 +1,11 @@
 <template>
-    <div id="xp-container" v-if="!this.secondaryRoutes().includes(this.$route.name)">
+    <div id="xp-container" v-if="!isSecondaryRoute()">
         <left-bar :logo="this.$logoPath" url="/"/>
         <div class="xp-rightbar">
             <top-bar/>
-            <breadcrumbs title="Test" :hierarchy="hierarchy()"/>
+            <breadcrumbs title="Test" :hierarchy="hierarchy()"
+                         :editable="isDashboard()"
+                         ref="crumb" :key="crumbKey"/>
             <div class="xp-contentbar">
                 <router-view/>
             </div>
@@ -28,6 +30,11 @@ export default {
         BottomBar,
         Breadcrumbs
     },
+    data: function() {
+        return {
+            crumbKey: 0
+        }
+    },
     methods: {
         hierarchy: function() {
             return [
@@ -45,12 +52,15 @@ export default {
                 }
             ];
         },
-        secondaryRoutes: function() {
-            return ["Login", "Invited"];
+        isSecondaryRoute: function() {
+            return ["Login", "Invited"].includes(this.$route.name);
+        },
+        isDashboard: function() {
+            return ["Dashboard"].includes(this.$route.name);
         },
         switchBodyColor: function() {
             let secondary = "secondary";
-            if (this.secondaryRoutes().includes(this.$route.name))
+            if (!this.isSecondaryRoute)
                 document.body.classList.add(secondary);
             else
                 document.body.classList.remove(secondary);
@@ -63,6 +73,10 @@ export default {
         $route: function() {
             this.switchBodyColor();
         }
+    },
+    beforeUpdate: function() {
+        //this.$refs.crumb.$forceUpdate();
+        this.crumbKey += 1;
     }
 }
 </script>

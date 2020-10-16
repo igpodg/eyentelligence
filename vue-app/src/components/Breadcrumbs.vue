@@ -2,7 +2,11 @@
     <div class="xp-breadcrumbbar">
         <div class="row">
             <div class="col-md-6 col-lg-6">
-                <h4 class="xp-page-title">{{ title }}</h4>
+                <h4 class="xp-page-title">
+                    <span class="breadcrumb-heading-editable" v-if="editable"
+                          @click="toggleBreadcrumbHeading">{{ computedTitle }}</span>
+                    <span class="breadcrumb-heading" v-else>{{ computedTitle }}</span>
+                </h4>
             </div>
             <div class="col-md-6 col-lg-6">
                 <div class="xp-breadcrumb">
@@ -26,7 +30,34 @@ export default {
     name: "Breadcrumbs",
     props: {
         title: String,
-        hierarchy: Array
+        hierarchy: Array,
+        editable: {
+            type: Boolean,
+            default: false
+        }
+    },
+    data: function() {
+        return {
+            computedTitle: this.title
+        }
+    },
+    methods: {
+        toggleBreadcrumbHeading: function(event) {
+            if (event instanceof Event) {
+                let focusDisabler = function() {
+                    //console.log("!!!");
+                    //console.log(newEvent);
+                    event.target.removeAttribute("contenteditable");
+                    event.target.classList.remove("breadcrumb-heading-on");
+                    event.target.removeEventListener("focusout", focusDisabler, false);
+                }
+                event.target.addEventListener("focusout", focusDisabler, false);
+
+                event.target.classList.add("breadcrumb-heading-on");
+                event.target.setAttribute("contenteditable", "");
+                event.target.focus();
+            }
+        }
     }
 }
 </script>
@@ -99,6 +130,40 @@ h4 {
     .xp-breadcrumbbar .xp-breadcrumb {
         text-align: center;
     }
+}
+
+.breadcrumb-heading {
+    margin-left: 6px;
+}
+
+.breadcrumb-heading-editable {
+    margin-left: 6px;
+    border-color: transparent;
+}
+
+.breadcrumb-heading-editable:hover {
+    border: 2px solid rgba(181, 181, 181, .4);
+    border-radius: 7px;
+    padding: 4px;
+
+    transition: border-color 0.3s;
+    margin-left: 0;
+}
+
+.breadcrumb-heading-editable:active {
+    border: 2px solid rgb(109, 109, 109);
+    border-radius: 7px;
+    padding: 4px;
+
+    margin-left: 0;
+}
+
+.breadcrumb-heading-on {
+    border: 2px solid rgb(109, 109, 109) !important;
+    border-radius: 7px;
+    padding: 4px;
+
+    margin-left: 0;
 }
 
 </style>
