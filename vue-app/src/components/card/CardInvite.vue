@@ -16,7 +16,7 @@
                         </select>
                     </div>
                     <div>
-                        <div v-for="i in emailsDisplayed" :key="i" class="input-group"
+                        <div v-for="i in emailsDisplayedComputed" :key="i" class="input-group"
                             :style="(i !== 1) ? 'padding-top: 10px;' : ''">
                         <input type="search" class="form-control" :placeholder="'Email #' + i"
                                    aria-label="Search" aria-describedby="button-addon-news"
@@ -61,13 +61,18 @@ export default {
             default: 2
         }
     },
+    data: function() {
+        return {
+            emailsDisplayedComputed: this.emailsDisplayed
+        }
+    },
     methods: {
         addMore: function() {
-            this.emailsDisplayed++;
+            this.emailsDisplayedComputed++;
         },
         tempRemove: function() {
-            if (this.emailsDisplayed > 1)
-                this.emailsDisplayed--;
+            if (this.emailsDisplayedComputed > 1)
+                this.emailsDisplayedComputed--;
         }
     }
 }
