@@ -4,7 +4,8 @@
             <div class="col-md-6 col-lg-6">
                 <h4 class="xp-page-title">
                     <span class="breadcrumb-heading-editable" v-if="editable"
-                          @click="toggleBreadcrumbHeading">{{ title }}</span>
+                          @click="toggleBreadcrumbHeading"
+                          @keydown="enterKeyPressed">{{ title }}</span>
                     <span class="breadcrumb-heading" v-else>{{ title }}</span>
                 </h4>
             </div>
@@ -37,6 +38,12 @@ export default {
         }
     },
     methods: {
+        enterKeyPressed: function(event) {
+            if (event instanceof Event && event.keyCode === 13) {
+                event.target.blur();
+                return false;
+            }
+        },
         toggleBreadcrumbHeading: function(event) {
             if (event instanceof Event) {
                 let focusDisabler = function() {
