@@ -4,8 +4,8 @@
             <div class="col-md-6 col-lg-6">
                 <h4 class="xp-page-title">
                     <span class="breadcrumb-heading-editable" v-if="editable"
-                          @click="toggleBreadcrumbHeading">{{ computedTitle }}</span>
-                    <span class="breadcrumb-heading" v-else>{{ computedTitle }}</span>
+                          @click="toggleBreadcrumbHeading">{{ title }}</span>
+                    <span class="breadcrumb-heading" v-else>{{ title }}</span>
                 </h4>
             </div>
             <div class="col-md-6 col-lg-6">
@@ -36,17 +36,10 @@ export default {
             default: false
         }
     },
-    data: function() {
-        return {
-            computedTitle: this.title
-        }
-    },
     methods: {
         toggleBreadcrumbHeading: function(event) {
             if (event instanceof Event) {
                 let focusDisabler = function() {
-                    //console.log("!!!");
-                    //console.log(newEvent);
                     event.target.removeAttribute("contenteditable");
                     event.target.classList.remove("breadcrumb-heading-on");
                     event.target.removeEventListener("focusout", focusDisabler, false);
