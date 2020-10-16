@@ -9,7 +9,7 @@
                         </router-link>
                     </h3>
                     <div class="p-3">
-                        <div>
+                        <form @submit="formSubmitted">
                             <div class="text-center mb-3">
                                 <h4 class="text-black">{{ title }}</h4>
                                 <p class="text-muted" v-if="subtitle !== undefined">{{ subtitle }}</p>
@@ -18,7 +18,7 @@
                             <div id="therest">
                                 <slot></slot>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -35,6 +35,11 @@ export default {
         tall: {
             type: Boolean,
             default: false
+        }
+    },
+    methods: {
+        formSubmitted: function() {
+            return false;
         }
     }
 }

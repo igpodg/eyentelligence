@@ -9,10 +9,10 @@
         <secondary-input id="username" name="Username" required/>
         <secondary-input id="password" name="Password" type="password" required/>
         <div class="form-row">
-            <secondary-dropdown cols="3" id="title" name="Title"
+            <secondary-dropdown :cols="3" id="title" name="Title"
                                 :data="['Mr.', 'Mrs.', 'Ms.', 'Dr.']"/>
-            <secondary-input cols="4" id="firstname" name="First name" required/>
-            <secondary-input cols="5" id="lastname" name="Last name" required/>
+            <secondary-input :cols="4" id="firstname" name="First name" required/>
+            <secondary-input :cols="5" id="lastname" name="Last name" required/>
         </div>
         <secondary-button color="success" name="Done"/>
     </secondary-form>
