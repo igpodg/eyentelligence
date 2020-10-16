@@ -1,6 +1,6 @@
 <template>
     <div id="xp-container" v-if="!this.secondaryRoutes().includes(this.$route.name)">
-        <left-bar logo="img/logo.png" url="/"/>
+        <left-bar :logo="this.$logoPath" url="/"/>
         <div class="xp-rightbar">
             <top-bar/>
             <breadcrumbs title="Test" :hierarchy="hierarchy()"/>

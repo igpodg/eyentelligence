@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Overview from "@/views/Overview.vue";
 import Dashboard from "@/views/Dashboard.vue";
 import Login from "@/views/Login.vue";
+import Invited from "@/views/Invited.vue";
 
 Vue.use(VueRouter);
 
@@ -21,6 +22,11 @@ let routes = [
         path: "/login",
         name: "Login",
         component: Login
+    },
+    {
+        path: "/invited",
+        name: "Invited",
+        component: Invited
     }
 ];
 
