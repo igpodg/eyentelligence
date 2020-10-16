@@ -1,7 +1,6 @@
 <template>
     <div class="the-statistics">
-        <!-- todo: fix the warnings -->
-        <div v-for="(stat, i) in data" :key="stat"
+        <div v-for="(stat, i) in data" :key="i"
              :class="(i === 0) ? 'row mb-5 mt-2' : ((i+1 !== data.length) ? 'row mb-5' : 'row mb-3')">
             <div class="col-1 align-self-center text-black">
                 <i class="icon-list ml-3"></i>
