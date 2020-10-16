@@ -32,7 +32,7 @@ export default {
     },
     data: function() {
         return {
-            crumbKey: 0
+            crumbKey: false
         }
     },
     methods: {
@@ -76,7 +76,7 @@ export default {
     },
     beforeUpdate: function() {
         //this.$refs.crumb.$forceUpdate();
-        this.crumbKey += 1;
+        this.crumbKey = !this.crumbKey;
     }
 }
 </script>
