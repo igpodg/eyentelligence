@@ -48,6 +48,21 @@ export default {
         secondaryRoutes: function() {
             return ["Login", "Invited"];
         },
+        switchBodyColor: function() {
+            let secondary = "secondary";
+            if (this.secondaryRoutes().includes(this.$route.name))
+                document.body.classList.add(secondary);
+            else
+                document.body.classList.remove(secondary);
+        }
+    },
+    mounted: function() {
+        this.switchBodyColor();
+    },
+    watch: {
+        $route: function() {
+            this.switchBodyColor();
+        }
     }
 }
 </script>

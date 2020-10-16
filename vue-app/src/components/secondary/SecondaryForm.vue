@@ -41,7 +41,7 @@ export default {
 </script>
 
 <style lang="scss">
-body {
+.secondary {
     background: white !important;
 }
 
