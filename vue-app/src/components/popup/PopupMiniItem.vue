@@ -1,8 +1,8 @@
 <template>
-    <a class="dropdown-item" href="#">
+    <router-link class="dropdown-item" :to="url">
         <i :class="'icon-' + icon + ' text-' + color + ' mr-2'"></i>
         &nbsp;{{ title }}
-    </a>
+    </router-link>
 </template>
 
 <script>
@@ -11,7 +11,11 @@ export default {
     props: {
         color: String,
         icon: String,
-        title: String
+        title: String,
+        url: {
+            type: String,
+            default: ""
+        }
     }
 }
 </script>

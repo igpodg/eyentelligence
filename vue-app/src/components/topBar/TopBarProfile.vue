@@ -8,11 +8,13 @@
             </a>
 
             <popup-mini name="userprofile" title="Welcome, John Doe">
-                <popup-mini-item color="primary" icon="user" title="Profile"/>
+                <!--<popup-mini-item color="primary" icon="user" title="Profile"/>
                 <popup-mini-item color="success" icon="wallet" title="Billing"/>
                 <popup-mini-item color="warning" icon="settings" title="Setting"/>
                 <popup-mini-item color="info" icon="lock" title="Lock Screen"/>
-                <popup-mini-item color="danger" icon="power" title="Logout"/>
+                <popup-mini-item color="danger" icon="power" title="Logout"/>-->
+                <popup-mini-item color="success" icon="envelope" title="Got Invited" url="/invited"/>
+                <popup-mini-item color="primary" icon="key" title="Log In" url="/login"/>
             </popup-mini>
         </div>
     </li>

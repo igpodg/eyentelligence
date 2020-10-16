@@ -60,7 +60,7 @@ export default {
         },
         switchBodyColor: function() {
             let secondary = "secondary";
-            if (!this.isSecondaryRoute)
+            if (this.isSecondaryRoute())
                 document.body.classList.add(secondary);
             else
                 document.body.classList.remove(secondary);
