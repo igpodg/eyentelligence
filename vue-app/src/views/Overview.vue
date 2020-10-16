@@ -1,14 +1,31 @@
 <template>
     <div class="overview">
-        <card header="Header" subtitle="Subtitle">
-            asd
-        </card>
-        <card-invite header="Invite new members"
-                     subtitle="Have anyone missing? Just add them using the form below."
-                     :team-names="['SuperTeam', 'Company Inc.', 'Europe Sales', 'Asia Sales']"/>
-        <card header="Header" subtitle="Subtitle">
-            <statistics-brief :data="statisticsData()"/>
-        </card>
+        <div class="row">
+            <div class="col-md-12 col-lg-12 col-xl-7">
+                <card heading="Recent Changes" subtitle="Here you can see the changes you've made in the past week.">
+                    <card heading="My Dashboard #2" inner>
+                        <div style="text-align: center;">
+                            <img src="img/tempthumb.png">
+                        </div>
+                    </card>
+                    <span style="width: 30px; float: left; visibility: hidden;">.</span>
+                    <card heading="My Dashboard" inner>
+                        <div style="text-align: center;">
+                            <img src="img/tempthumb.png">
+                        </div>
+                    </card>
+                </card>
+                <card heading="Statistics (general)" subtitle="The brief statistics of usage.
+                    For more information, visit the appropriate section.">
+                    <statistics-brief :data="statisticsData()"/>
+                </card>
+            </div>
+            <div class="col-md-12 col-lg-12 col-xl-5">
+                <card-invite header="Invite new members"
+                             subtitle="Have anyone missing? Just add them using the form below."
+                             :team-names="['SuperTeam', 'Company Inc.', 'Europe Sales', 'Asia Sales']"/>
+            </div>
+        </div>
     </div>
 </template>
 

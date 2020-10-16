@@ -1,8 +1,8 @@
 <template>
-    <div class="card m-b-30">
+    <div :class="'card m-b-30' + (inner ? ' inner-card' : '')">
         <div class="card-header bg-white">
-            <h5 class="card-title text-black">{{ header }}</h5>
-            <h6 class="card-subtitle">{{ subtitle }}</h6>
+            <h5 class="card-title text-black">{{ heading }}</h5>
+            <h6 class="card-subtitle" v-if="subtitle !== undefined">{{ subtitle }}</h6>
         </div>
 
         <div class="card-body">
@@ -15,13 +15,33 @@
 export default {
     name: "Card",
     props: {
-        header: String,
-        subtitle: String
+        heading: String,
+        subtitle: String,
+        inner: {
+            type: Boolean,
+            default: false
+        }
     }
 }
 </script>
 
 <style scoped lang="scss">
+.inner-card {
+    width: 290px !important;
+    float: left;
+}
+
+.inner-card > .card-header {
+    padding-bottom: 0;
+}
+
+.inner-card > .card-body {
+    padding: 0;
+    text-align: center;
+}
+
+
+
 .h5, .h6, h5, h6 {
     font-weight: 700;
 }
