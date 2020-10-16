@@ -1,7 +1,6 @@
 <template>
     <div class="dropdown-menu dropdown-menu-right" :aria-labelledby="'xp-' + name">
-        <span id="dropdown-title"
-              class="dropdown-item py-3 text-white text-center font-16">{{ title }}</span>
+        <span class="dropdown-item py-3 text-white text-center font-16">{{ title }}</span>
         <slot></slot>
     </div>
 </template>
@@ -17,7 +16,5 @@ export default {
 </script>
 
 <style scoped lang="scss">
-#dropdown-title {
-    cursor: default;
-}
+
 </style>
