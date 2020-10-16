@@ -3,7 +3,7 @@
         <left-bar :logo="this.$logoPath" url="/"/>
         <div class="xp-rightbar">
             <top-bar/>
-            <breadcrumbs title="Test" :hierarchy="hierarchy()"
+            <breadcrumbs title="Test" :hierarchy="hierarchy"
                          :editable="isDashboard()"
                          ref="crumb" :key="crumbKey"/>
             <div class="xp-contentbar">
@@ -32,12 +32,8 @@ export default {
     },
     data: function() {
         return {
-            crumbKey: false
-        }
-    },
-    methods: {
-        hierarchy: function() {
-            return [
+            crumbKey: false,
+            hierarchy: [
                 {
                     title: "Testing1",
                     url: "link1"
@@ -50,8 +46,10 @@ export default {
                     title: "Testing3",
                     url: "link3"
                 }
-            ];
-        },
+            ]
+        }
+    },
+    methods: {
         isSecondaryRoute: function() {
             return ["Login", "Invited"].includes(this.$route.name);
         },
