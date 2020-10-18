@@ -88,6 +88,7 @@ export default {
 
 <style lang="scss">
 @import url("https://fonts.googleapis.com/css?family=Comfortaa:300,400,700");
+
 html {
     position: relative;
     min-height: 100%;
@@ -101,11 +102,14 @@ body {
     font-weight: 400;
     color: #8A98AC;
     line-height: 1.5;
-}
 
-p {
-    line-height: 1.3;
-    margin-bottom: 10px;
+    @media (min-width: 768px) and (max-width: 991px) {
+        overflow-x: hidden;
+    }
+
+    @media (max-width: 767px) {
+        overflow-x: hidden;
+    }
 }
 
 * {
@@ -114,36 +118,15 @@ p {
 
 a {
     color: #4c7cf3;
+    &:hover { @extend %a-extra; }
+    &:active { @extend %a-extra; }
+    &:focus { @extend %a-extra; }
 }
-a:hover {
+%a-extra {
     color: #346bf1;
     outline: 0;
     text-decoration: none;
 }
-a:active {
-    color: #346bf1;
-    outline: 0;
-    text-decoration: none;
-}
-a:focus {
-    color: #346bf1;
-    outline: 0;
-    text-decoration: none;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-    body {
-        overflow-x: hidden;
-    }
-}
-
-@media (max-width: 767px) {
-    body {
-        overflow-x: hidden;
-    }
-}
-
-
 
 p {
     line-height: 1.3;
@@ -156,87 +139,45 @@ p {
     overflow: hidden;
     min-height: 500px;
     transition: all 0.3s ease;
-}
 
-
-
-
-
-
-
-
-
-/*.xp-toggle-menu .xp-footerbar {
-    left: 0;
-}
-
-.xp-toggle-menu .xp-leftbar {
-    position: fixed;
-    left: 0;
-    z-index: 9999;
-}*/
-
-
-
-
-.xp-toggle-menu .xp-rightbar {
-    margin-left: 0;
-}
-
-
-
-
-
-
-.xp-toggle-menu .xp-topbar {
-    left: 0;
-}
-
-
-
-
-.xp-toggle-menu .xp-leftbar {
-    position: fixed;
-    left: -250px;
-    transition: all 0.3s ease;
-}
-
-@media (max-width: 767px) {
-    .xp-toggle-menu .xp-leftbar {
-        position: fixed;
-        left: 0;
-        z-index: 9999;
-    }
-}
-
-
-
-
-
-@media print {
-    .xp-rightbar {
+    @media print {
         margin-left: 0;
     }
-}
 
-@media (max-width: 768px) {
-    .xp-rightbar {
+    @media (max-width: 768px) {
         margin-left: 0;
     }
-}
 
-@media (max-width: 767px) {
-    .xp-rightbar {
+    @media (max-width: 767px) {
         margin-left: 0 !important;
     }
 }
 
+.xp-toggle-menu {
+    .xp-rightbar {
+        margin-left: 0;
+    }
 
+    .xp-topbar {
+        left: 0;
+    }
+
+    .xp-leftbar {
+        position: fixed;
+        left: -250px;
+        transition: all 0.3s ease;
+
+        @media (max-width: 767px) {
+            position: fixed;
+            left: 0;
+            z-index: 9999;
+        }
+    }
+}
 
 .xp-contentbar {
     padding: 30px;
     margin-bottom: 30px;
 }
-
 
 </style>
