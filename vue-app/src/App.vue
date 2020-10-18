@@ -91,9 +91,9 @@ export default {
 
 $s-size: 600px;
 $m-size: 768px;
-$m-size-1: $m-size - 1px;
+$m-size-1: $m-size - 1px; //767
 $l-size: 992px;
-$l-size-1: $l-size - 1px;
+$l-size-1: $l-size - 1px; //991
 $xl-size: 1200px;
 
 $color-background: #f0f4f9;
