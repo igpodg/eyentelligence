@@ -8,7 +8,7 @@
                             <div class="input-group">
                                 <input type="search" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="button-addon2">
                                 <div class="input-group-append">
-                                    <button class="btn" type="submit" id="button-addon2">GO</button>
+                                    <button class="btn" type="submit" id="button-addon2">{{ caption }}</button>
                                 </div>
                             </div>
                         </form>
@@ -23,7 +23,7 @@
 export default {
     name: "SearchModal",
     props: {
-        a: String
+        caption: String
     }
 }
 </script>

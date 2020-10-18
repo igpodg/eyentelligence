@@ -5,10 +5,10 @@
                 <div class="modal-body">
                     <div class="xp-modalhbar">
                         <form>
-                            <h5 class="text-black">Are you sure you want to leave SuperTeam?</h5>
-                            <div class="text-warning">Warning: By leaving the team as an Owner, a new Owner will have to be assigned.</div>
-                            <button type="button" class="btn btn-danger first-button">Leave Team</button>
-                            <button type="button" class="btn btn-light">Cancel</button>
+                            <h5 class="text-black">{{ heading }}</h5>
+                            <div class="text-warning">{{ subtitle }}</div>
+                            <button type="button" class="btn btn-danger main-button">{{ mainButton }}</button>
+                            <button type="button" class="btn btn-light">{{ cancelButton }}</button>
                         </form>
                     </div>
                 </div>
@@ -21,7 +21,10 @@
 export default {
     name: "LeaveTeamModal",
     props: {
-        a: String
+        heading: String,
+        subtitle: String,
+        mainButton: String,
+        cancelButton: String
     }
 }
 </script>
@@ -43,7 +46,7 @@ form .text-warning {
     padding-bottom: 80px;
 }
 
-.first-button {
+.main-button {
     margin-right: 15px;
 }
 </style>
