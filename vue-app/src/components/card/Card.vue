@@ -1,7 +1,7 @@
 <template>
-    <div :class="'card m-b-30' + (inner ? ' inner-card' : '')">
-        <div class="card-header bg-white">
-            <h5 class="card-title text-black">{{ heading }}</h5>
+    <div :class="'card' + (inner ? ' inner-card' : '')">
+        <div class="card-header">
+            <h5 class="card-title">{{ heading }}</h5>
             <h6 class="card-subtitle" v-if="subtitle !== undefined">{{ subtitle }}</h6>
         </div>
 
@@ -26,90 +26,53 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.inner-card {
-    width: 290px !important;
-    float: left;
-}
+$color-card-title: #2b343a;
+$color-card-subtitle: #8a98ac;
 
-.inner-card > .card-header {
-    padding-bottom: 0;
-}
-
-.inner-card > .card-body {
-    padding: 0;
-    text-align: center;
-}
-
-
-
-
-
-.xp-rightbar {
-    overflow: hidden;
-    min-height: 500px;
-    transition: all 0.3s ease;
-}
-
-.xp-contentbar {
-    padding: 30px;
-    margin-bottom: 30px;
-}
-
-.m-b-30 {
-    margin-bottom: 30px;
-}
-
-.bg-white {
-    background-color: #ffffff !important;
-}
-
-.text-black {
-    color: #2B343A !important;
-}
+$color-card-shadow: #c8c8c8;
+$color-card-header-border: #2b343a;
 
 .card {
     border: none;
-    box-shadow: 0 0 30px 0 rgba(200, 200, 200, 0.2);
+    box-shadow: 0 0 30px 0 rgba($color-card-shadow, 0.2);
     border-radius: 15px;
+
+    margin-bottom: 30px;
+}
+
+.inner-card {
+    width: 290px !important;
+    float: left;
+
+    >.card-header {
+        padding-bottom: 0;
+    }
+
+    >.card-body {
+        padding: 0;
+        text-align: center;
+    }
 }
 
 .card-header {
-    border-bottom: 1px solid rgba(43, 52, 58, 0.05);
-}
+    border-bottom: 1px solid rgba($color-card-header-border, 0.05);
+    background-color: $color-white !important;
 
-.card-header:first-child {
-    border-radius: calc(15px - 1px) calc(15px - 1px) 0 0;
+    &:first-child {
+        border-radius: calc(15px - 1px) calc(15px - 1px) 0 0;
+    }
 }
 
 .card-title {
     font-size: 16px;
+    color: $color-card-title !important;
 }
 
 .card-subtitle {
     font-size: 13px;
     line-height: 20px;
     font-weight: 400;
-    color: #8A98AC;
-}
-
-@media (max-width: 991px) {
-    h5 {
-        font-size: 18px;
-    }
-
-    h6 {
-        font-size: 16px;
-    }
-}
-
-@media (max-width: 767px) {
-    h5 {
-        font-size: 16px;
-    }
-
-    h6 {
-        font-size: 15px;
-    }
+    color: $color-card-subtitle;
 }
 
 </style>
