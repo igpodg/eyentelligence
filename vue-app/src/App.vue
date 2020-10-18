@@ -1,5 +1,6 @@
 <template>
     <div id="xp-container" v-if="!isSecondaryRoute()">
+        <search-modal/>
         <left-bar :logo="this.$logoPath" url="/"/>
         <div class="xp-rightbar">
             <top-bar/>
@@ -21,13 +22,15 @@ import LeftBar from "@/components/leftBar/LeftBar.vue";
 import TopBar from "@/components/topBar/TopBar.vue";
 import BottomBar from "@/components/BottomBar.vue";
 import Breadcrumbs from "@/components/Breadcrumbs.vue";
+import SearchModal from "@/components/modals/SearchModal.vue";
 
 export default {
     components: {
         LeftBar,
         TopBar,
         BottomBar,
-        Breadcrumbs
+        Breadcrumbs,
+        SearchModal
     },
     data: function() {
         return {
