@@ -89,6 +89,13 @@ export default {
 <style lang="scss">
 @import url("https://fonts.googleapis.com/css?family=Comfortaa:300,400,700");
 
+$s-size: 600px;
+$m-size: 768px;
+$m-size-1: $m-size - 1px;
+$l-size: 992px;
+$l-size-1: $l-size - 1px;
+$xl-size: 1200px;
+
 $color-background: #f0f4f9;
 $color-text: #8a98ac;
 $color-link: #4c7cf3;
@@ -108,11 +115,11 @@ body {
     color: $color-text;
     line-height: 1.5;
 
-    @media (min-width: 768px) and (max-width: 991px) {
+    @media (min-width: $m-size) and (max-width: $l-size-1) {
         overflow-x: hidden;
     }
 
-    @media (max-width: 767px) {
+    @media (max-width: $m-size-1) {
         overflow-x: hidden;
     }
 }
@@ -161,11 +168,11 @@ p {
         margin-left: 0;
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: $m-size) {
         margin-left: 0;
     }
 
-    @media (max-width: 767px) {
+    @media (max-width: $m-size-1) {
         margin-left: 0 !important;
     }
 }
