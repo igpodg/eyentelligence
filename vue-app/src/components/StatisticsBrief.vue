@@ -35,14 +35,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.h4, h4 {
-    font-weight: 700;
-}
-
-h4 {
-    font-size: 24px;
-}
-
 .font-12 {
     font-size: 12px;
 }

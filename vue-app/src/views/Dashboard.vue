@@ -83,18 +83,6 @@ export default {
 
 
 
-.h1, .h5, h1, h5 {
-    font-weight: 700;
-}
-
-h1 {
-    font-size: 40px;
-}
-
-h5 {
-    font-size: 20px;
-}
-
 .m-b-30 {
     margin-bottom: 30px;
 }

@@ -72,14 +72,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.h4, h4 {
-    font-weight: 700;
-}
-
-h4 {
-    font-size: 24px;
-}
-
 .xp-breadcrumbbar {
     padding: 100px 30px 0 30px;
 }

@@ -50,22 +50,6 @@ export default {
     background: white !important;
 }
 
-.h3, .h4, .h6, h3, h4, h6 {
-    font-weight: 700;
-}
-
-h3 {
-    font-size: 28px;
-}
-
-h4 {
-    font-size: 24px;
-}
-
-h6 {
-    font-size: 16px;
-}
-
 .m-b-15 {
     margin-bottom: 15px;
 }

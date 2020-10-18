@@ -42,17 +42,7 @@ export default {
 
 
 
-.h5, .h6, h5, h6 {
-    font-weight: 700;
-}
 
-h5 {
-    font-size: 20px;
-}
-
-h6 {
-    font-size: 16px;
-}
 
 .xp-rightbar {
     overflow: hidden;
