@@ -27,6 +27,8 @@ export default {
 }
 
 $color-item: #8a98ac;
+$color-item-hover: #4c7cf3;
+$color-submenu: #0d0d0d;
 
 .xp-vertical-menu {
     li {
@@ -49,7 +51,7 @@ $color-item: #8a98ac;
         list-style: none;
         padding-left: 5px;
         margin: 0 1px;
-        background: rgba(#0d0d0d, 0);
+        background: rgba($color-submenu, 0);
 
         .xp-vertical-submenu {
             padding-left: 20px;
@@ -66,7 +68,7 @@ $color-item: #8a98ac;
             }
 
             &:hover {
-                color: #4c7cf3;
+                color: $color-item-hover;
             }
         }
 
