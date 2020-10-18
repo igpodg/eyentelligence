@@ -5,8 +5,8 @@
                 <h4 class="xp-page-title">
                     <span class="breadcrumb-heading-editable" v-if="editable"
                           @click="toggleBreadcrumbHeading"
-                          @keydown="enterKeyPressed">{{ title }}</span>
-                    <span class="breadcrumb-heading" v-else>{{ title }}</span>
+                          @keydown="enterKeyPressed">{{ hierarchy.title }}</span>
+                    <span class="breadcrumb-heading" v-else>{{ hierarchy.title }}</span>
                 </h4>
             </div>
             <div class="col-md-6 col-lg-6">
@@ -15,10 +15,10 @@
                         <li class="breadcrumb-item">
                             <router-link to="/"><i class="icon-home"></i></router-link>
                         </li>
-                        <li v-for="item in hierarchy"
+                        <li v-for="item in hierarchy.path"
                             :key="item.title" class="breadcrumb-item">
                             <router-link :to="item.url">{{ item.title }}</router-link></li>
-                        <li class="breadcrumb-item active" aria-current="page">{{ title }}</li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ hierarchy.title }}</li>
                     </ol>
                 </div>
             </div>
@@ -30,8 +30,7 @@
 export default {
     name: "Breadcrumbs",
     props: {
-        title: String,
-        hierarchy: Array,
+        hierarchy: Object,
         editable: {
             type: Boolean,
             default: false

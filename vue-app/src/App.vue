@@ -3,7 +3,7 @@
         <left-bar :logo="this.$logoPath" url="/"/>
         <div class="xp-rightbar">
             <top-bar/>
-            <breadcrumbs title="Test" :hierarchy="hierarchy"
+            <breadcrumbs :hierarchy="hierarchy"
                          :editable="isDashboard()"
                          ref="crumb" :key="crumbKey"/>
             <div class="xp-contentbar">
@@ -33,20 +33,23 @@ export default {
     data: function() {
         return {
             crumbKey: false,
-            hierarchy: [
-                {
-                    title: "Testing1",
-                    url: "link1"
-                },
-                {
-                    title: "Testing2",
-                    url: "link2"
-                },
-                {
-                    title: "Testing3",
-                    url: "link3"
-                }
-            ]
+            hierarchy: {
+                title: "Test",
+                path: [
+                    {
+                        title: "Testing1",
+                        url: "link1"
+                    },
+                    {
+                        title: "Testing2",
+                        url: "link2"
+                    },
+                    {
+                        title: "Testing3",
+                        url: "link3"
+                    }
+                ]
+            }
         }
     },
     methods: {
