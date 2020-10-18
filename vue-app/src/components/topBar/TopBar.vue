@@ -47,7 +47,11 @@ export default {
 
 <style lang="scss">
 
-
+.xp-toggle-menu {
+    .xp-topbar {
+        left: 0;
+    }
+}
 
 
 .xp-menu-hamburger {

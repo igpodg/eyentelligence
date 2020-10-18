@@ -75,6 +75,21 @@ export default {
     text-transform: uppercase;
 }
 
+.xp-toggle-menu {
+    .xp-leftbar {
+        position: fixed;
+        left: -250px;
+        transition: all 0.3s ease;
+
+        @media (max-width: 767px) {
+            position: fixed;
+            left: 0;
+            z-index: 9999;
+        }
+    }
+}
+
+
 .xp-leftbar {
     width: 250px;
     height: 100%;

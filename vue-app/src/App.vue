@@ -174,22 +174,6 @@ p {
     .xp-rightbar {
         margin-left: 0;
     }
-
-    .xp-topbar {
-        left: 0;
-    }
-
-    .xp-leftbar {
-        position: fixed;
-        left: -250px;
-        transition: all 0.3s ease;
-
-        @media (max-width: 767px) {
-            position: fixed;
-            left: 0;
-            z-index: 9999;
-        }
-    }
 }
 
 .xp-contentbar {
