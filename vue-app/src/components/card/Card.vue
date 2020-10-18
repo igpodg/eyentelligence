@@ -28,9 +28,6 @@ export default {
 <style scoped lang="scss">
 $color-white: #ffffff;
 
-$color-card-title: #2b343a;
-$color-card-subtitle: #8a98ac;
-
 $color-card-shadow: #c8c8c8;
 $color-card-header-border: #2b343a;
 
@@ -64,6 +61,9 @@ $color-card-header-border: #2b343a;
         border-radius: calc(15px - 1px) calc(15px - 1px) 0 0;
     }
 }
+
+$color-card-title: #2b343a;
+$color-card-subtitle: #8a98ac;
 
 .card-title {
     font-size: 16px;
