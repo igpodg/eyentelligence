@@ -26,6 +26,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+$color-white: #ffffff;
+
 $color-card-title: #2b343a;
 $color-card-subtitle: #8a98ac;
 

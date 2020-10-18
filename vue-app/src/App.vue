@@ -96,9 +96,6 @@ $l-size: 992px;
 $l-size-1: $l-size - 1px; //991 px
 $xl-size: 1200px;
 
-$color-black: #000000;
-$color-white: #ffffff;
-
 $color-background: #f0f4f9;
 $color-text: #8a98ac;
 $color-link: #4c7cf3;
