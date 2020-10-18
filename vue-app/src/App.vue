@@ -105,7 +105,7 @@ body {
     background: $color-background;
     font-size: 15px;
     font-weight: 400;
-    color: $color-text
+    color: $color-text;
     line-height: 1.5;
 
     @media (min-width: 768px) and (max-width: 991px) {
