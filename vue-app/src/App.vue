@@ -89,6 +89,11 @@ export default {
 <style lang="scss">
 @import url("https://fonts.googleapis.com/css?family=Comfortaa:300,400,700");
 
+$color-background: #f0f4f9;
+$color-text: #8a98ac;
+$color-link: #4c7cf3;
+$color-link-extra: #346bf1;
+
 html {
     position: relative;
     min-height: 100%;
@@ -97,10 +102,10 @@ html {
 body {
     font-family: "Comfortaa", cursive;
     margin: 0;
-    background: #F0F4F9;
+    background: $color-background;
     font-size: 15px;
     font-weight: 400;
-    color: #8A98AC;
+    color: $color-text
     line-height: 1.5;
 
     @media (min-width: 768px) and (max-width: 991px) {
@@ -117,15 +122,27 @@ body {
 }
 
 a {
-    color: #4c7cf3;
+    color: $color-link;
     &:hover { @extend %a-extra; }
     &:active { @extend %a-extra; }
     &:focus { @extend %a-extra; }
 }
 %a-extra {
-    color: #346bf1;
+    color: $color-link-extra;
     outline: 0;
     text-decoration: none;
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+}
+h1 {
+    font-size: 40px;
+}
+@for $i from 2 through 6 {
+    h#{$i} {
+        font-size: 40 - $i*4px;
+    }
 }
 
 p {
