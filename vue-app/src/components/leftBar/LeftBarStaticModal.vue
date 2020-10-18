@@ -1,6 +1,6 @@
 <template>
     <li>
-        <a href="#" :class="(type === undefined) ? '' : 'text-' + type"
+        <a href="#" :class="(color === undefined) ? '' : 'text-' + color"
            data-toggle="modal" data-target="#xpLeaveModal">
             {{ name }}
         </a>
@@ -12,7 +12,7 @@ export default {
     name: "LeftBarStaticModal",
     props: {
         name: String,
-        type: String
+        color: String
     }
 }
 </script>

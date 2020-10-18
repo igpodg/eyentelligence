@@ -21,7 +21,7 @@
                     <hr>
                     <left-bar-static-mini name="Dashboards..." url=""/>
                     <left-bar-static-mini name="Members..." url=""/>
-                    <left-bar-static-modal name="Leave Team" type="danger"/>
+                    <left-bar-static-modal name="Leave Team" color="danger"/>
                 </left-bar-dropdown>
 
                 <left-bar-heading name="Extras"/>
@@ -115,16 +115,16 @@ $color-leftbar-shadow: #c8c8c8;
         width: 0;
         background: transparent; /* Chrome/Safari/Webkit */
     }
+
+    @media print {
+        display: none;
+    }
+
+    @media (max-width: $m-size-1) {
+        position: fixed;
+        left: -250px;
+    }
 }
-
-
-
-
-
-
-
-
-
 
 $gradient-selected-item-begin: #4c7cf3;
 $gradient-selected-item-end: #4cc6f3;
@@ -138,13 +138,29 @@ $gradient-selected-item-end: #4cc6f3;
     box-shadow: 0 0.5rem 1rem rgba($color-black, 0.15);
 }
 
+$color-item: #8a98ac;
 
 .xp-vertical-menu {
     list-style: none;
     margin: 0;
     padding: 0;
 
+    a {
+        color: $color-item;
+        text-decoration: none;
+    }
+
     >li {
+        &:hover {
+            >a {
+                @extend %selected-item;
+            }
+        }
+
+        &.active > a {
+            @extend %selected-item;
+        }
+
         position: relative;
         margin: 5px 0;
         padding: 0 0 0 15px;
@@ -152,7 +168,7 @@ $gradient-selected-item-end: #4cc6f3;
         >a {
             padding: 10px 20px;
             display: block;
-            color: #8a98ac;
+            color: $color-item;
 
             >i {
                 display: inline-block;
@@ -165,110 +181,25 @@ $gradient-selected-item-end: #4cc6f3;
                 vertical-align: middle;
             }
         }
-
-        &:hover {
-            >a {
-                @extend %selected-item;
-            }
-        }
-
-        &.active > a {
-            @extend %selected-item;
-        }
-    }
-
-    li {
-        &.xp-vertical-header {
-            padding: 14px 25px;
-            font-size: 12px;
-        }
-
-        &.active > a > .icon-arrow-right {
-            transform: rotate(-270deg);
-        }
-    }
-
-    li > a > .icon-arrow-right {
-        width: auto;
-        height: auto;
-        padding: 0;
-        font-size: 10px;
-        font-weight: 700;
-        line-height: 24px;
-    }
-
-    a {
-        color: #8a98ac;
-        text-decoration: none;
-    }
-
-    .xp-vertical-submenu {
-        display: none;
-        list-style: none;
-        padding-left: 5px;
-        margin: 0 1px;
-        background: rgba(#0d0d0d, 0);
-
-        .xp-vertical-submenu {
-            padding-left: 20px;
-        }
-
-        > li > a {
-            padding: 8px 25px 8px 45px;
-            display: block;
-            font-size: 14px;
-            color: #8a98ac;
-
-            >.icon-arrow-right {
-                width: auto;
-            }
-
-            &:hover {
-                color: #4c7cf3;
-            }
-        }
-
-        >hr {
-            margin-left: 25px !important;
-        }
     }
 }
 
-
+$color-text-danger: #ff4b5b;
+$color-text-danger-link: #ff3244;
 
 .text-danger {
-    color: #ff4b5b !important;
+    color: $color-text-danger !important;
 
     // links
     @at-root a#{&} {
         &:focus {
-            color: #ff3244 !important;
+            color: $color-text-danger-link !important;
         }
 
         &:hover {
-            color: #ff3244 !important;
+            color: $color-text-danger-link !important;
         }
     }
 }
-
-.pull-right {
-    float: right;
-}
-
-.xp-leftbar {
-    @media print {
-        display: none;
-    }
-
-    @media (max-width: 767px) {
-        position: fixed;
-        left: -250px;
-    }
-}
-
-
-
-
-
 
 </style>

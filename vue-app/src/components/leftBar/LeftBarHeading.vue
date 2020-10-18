@@ -11,6 +11,14 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
+.xp-vertical-menu {
+    li {
+        &.xp-vertical-header {
+            padding: 14px 25px;
+            font-size: 12px;
+        }
+    }
+}
 
 </style>
