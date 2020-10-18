@@ -4,7 +4,6 @@
         <div class="xp-rightbar">
             <top-bar/>
             <breadcrumbs :hierarchy="genHierarchy()"
-                         :editable="isDashboard()"
                          ref="crumb" :key="crumbKey"/>
             <div class="xp-contentbar">
                 <router-view/>
@@ -38,9 +37,6 @@ export default {
     methods: {
         isSecondaryRoute: function() {
             return ["Login", "Invited"].includes(this.$route.name);
-        },
-        isDashboard: function() {
-            return ["Dashboard"].includes(this.$route.name);
         },
         switchBodyColor: function() {
             let secondary = "secondary";

@@ -69,6 +69,7 @@ export default {
             this.$refs.header1.classList.toggle("dashboard-edit-disabled");
             this.$refs.header2.classList.toggle("dashboard-edit-disabled");
             this.editEnabled = !this.editEnabled;
+            this.$eventBus.$emit("being-edited");
         }
     }
 }

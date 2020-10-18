@@ -30,13 +30,23 @@
 export default {
     name: "Breadcrumbs",
     props: {
-        hierarchy: Object,
-        editable: {
-            type: Boolean,
-            default: false
+        hierarchy: Object
+    },
+    data: function() {
+        return {
+            editable: false
         }
     },
+    mounted: function() {
+        this.$eventBus.$on("being-edited", this.toggleEditable);
+    },
+    beforeDestroy: function() {
+        this.$eventBus.$off("being-edited");
+    },
     methods: {
+        toggleEditable: function() {
+            this.editable = !this.editable;
+        },
         enterKeyPressed: function(event) {
             if (event instanceof Event && event.keyCode === 13) {
                 event.target.blur();
