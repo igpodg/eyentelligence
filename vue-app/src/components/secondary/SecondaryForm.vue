@@ -3,7 +3,7 @@
         <div class="row secondary-content">
             <div class="col-lg-12">
                 <div class="xp-auth-box">
-                    <h3 class="text-center mt-0 m-b-15">
+                    <h3 class="text-center">
                         <router-link to="/" class="xp-web-logo">
                             <img :src="this.$logoPath" alt="Logo">
                         </router-link>
@@ -15,7 +15,7 @@
                                 <p class="text-muted" v-if="subtitle !== undefined">{{ subtitle }}</p>
                             </div>
                             <hr :class="tall ? 'tall-line' : ''">
-                            <div id="therest">
+                            <div class="secondary-form-body">
                                 <slot></slot>
                             </div>
                         </form>
@@ -50,12 +50,14 @@ export default {
     background: white !important;
 }
 
-.m-b-15 {
-    margin-bottom: 15px;
+.secondary-content {
+    padding-top: 140px;
+    margin: 0;
 }
 
-.vh-100 {
-    height: 100vh;
+.xp-auth-box > h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
 }
 
 .text-black {
@@ -64,30 +66,6 @@ export default {
 
 .text-muted {
     color: #8A98AC !important;
-}
-
-.btn {
-    border-radius: 3px;
-    font-size: 14px;
-    padding: 7px 18px;
-}
-
-.btn-rounded {
-    border-radius: 20px;
-}
-
-.btn-primary {
-    color: #ffffff;
-    background-color: #4c7cf3;
-    border-color: #4c7cf3;
-    box-shadow: 0 2px 6px 0 rgba(76, 124, 243, 0.5);
-}
-
-.btn-success {
-    color: #ffffff;
-    background-color: #2bcd72;
-    border-color: #2bcd72;
-    box-shadow: 0 2px 6px 0 rgba(43, 205, 114, 0.5);
 }
 
 .btn-primary:active {
@@ -138,26 +116,6 @@ export default {
 .btn-success:not(:disabled):not(.disabled):active {
     background-color: #27b866;
     border-color: #27b866;
-}
-
-.btn-primary:focus {
-    box-shadow: 0 0 0 0.2rem #acc2f9;
-}
-
-.btn-success:focus {
-    box-shadow: 0 0 0 0.2rem #7be3a9;
-}
-
-.btn-primary:disabled {
-    color: #ffffff;
-    background-color: #4c7cf3;
-    border-color: #4c7cf3;
-}
-
-.btn-success:disabled {
-    color: #ffffff;
-    background-color: #2bcd72;
-    border-color: #2bcd72;
 }
 
 .form-control {
@@ -228,12 +186,7 @@ export default {
 
 
 
-.secondary-content {
-    padding-top: 140px;
-    margin: 0;
-}
-
-#therest {
+.secondary-form-body {
     width: 410px;
     margin: 0 auto;
 }

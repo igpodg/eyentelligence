@@ -196,46 +196,6 @@ $color-form-control-disabled: #e1e4e9;
     border-radius: 0 50px 50px 0;
 }
 
-$color-button-more: #3b5998;
-$color-button-remove: #ff4b5b;
-$color-button-shadow: #007bff;
-
-.btn {
-    border-radius: 3px;
-    font-size: 14px;
-    padding: 7px 18px;
-
-    &:focus {
-        box-shadow: 0 0 0 0.2rem rgba($color-button-shadow, 0.25);
-    }
-
-    &-remove {
-        border-radius: 50px !important;
-        background-color: $color-button-remove;
-        color: $color-white;
-        padding: 4px 10px;
-        font-weight: 700;
-    }
-
-    &-rounded {
-        border-radius: 20px;
-    }
-
-    &-white {
-        //color: #2b343a;
-        background-color: $color-white;
-        border-color: $color-white;
-        box-shadow: 0 2px 6px 0 rgba($color-white, 0.5);
-    }
-
-    &-more {
-        color: $color-white !important;
-        background-color: $color-button-more;
-
-        margin-top: 10px;
-    }
-}
-
 .bottom-row {
     text-align: center;
     margin-bottom: 10px;
