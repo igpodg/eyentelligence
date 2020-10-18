@@ -152,6 +152,16 @@ h1 {
     }
 }
 
+h4 {
+    @media (max-width: $l-size-1) {
+        font-size: 22px;
+    }
+
+    @media (max-width: $m-size-1) {
+        font-size: 20px;
+    }
+}
+
 h5 {
     @media (max-width: $l-size-1) {
         font-size: 18px;

@@ -79,6 +79,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
+$color-black: #000000;
+$color-white: #ffffff;
+
+$color-success: #2bcd72;
+
 .m-b-30 {
     margin-bottom: 30px;
 }
@@ -87,30 +92,36 @@ export default {
     font-size: 26px;
 }
 
+@mixin background-gradient($begin, $end) {
+    background-image: linear-gradient(58deg, $begin 0, $end 100%);
+}
+
 .bg-primary-gradient {
-    background-image: linear-gradient(58deg, #4c7cf3 0, #4cc6f3 100%);
+    @include background-gradient(#4c7cf3, #4cc6f3);
 }
 
 .bg-success-gradient {
-    background-image: linear-gradient(58deg, #2bcd72 0, #9acd2b 100%);
+    @include background-gradient(#2bcd72, #9acd2b);
 }
 
 .bg-danger-gradient {
-    background-image: linear-gradient(58deg, #ff4b5b 0, #ff7e4b 100%);
+    @include background-gradient(#ff4b5b, #ff7e4b);
 }
 
-.text-white {
-    color: #ffffff !important;
+@mixin colored-text($name, $color) {
+    .text-#{$name} {
+        color: $color !important;
+    }
 }
 
-.text-success {
-    color: #2bcd72 !important;
-}
+@include colored-text("white", $color-white);
+@include colored-text("success", $color-success);
 
-a.text-success:focus {
-    color: #27b866 !important;
+a.text-success {
+    &:focus { @extend %a-text-success-extra; }
+    &:hover { @extend %a-text-success-extra; }
 }
-a.text-success:hover {
+%a-text-success-extra {
     color: #27b866 !important;
 }
 
@@ -125,20 +136,20 @@ a.text-success:hover {
 }
 
 .btn-white {
-    color: #2B343A;
-    background-color: #ffffff;
-    border-color: #ffffff;
-    box-shadow: 0 2px 6px 0 rgba(255, 255, 255, 0.5);
+    color: #2b343a;
+    background-color: $color-white;
+    border-color: $color-white;
+    box-shadow: 0 2px 6px 0 rgba($color-white, 0.5);
 }
 
 .btn-facebook {
-    color: #ffffff !important;
+    color: $color-white !important;
     background-color: #3b5998;
 }
 
 .card {
     border: none;
-    box-shadow: 0 0 30px 0 rgba(200, 200, 200, 0.2);
+    box-shadow: 0 0 30px 0 rgba(#c8c8c8, 0.2);
     border-radius: 15px;
 }
 
@@ -148,42 +159,31 @@ a.text-success:hover {
     padding: 15px;
     font-size: 20px;
     border-radius: 50px;
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba($color-black, 0.2);
 }
 
 .form-control {
     //background-color: #f0f1f4;
     font-size: 15px;
-    color: #8A98AC;
+    color: #8a98ac;
     border: none;
     //border-radius: 5px;
 
-    background-color: #ffffff !important;
+    background-color: $color-white !important;
     border-radius: 50px;
-}
 
-.form-control:focus {
-    background-color: #dbe5fd;
-    //border-color: none;
-    box-shadow: none;
-}
+    &:focus {
+        background-color: #dbe5fd;
+        //border-color: none;
+        box-shadow: none;
 
-.form-control:focus:disabled {
-    background-color: #e1e4e9;
-    opacity: 1;
-}
-
-@media (max-width: 991px) {
-    h4 {
-        font-size: 22px;
+        &:disabled {
+            background-color: #e1e4e9;
+            opacity: 1;
+        }
     }
 }
 
-@media (max-width: 767px) {
-    h4 {
-        font-size: 20px;
-    }
-}
 
 
 
