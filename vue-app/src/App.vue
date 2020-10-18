@@ -3,7 +3,7 @@
         <left-bar :logo="this.$logoPath" url="/"/>
         <div class="xp-rightbar">
             <top-bar/>
-            <breadcrumbs :hierarchy="hierarchy"
+            <breadcrumbs :hierarchy="genHierarchy()"
                          :editable="isDashboard()"
                          ref="crumb" :key="crumbKey"/>
             <div class="xp-contentbar">
@@ -32,24 +32,7 @@ export default {
     },
     data: function() {
         return {
-            crumbKey: false,
-            hierarchy: {
-                title: "Test",
-                path: [
-                    {
-                        title: "Testing1",
-                        url: "link1"
-                    },
-                    {
-                        title: "Testing2",
-                        url: "link2"
-                    },
-                    {
-                        title: "Testing3",
-                        url: "link3"
-                    }
-                ]
-            }
+            crumbKey: false
         }
     },
     methods: {
@@ -65,6 +48,22 @@ export default {
                 document.body.classList.add(secondary);
             else
                 document.body.classList.remove(secondary);
+        },
+        genHierarchy: function() {
+            let hierarchy = {};
+            if (this.$route.name === "Dashboard") {
+                hierarchy["title"] = "My Dashboard";
+                hierarchy["path"] = [
+                    {
+                        title: "SuperTeam",
+                        url: "/"
+                    }
+                ];
+            } else {
+                hierarchy["title"] = this.$route.name;
+                hierarchy["path"] = [];
+            }
+            return hierarchy;
         }
     },
     mounted: function() {
