@@ -29,28 +29,38 @@ export default {
 </script>
 
 <style scoped lang="scss">
+$color-white: #ffffff;
+
+$color-search-shadow: #c8c8c8;
+$color-search-text: #2b343a;
+$color-search-button: #4c7cf3;
+
 .search-modal {
     a > i {
         vertical-align: middle;
     }
+
     .modal-content {
         border: none;
         border-radius: 50px;
-        box-shadow: 0 0 30px 0 rgba(200, 200, 200, 0.2);
+        box-shadow: 0 0 30px 0 rgba($color-search-shadow, 0.2);
+
         .modal-body {
             padding: 5px;
         }
+
         input[type="search"] {
-            background-color: #ffffff;
-            color: #2b343a;
+            background-color: $color-white;
+            color: $color-search-text;
             font-size: 18px;
             padding-left: 20px;
             border: none;
             border-radius: 50px 0 0 50px;
         }
+
         .btn {
-            background-color: #4c7cf3;
-            color: #ffffff;
+            background-color: $color-search-button;
+            color: $color-white;
             font-weight: 700;
             font-size: 16px;
             border-radius: 50px;

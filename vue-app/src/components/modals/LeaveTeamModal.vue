@@ -5,8 +5,8 @@
                 <div class="modal-body">
                     <div class="xp-modalhbar">
                         <form>
-                            <h5 class="text-black">{{ heading }}</h5>
-                            <div class="text-warning">{{ subtitle }}</div>
+                            <h5 class="text-heading">{{ heading }}</h5>
+                            <div class="text-subtitle">{{ subtitle }}</div>
                             <button type="button" class="btn btn-danger main-button">{{ mainButton }}</button>
                             <button type="button" class="btn btn-light">{{ cancelButton }}</button>
                         </form>
@@ -38,15 +38,23 @@ export default {
     padding: 40px 60px 40px 60px;
 }
 
-form .text-black {
-    padding-bottom: 15px;
-}
+$color-heading: #2b343a;
+$color-subtitle: #fac751;
 
-form .text-warning {
-    padding-bottom: 80px;
+form {
+    .text-heading {
+        color: $color-heading !important;
+        padding-bottom: 15px;
+    }
+
+    .text-subtitle {
+        color: $color-subtitle !important;
+        padding-bottom: 80px;
+    }
 }
 
 .main-button {
     margin-right: 15px;
 }
+
 </style>

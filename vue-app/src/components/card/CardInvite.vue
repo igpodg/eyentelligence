@@ -1,7 +1,7 @@
 <template>
     <div :class="'card bg-' + color + '-gradient'">
         <div class="card-body">
-            <div class="xp-widget-box text-white">
+            <div class="xp-widget-box">
                 <div class="align-self-center">
                     <p class="xp-icon-timer">
                         <i class="icon-paper-plane"></i>
@@ -110,6 +110,10 @@ $gradient-danger-end: #ff7e4b;
 @include colored-text("success", $color-success);
 
 $color-card-shadow: #c8c8c8;
+
+.xp-widget-box {
+    color: #ffffff !important;
+}
 
 .card {
     border: none;
