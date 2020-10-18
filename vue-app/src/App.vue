@@ -96,6 +96,8 @@ $l-size: 992px;
 $l-size-1: $l-size - 1px; //991 px
 $xl-size: 1200px;
 
+$color-white: #ffffff;
+
 $color-background: #f0f4f9;
 $color-text: #8a98ac;
 $color-link: #4c7cf3;
@@ -220,7 +222,6 @@ p {
 
 $color-button-more: #3b5998;
 $color-button-primary: #4c7cf3;
-$color-button-remove: #ff4b5b;
 $color-button-success: #2bcd72;
 
 $color-button-shadow: #007bff;
@@ -249,14 +250,6 @@ $color-button-shadow: #007bff;
         &:focus {
             box-shadow: 0 0 0 0.2rem #acc2f9;
         }
-    }
-
-    &-remove {
-        border-radius: 50px !important;
-        background-color: $color-button-remove;
-        color: $color-white;
-        padding: 4px 10px;
-        font-weight: 700;
     }
 
     &-rounded {

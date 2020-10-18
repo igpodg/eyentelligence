@@ -111,7 +111,7 @@ $gradient-danger-end: #ff7e4b;
 
 $color-card-shadow: #c8c8c8;
 
-.xp-widget-box {
+.card-body > .xp-widget-box {
     color: #ffffff !important;
 }
 
@@ -199,6 +199,18 @@ $color-form-control-disabled: #e1e4e9;
 .bottom-row {
     text-align: center;
     margin-bottom: 10px;
+}
+
+$color-button-remove: #ff4b5b;
+
+.btn {
+    &-remove {
+        border-radius: 50px !important;
+        background-color: $color-button-remove;
+        color: $color-white;
+        padding: 4px 10px;
+        font-weight: 700;
+    }
 }
 
 </style>
