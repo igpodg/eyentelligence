@@ -66,8 +66,16 @@ export default {
 </script>
 
 <style lang="scss">
+$m-size: 768px;
+$m-size-1: $m-size - 1px; //767 px
+
+$color-black: #000000;
+$color-white: #ffffff;
+
+$color-logo: #313131;
+
 .xp-logo {
-    color: #313131 !important;
+    color: $color-logo !important;
     font-size: 20px;
     font-weight: 700;
     letter-spacing: 0.03em;
@@ -81,7 +89,7 @@ export default {
         left: -250px;
         transition: all 0.3s ease;
 
-        @media (max-width: 767px) {
+        @media (max-width: $m-size-1) {
             position: fixed;
             left: 0;
             z-index: 9999;
@@ -89,13 +97,14 @@ export default {
     }
 }
 
+$color-leftbar-shadow: #c8c8c8;
 
 .xp-leftbar {
     width: 250px;
     height: 100%;
     position: fixed;
-    background-color: #fff;
-    box-shadow: 0 0 30px 0 rgba(200, 200, 200, 0.2);
+    background-color: $color-white;
+    box-shadow: 0 0 30px 0 rgba($color-leftbar-shadow, 0.2);
     z-index: 9;
     transition: all 0.3s ease;
 
@@ -109,106 +118,149 @@ export default {
 }
 
 
+
+
+
+
+
+
+
+
+$gradient-selected-item-begin: #4c7cf3;
+$gradient-selected-item-end: #4cc6f3;
+
+%selected-item {
+    color: $color-white;
+    background-image: linear-gradient(58deg,
+        $gradient-selected-item-begin 0,
+        $gradient-selected-item-end 100%);
+    border-radius: 50px 0 0 50px;
+    box-shadow: 0 0.5rem 1rem rgba($color-black, 0.15);
+}
+
+
 .xp-vertical-menu {
     list-style: none;
     margin: 0;
     padding: 0;
-}
-.xp-vertical-menu > li {
-    position: relative;
-    margin: 5px 0;
-    padding: 0 0 0 15px;
-}
-.xp-vertical-menu > li > a {
-    padding: 10px 20px;
-    display: block;
-    color: #8A98AC;
-}
-.xp-vertical-menu > li > a > i {
-    display: inline-block;
-    width: 30px;
-    font-size: 16px;
-    vertical-align: middle;
-}
-.xp-vertical-menu > li > a > span {
-    vertical-align: middle;
-}
-.xp-vertical-menu > li:hover > a {
-    color: #ffffff;
-    background-image: linear-gradient(58deg, #4c7cf3 0, #4cc6f3 100%);
-    border-radius: 50px 0 0 50px;
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-}
-.xp-vertical-menu li.xp-vertical-header {
-    padding: 14px 25px;
-    font-size: 12px;
-}
-.xp-vertical-menu li > a > .icon-arrow-right {
-    width: auto;
-    height: auto;
-    padding: 0;
-    font-size: 10px;
-    font-weight: 700;
-    line-height: 24px;
-}
-.xp-vertical-menu a {
-    color: #8A98AC;
-    text-decoration: none;
-}
-.xp-vertical-menu .xp-vertical-submenu {
-    display: none;
-    list-style: none;
-    padding-left: 5px;
-    margin: 0 1px;
-    background: rgba(13, 13, 13, 0);
-}
-.xp-vertical-menu .xp-vertical-submenu .xp-vertical-submenu {
-    padding-left: 20px;
-}
-.xp-vertical-menu .xp-vertical-submenu > li > a {
-    padding: 8px 25px 8px 45px;
-    display: block;
-    font-size: 14px;
-    color: #8A98AC;
-}
-.xp-vertical-menu .xp-vertical-submenu > li > a > .icon-arrow-right {
-    width: auto;
-}
-.xp-vertical-menu .xp-vertical-submenu > li > a:hover {
-    color: #4c7cf3;
-}
 
+    >li {
+        position: relative;
+        margin: 5px 0;
+        padding: 0 0 0 15px;
 
-.xp-vertical-menu .xp-vertical-submenu > hr {
-    margin-left: 25px !important;
+        >a {
+            padding: 10px 20px;
+            display: block;
+            color: #8a98ac;
+
+            >i {
+                display: inline-block;
+                width: 30px;
+                font-size: 16px;
+                vertical-align: middle;
+            }
+
+            >span {
+                vertical-align: middle;
+            }
+        }
+
+        &:hover {
+            >a {
+                @extend %selected-item;
+            }
+        }
+
+        &.active > a {
+            @extend %selected-item;
+        }
+    }
+
+    li {
+        &.xp-vertical-header {
+            padding: 14px 25px;
+            font-size: 12px;
+        }
+
+        &.active > a > .icon-arrow-right {
+            transform: rotate(-270deg);
+        }
+    }
+
+    li > a > .icon-arrow-right {
+        width: auto;
+        height: auto;
+        padding: 0;
+        font-size: 10px;
+        font-weight: 700;
+        line-height: 24px;
+    }
+
+    a {
+        color: #8a98ac;
+        text-decoration: none;
+    }
+
+    .xp-vertical-submenu {
+        display: none;
+        list-style: none;
+        padding-left: 5px;
+        margin: 0 1px;
+        background: rgba(#0d0d0d, 0);
+
+        .xp-vertical-submenu {
+            padding-left: 20px;
+        }
+
+        > li > a {
+            padding: 8px 25px 8px 45px;
+            display: block;
+            font-size: 14px;
+            color: #8a98ac;
+
+            >.icon-arrow-right {
+                width: auto;
+            }
+
+            &:hover {
+                color: #4c7cf3;
+            }
+        }
+
+        >hr {
+            margin-left: 25px !important;
+        }
+    }
 }
-
 
 
 
 .text-danger {
     color: #ff4b5b !important;
-}
 
-a.text-danger:focus {
-    color: #ff3244 !important;
-}
-a.text-danger:hover {
-    color: #ff3244 !important;
+    // links
+    @at-root a#{&} {
+        &:focus {
+            color: #ff3244 !important;
+        }
+
+        &:hover {
+            color: #ff3244 !important;
+        }
+    }
 }
 
 .pull-right {
     float: right;
 }
 
-@media print {
-    .xp-leftbar {
+.xp-leftbar {
+    @media print {
         display: none;
     }
-}
 
-@media (max-width: 767px) {
-    .xp-leftbar {
+    @media (max-width: 767px) {
         position: fixed;
         left: -250px;
     }
@@ -217,20 +269,6 @@ a.text-danger:hover {
 
 
 
-.xp-vertical-menu > li:hover > a, .xp-vertical-menu > li.active > a {
-    color: #ffffff;
-    background-image: linear-gradient(58deg, #4c7cf3 0, #4cc6f3 100%);
-    border-radius: 50px 0 0 50px;
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-}
-
-.xp-vertical-menu li.active > a > .icon-arrow-right {
-    transform: rotate(-270deg);
-}
-
-
-.disable-scrollbars {
-}
 
 
 </style>

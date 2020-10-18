@@ -150,7 +150,7 @@ $color-card-shadow: #c8c8c8;
     padding-bottom: 20px;
     padding-left: 0;
 
-    &>select {
+    >select {
         margin-right: 20px;
     }
 }
