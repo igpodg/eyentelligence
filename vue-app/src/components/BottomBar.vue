@@ -13,6 +13,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
+$m-size: 768px;
+$m-size-1: $m-size - 1px; //767 px
+
+$color-border-top: #e1e4e9;
+
 .xp-footerbar {
     position: absolute;
     bottom: 0;
@@ -20,17 +25,13 @@ export default {
     left: 250px;
     padding: 20px 30px;
     text-align: center;
-    border-top: 1px solid #e1e4e9;
-}
+    border-top: 1px solid $color-border-top;
 
-@media print {
-    .xp-footerbar {
+    @media print {
         display: none;
     }
-}
 
-@media (max-width: 767px) {
-    .xp-footerbar {
+    @media (max-width: $m-size-1) {
         left: 0;
     }
 }
