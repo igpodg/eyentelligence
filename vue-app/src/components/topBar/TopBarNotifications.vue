@@ -3,7 +3,7 @@
         <div class="dropdown xp-notification">
             <a class="dropdown-toggle text-white" href="#" role="button" id="xp-notification" data-toggle="dropdown"
                aria-haspopup="true" aria-expanded="false">
-                <i class="icon-bell font-18 v-a-m"></i>&nbsp;
+                <i class="icon-bell"></i>&nbsp;
                 <span v-if="badge !== undefined" class="badge badge-pill bg-danger-gradient xp-badge-up">
                     {{ badge }}
                 </span>
@@ -40,17 +40,20 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.font-18 {
+.dropdown-toggle > i {
     font-size: 18px;
-}
-
-.v-a-m {
     vertical-align: middle;
 }
 
-.bg-danger-gradient {
-    background-image: linear-gradient(58deg, #ff4b5b 0, #ff7e4b 100%);
+@mixin background-gradient($name, $begin, $end) {
+    .bg-#{$name}-gradient {
+        background-image: linear-gradient(58deg, $begin 0, $end 100%);
+    }
 }
 
+$gradient-danger-begin: #ff4b5b;
+$gradient-danger-end: #ff7e4b;
+
+@include background-gradient("danger", $gradient-danger-begin, $gradient-danger-end);
 
 </style>
