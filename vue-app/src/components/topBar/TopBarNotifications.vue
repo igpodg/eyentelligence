@@ -1,7 +1,7 @@
 <template>
     <li class="list-inline-item">
         <div class="dropdown xp-notification">
-            <a class="dropdown-toggle text-white" href="#" role="button" id="xp-notification" data-toggle="dropdown"
+            <a class="dropdown-toggle" href="#" role="button" id="xp-notification" data-toggle="dropdown"
                aria-haspopup="true" aria-expanded="false">
                 <i class="icon-bell"></i>&nbsp;
                 <span v-if="badge !== undefined" class="badge badge-pill bg-danger-gradient xp-badge-up">
@@ -40,9 +40,15 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.dropdown-toggle > i {
-    font-size: 18px;
-    vertical-align: middle;
+$color-white: #ffffff;
+
+.dropdown-toggle {
+    color: $color-white !important;
+
+    &>i {
+        font-size: 18px;
+        vertical-align: middle;
+    }
 }
 
 @mixin background-gradient($name, $begin, $end) {

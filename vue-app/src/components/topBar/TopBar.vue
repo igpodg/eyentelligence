@@ -51,6 +51,10 @@ $m-size-1: $m-size - 1px; //767 px
 
 $color-white: #ffffff;
 
+.xp-menu-hamburger > .text-white {
+    color: $color-white !important;
+}
+
 .xp-toggle-menu {
     .xp-topbar {
         left: 0;

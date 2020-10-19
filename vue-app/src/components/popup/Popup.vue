@@ -30,7 +30,17 @@ export default {
 </script>
 
 <style scoped lang="scss">
-$color-white: #ffffff;
+$color-title: #ffffff;
+
+.text-white {
+    color: $color-title !important;
+}
+
+$color-bottom-text-caption: #2b343a;
+
+.text-black {
+    color: $color-bottom-text-caption !important;
+}
 
 $color-popup-border: #dee7f2;
 

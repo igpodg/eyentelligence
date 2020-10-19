@@ -282,12 +282,12 @@ $color-button-shadow: #007bff;
 
 
 /* -----  Text Color  ----- */
-.text-white {
-    color: #ffffff !important;
-}
+//.text-white {
+//    color: #ffffff !important;
+//}
 
 .text-black {
-    color: #2B343A !important;
+    color: #2b343a !important;
 }
 
 .text-primary {

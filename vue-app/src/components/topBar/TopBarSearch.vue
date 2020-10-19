@@ -15,5 +15,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.text-white {
+    color: #ffffff !important;
+}
 
 </style>
