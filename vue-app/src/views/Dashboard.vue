@@ -123,12 +123,12 @@ export default {
 
 .card {
     border: none;
-    box-shadow: 0 0 30px 0 rgba(200, 200, 200, 0.2);
+    box-shadow: 0 0 30px 0 rgba(#c8c8c8, 0.2);
     border-radius: 15px;
 }
 
 .card-header {
-    border-bottom: 1px solid rgba(43, 52, 58, 0.05);
+    border-bottom: 1px solid rgba(#2b343a, 0.05);
 }
 
 //.card-header:first-child {
@@ -146,8 +146,8 @@ export default {
 }
 
 .ct-label {
-    fill: #8A98AC;
-    color: #8A98AC;
+    fill: #8a98ac;
+    color: #8a98ac;
     font-size: 14px;
 }
 
@@ -165,8 +165,8 @@ export default {
 
 
 .ct-label {
-    fill: #8A98AC;
-    color: #8A98AC;
+    fill: #8a98ac;
+    color: #8a98ac;
     font-size: 14px;
     line-height: 1;
 }
@@ -196,25 +196,25 @@ export default {
 
 
 
-
-@media (max-width: 991px) {
-    h1 {
+h1 {
+    @media (max-width: 991px) {
         font-size: 38px;
     }
 
-    h5 {
-        font-size: 18px;
+    @media (max-width: 767px) {
+        font-size: 36px;
     }
 }
 
-@media (max-width: 767px) {
-    h1 {
-        font-size: 36px;
+h5 {
+    @media (max-width: 991px) {
+        font-size: 18px;
     }
 
-    h5 {
+    @media (max-width: 767px) {
         font-size: 16px;
     }
 }
+
 
 </style>
