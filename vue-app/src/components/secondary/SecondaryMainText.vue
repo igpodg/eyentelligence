@@ -13,5 +13,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.secondary-main-text {
+    text-align: left;
+}
 
 </style>

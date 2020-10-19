@@ -70,4 +70,10 @@ $color-search-button: #4c7cf3;
     }
 }
 
+.form-control {
+    &:focus {
+        box-shadow: none;
+    }
+}
+
 </style>

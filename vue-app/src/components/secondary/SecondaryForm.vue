@@ -60,6 +60,23 @@ $l-size-1: $l-size - 1px; //991 px
     margin: 0;
 }
 
+.xp-container {
+    .xp-auth-box {
+        position: relative;
+        //width: 500px;
+        width: 700px;
+        margin: 0 auto;
+
+        .xp-web-logo img {
+            margin: 30px 0;
+        }
+
+        @media (max-width: $m-size-1) {
+            width: 100%;
+        }
+    }
+}
+
 .xp-auth-box > h3 {
     margin-top: 0;
     margin-bottom: 15px;
@@ -74,6 +91,47 @@ $color-form-subtitle: #8a98ac;
 
 .form-subtitle {
     color: $color-form-subtitle !important;
+}
+
+.tall-line {
+    padding-bottom: 20px;
+}
+
+.secondary-form-body {
+    width: 410px;
+    margin: 0 auto;
+}
+
+$color-form-field-background: #f0f1f4;
+$color-form-field-text: #8a98ac;
+$color-form-field-focused: #dbe5fd;
+$color-form-field-disabled: #e1e4e9;
+
+.form-control {
+    background-color: $color-form-field-background;
+    font-size: 15px;
+    color: $color-form-field-text;
+    border: none;
+    border-radius: 5px;
+
+    &:focus {
+        background-color: $color-form-field-focused;
+        //border-color: none;
+        box-shadow: none;
+
+        &:disabled {
+            background-color: $color-form-field-disabled;
+            opacity: 1;
+        }
+    }
+}
+
+label {
+    display: none;
+}
+
+.form-row {
+    padding-bottom: 15px;
 }
 
 $color-button-primary: #346bf1;
@@ -110,70 +168,5 @@ $color-button-success: #27b866;
         }
     }
 }
-
-.form-control {
-    background-color: #f0f1f4;
-    font-size: 15px;
-    color: #8a98ac;
-    border: none;
-    border-radius: 5px;
-
-    &:focus {
-        background-color: #dbe5fd;
-        border-color: none;
-        box-shadow: none;
-
-        &:disabled {
-            background-color: #e1e4e9;
-            opacity: 1;
-        }
-    }
-}
-
-.xp-container {
-    .xp-auth-box {
-        position: relative;
-        //width: 500px;
-        width: 700px;
-        margin: 0 auto;
-
-        .xp-web-logo img {
-            margin: 30px 0;
-        }
-
-        @media (max-width: 767px) {
-            width: 100%;
-        }
-    }
-}
-
-
-
-.secondary-form-body {
-    width: 410px;
-    margin: 0 auto;
-}
-
-label {
-    display: none;
-}
-
-.secondary-main-text {
-    text-align: left;
-}
-
-.form-row {
-    padding-bottom: 15px;
-}
-
-
-
-.tall-line {
-    padding-bottom: 20px;
-}
-
-
-
-
 
 </style>
