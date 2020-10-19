@@ -72,99 +72,100 @@ export default {
 </script>
 
 <style scoped lang="scss">
+$m-size: 768px;
+$m-size-1: $m-size - 1px; //767 px
+
+$color-breadcrumb-main: #2b343a;
+$color-breadcrumb-heading: $color-breadcrumb-main;
+
+$color-breadcrumb-item-parent: #8a98ac;
+$color-breadcrumb-item-current: $color-breadcrumb-main;
+
 .xp-breadcrumbbar {
     padding: 100px 30px 0 30px;
+
+    .xp-page-title {
+        font-size: 20px;
+        color: $color-breadcrumb-heading;
+        margin-bottom: 0;
+        margin-top: 0;
+
+        @media (max-width: $m-size-1) {
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+    }
+
+    .xp-breadcrumb {
+        text-align: right;
+
+        @media (max-width: $m-size-1) {
+            text-align: center;
+        }
+    }
+
+    .breadcrumb {
+        padding: 0 0 0;
+
+        .breadcrumb-item {
+            a {
+                color: $color-breadcrumb-item-parent;
+            }
+
+            &.active {
+                color: $color-breadcrumb-item-current;
+            }
+        }
+    }
+
+    @media print {
+        display: none;
+    }
 }
 
-.xp-breadcrumbbar .xp-page-title {
-    font-size: 20px;
-    color: #2B343A;
-    margin-bottom: 0;
-    margin-top: 0;
-}
-
-.xp-breadcrumbbar .xp-breadcrumb {
-    text-align: right;
-}
-
-.xp-breadcrumbbar .breadcrumb {
-    padding: 0 0 0;
-}
-
-.xp-breadcrumbbar .breadcrumb .breadcrumb-item a {
-    color: #8A98AC;
-}
-
-.xp-breadcrumbbar .breadcrumb .breadcrumb-item.active {
-    color: #2B343A;
-}
+$color-breadcrumb-outline-hover: #b5b5b5;
+$color-breadcrumb-outline-selected: #6d6d6d;
 
 .breadcrumb {
     display: inline-flex;
     background-color: transparent;
     margin: 0;
     padding: 10px 0 0;
-}
 
-@media print {
-    .xp-breadcrumbbar {
-        display: none;
+    &-heading {
+        margin-left: 6px;
+
+        &-editable {
+            margin-left: 6px;
+            border-color: transparent;
+
+            &:hover {
+                border: 2px solid rgba($color-breadcrumb-outline-hover, .4);
+                border-radius: 7px;
+                padding: 4px;
+
+                transition: border-color 0.3s;
+                margin-left: 0;
+            }
+
+            &:active {
+                border: 2px solid $color-breadcrumb-outline-selected;
+                border-radius: 7px;
+                padding: 4px;
+
+                margin-left: 0;
+            }
+        }
+
+        &-on {
+            border: 2px solid $color-breadcrumb-outline-selected !important;
+            border-radius: 7px;
+            padding: 4px;
+
+            margin-left: 0;
+        }
     }
-}
-
-@media (max-width: 991px) {
-    h4 {
-        font-size: 22px;
-    }
-}
-
-@media (max-width: 767px) {
-    h4 {
-        font-size: 20px;
-    }
-
-    .xp-breadcrumbbar .xp-page-title {
-        text-align: center;
-        margin-bottom: 10px;
-        font-size: 18px;
-    }
-    .xp-breadcrumbbar .xp-breadcrumb {
-        text-align: center;
-    }
-}
-
-.breadcrumb-heading {
-    margin-left: 6px;
-}
-
-.breadcrumb-heading-editable {
-    margin-left: 6px;
-    border-color: transparent;
-}
-
-.breadcrumb-heading-editable:hover {
-    border: 2px solid rgba(181, 181, 181, .4);
-    border-radius: 7px;
-    padding: 4px;
-
-    transition: border-color 0.3s;
-    margin-left: 0;
-}
-
-.breadcrumb-heading-editable:active {
-    border: 2px solid rgb(109, 109, 109);
-    border-radius: 7px;
-    padding: 4px;
-
-    margin-left: 0;
-}
-
-.breadcrumb-heading-on {
-    border: 2px solid rgb(109, 109, 109) !important;
-    border-radius: 7px;
-    padding: 4px;
-
-    margin-left: 0;
 }
 
 </style>
