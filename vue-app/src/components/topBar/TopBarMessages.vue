@@ -52,4 +52,11 @@ export default {
     background-image: linear-gradient(58deg, #2bcd72 0, #9acd2b 100%);
 }
 
+
+
+
+
+
+
+
 </style>

@@ -46,4 +46,42 @@ export default {
     font-weight: 400;
 }
 
+
+.xp-msg {
+    padding: 15px;
+    background-color: #ffffff;
+    border: none;
+}
+.xp-msg img {
+    box-shadow: 0 0.5rem 1rem rgba(#000000, 0.15);
+}
+.xp-msg a h5 {
+    color: #2b343a;
+}
+.xp-msg a h5 span {
+    color: #8a98ac;
+}
+.xp-msg a p {
+    color: #8a98ac;
+}
+.xp-msg .xp-noti-icon {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    background: #dbe5fd;
+    color: #4c7cf3;
+    font-size: 20px;
+    border-radius: 50%;
+    text-align: center;
+    vertical-align: middle;
+}
+.xp-msg:hover {
+    background-color: #f0f4f9;
+}
+.xp-msg:hover .xp-noti-icon {
+    background: #ffffff;
+}
+
+
+
 </style>

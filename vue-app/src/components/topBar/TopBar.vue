@@ -108,40 +108,6 @@ export default {
 }
 
 
-.xp-topbar .xp-message li.media.xp-msg {
-    padding: 15px;
-    background-color: #ffffff;
-    border: none;
-}
-.xp-topbar .xp-message li.media.xp-msg img {
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-}
-.xp-topbar .xp-message li.media.xp-msg a h5 {
-    color: #2B343A;
-}
-.xp-topbar .xp-message li.media.xp-msg a h5 span {
-    color: #8A98AC;
-}
-.xp-topbar .xp-message li.media.xp-msg a p {
-    color: #8A98AC;
-}
-.xp-topbar .xp-message li.media.xp-msg .xp-noti-icon {
-    width: 40px;
-    height: 40px;
-    line-height: 40px;
-    background: #dbe5fd;
-    color: #4c7cf3;
-    font-size: 20px;
-    border-radius: 50%;
-    text-align: center;
-    vertical-align: middle;
-}
-.xp-topbar .xp-message li.media.xp-msg:hover {
-    background-color: #F0F4F9;
-}
-.xp-topbar .xp-message li.media.xp-msg:hover .xp-noti-icon {
-    background: #ffffff;
-}
 
 /* -----  Dropdown  ----- */
 .dropdown-menu {
@@ -185,13 +151,8 @@ export default {
 =============
 */
 @media print {
-
     .xp-topbar {
         display: none;
-    }
-
-    .xp-rightbar {
-        margin-left: 0;
     }
 }
 /*
@@ -199,35 +160,10 @@ export default {
     Responsive
 ==================
 */
-@media (min-width: 768px) and (max-width: 991px) {
-    body {
-        overflow-x: hidden;
-    }
-}
-@media (max-width: 991px) {
 
-    h5 {
-        font-size: 18px;
-    }
-}
-@media (max-width: 768px) {
-    .xp-rightbar {
-        margin-left: 0;
-    }
-}
+
+
 @media (max-width: 767px) {
-    body {
-        overflow-x: hidden;
-    }
-
-    h5 {
-        font-size: 16px;
-    }
-
-    .xp-rightbar {
-        margin-left: 0 !important;
-    }
-
     .xp-topbar {
         left: 0;
     }
