@@ -1,5 +1,5 @@
 <template>
-    <div :style="'padding-bottom: ' + (tall ? 30 : 20) + 'px;'">
+    <div :class="'secondary-link' + (tall ? '-tall' : '')">
         <router-link :to="url">
             <slot></slot>
         </router-link>
@@ -20,5 +20,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.secondary-link {
+    padding-bottom: 20px;
+
+    &-tall {
+        padding-bottom: 30px;
+    }
+}
 
 </style>
