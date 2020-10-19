@@ -4,7 +4,7 @@
             <div class="col-2 col-md-1 col-lg-1 order-2 order-md-1 align-self-center">
                 <div class="xp-menubar">
                     <span class="xp-menu-hamburger" @click="toggleHamburger">
-                        <i class="icon-menu font-20 text-white"></i>
+                        <i class="icon-menu text-white"></i>
                     </span>
                 </div>
             </div>
@@ -46,130 +46,117 @@ export default {
 </script>
 
 <style lang="scss">
+$m-size: 768px;
+$m-size-1: $m-size - 1px; //767 px
+
+$color-white: #ffffff;
+
 .xp-toggle-menu {
     .xp-topbar {
         left: 0;
     }
 }
 
+$color-topbar-background: #4c7cf3;
+
+.xp-topbar {
+    background-color: $color-topbar-background;
+    padding: 15px 30px;
+    position: fixed;
+    left: 250px;
+    right: 0;
+    z-index: 999;
+
+    .dropdown-toggle::after {
+        display: none;
+    }
+
+    .xp-badge-up {
+        position: relative;
+        top: -10px;
+        margin: 0 -10px;
+        border: 2px solid $color-white;
+        padding: 3px 4px 1px;
+    }
+
+    .xp-profilebar > ul > li {
+        margin-right: 15px;
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+
+    @media print {
+        display: none;
+    }
+
+    @media (max-width: $m-size-1) {
+        left: 0;
+    }
+}
+
+.xp-menubar {
+    @media (max-width: $m-size-1) {
+        text-align: right;
+    }
+}
+
 .xp-menu-hamburger {
-    color: #4c7cf3;
+    color: $color-topbar-background;
     text-decoration: none;
     background-color: transparent;
     cursor: pointer;
+
+    >i {
+        font-size: 20px;
+    }
+}
+
+$color-badge-success: #2bcd72;
+$color-badge-success-dark: #27b866;
+
+.badge {
+    font-weight: 400;
+    padding: 5px 6px 3px;
+
+    &-success {
+        background-color: $color-badge-success;
+
+        &[href]:hover {
+            background-color: $color-badge-success-dark;
+        }
+
+        &[href]:focus {
+            background-color: $color-badge-success-dark;
+        }
+    }
 }
 
 .xp-badge-up {
     font-size: 11px !important;
 }
 
-.font-20 {
-    font-size: 20px;
-}
+$color-popup-border: #e1e4e9;
+$color-popup-shadow: #c8c8c8;
+$color-popup-item-selected-background: #e1e4e9;
+$color-popup-item-selected: #313131;
 
-
-
-
-
-
-
-
-
-
-/*
-==================
-    Topbar
-==================
-*/
-
-.xp-topbar {
-    background-color: #4c7cf3;
-    padding: 15px 30px;
-    position: fixed;
-    left: 250px;
-    right: 0;
-    z-index: 999;
-}
-.xp-topbar .dropdown-toggle::after {
-    display: none;
-}
-.xp-topbar .xp-badge-up {
-    position: relative;
-    top: -10px;
-    margin: 0 -10px;
-    border: 2px solid #ffffff;
-    padding: 3px 4px 1px;
-}
-.xp-topbar .xp-profilebar > ul > li {
-    margin-right: 15px;
-}
-.xp-topbar .xp-profilebar > ul > li:last-child {
-    margin-right: 0;
-}
-
-
-
-/* -----  Dropdown  ----- */
 .dropdown-menu {
     padding: 5px 0;
     font-size: 15px;
-    border-color: #e1e4e9;
-    box-shadow: 0 0 30px 0 rgba(200, 200, 200, 0.2);
-}
-.dropdown-menu .dropdown-item {
-    padding: 0.5rem 1.5rem;
-}
-.dropdown-menu .dropdown-item:active {
-    background-color: #e1e4e9;
-    color: #313131;
-    text-decoration: none;
-}
+    border-color: $color-popup-border;
+    box-shadow: 0 0 30px 0 rgba($color-popup-shadow, 0.2);
 
-/*
-==============
-    Badges
-==============
-*/
-.badge {
-    font-weight: 400;
-    padding: 5px 6px 3px;
-}
+    .dropdown-item {
+        padding: 0.5rem 1.5rem;
 
-.badge-success {
-    background-color: #2bcd72;
-}
-.badge-success[href]:hover {
-    background-color: #27b866;
-}
-.badge-success[href]:focus {
-    background-color: #27b866;
-}
-
-/*
-=============
-    Print
-=============
-*/
-@media print {
-    .xp-topbar {
-        display: none;
+        &:active {
+            background-color: $color-popup-item-selected-background;
+            color: $color-popup-item-selected;
+            text-decoration: none;
+        }
     }
 }
-/*
-==================
-    Responsive
-==================
-*/
 
-
-
-@media (max-width: 767px) {
-    .xp-topbar {
-        left: 0;
-    }
-
-    .xp-menubar {
-        text-align: right;
-    }
-}
 </style>
