@@ -100,8 +100,6 @@ $color-white: #ffffff;
 
 $color-background: #f0f4f9;
 $color-text: #8a98ac;
-$color-link: #4c7cf3;
-$color-link-extra: #346bf1;
 
 html {
     position: relative;
@@ -130,6 +128,9 @@ body {
     outline: none !important;
 }
 
+$color-link: #4c7cf3;
+$color-link-extra: #346bf1;
+
 a {
     color: $color-link;
     &:hover { @extend %a-extra; }
@@ -153,37 +154,17 @@ h1 {
         font-size: 40 - $i*4px;
     }
 }
+@for $i from 3 through 5 {
+    h#{$i} {
+        @media (max-width: $l-size-1) {
+            font-size: 30 - ($i - 2)*4px;
+        }
 
-h3 {
-    @media (max-width: $l-size-1) {
-        font-size: 26px;
-    }
-
-    @media (max-width: $m-size-1) {
-        font-size: 24px;
-    }
-}
-
-h4 {
-    @media (max-width: $l-size-1) {
-        font-size: 22px;
-    }
-
-    @media (max-width: $m-size-1) {
-        font-size: 20px;
+        @media (max-width: $m-size-1) {
+            font-size: 28 - ($i - 2)*4px;
+        }
     }
 }
-
-h5 {
-    @media (max-width: $l-size-1) {
-        font-size: 18px;
-    }
-
-    @media (max-width: $m-size-1) {
-        font-size: 16px;
-    }
-}
-
 h6 {
     @media (max-width: $l-size-1) {
         font-size: 16px;
