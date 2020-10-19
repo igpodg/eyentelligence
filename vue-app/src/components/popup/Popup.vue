@@ -63,12 +63,27 @@ $gradient-primary-end: #4cc6f3;
     }
 }
 
+$color-primary: #4c7cf3;
+$color-primary-selected: #346bf1;
+
 .popup-bottom-text {
     border-radius: 0 0 15px 15px;
     border-top: 1px solid #f0f4f9;
 
     &>div > h5 {
         font-size: 14px;
+
+        a {
+            color: $color-primary !important;
+
+            &:focus {
+                color: $color-primary-selected !important;
+            }
+
+            &:hover {
+                color: $color-primary-selected !important;
+            }
+        }
     }
 }
 

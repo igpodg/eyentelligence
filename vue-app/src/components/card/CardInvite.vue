@@ -196,9 +196,15 @@ $color-form-control-disabled: #e1e4e9;
     border-radius: 0 50px 50px 0;
 }
 
+$color-success: #2bcd72;
+
 .bottom-row {
     text-align: center;
     margin-bottom: 10px;
+
+    &>button:first-child {
+        color: $color-success !important;
+    }
 }
 
 $color-button-remove: #ff4b5b;

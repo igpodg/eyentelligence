@@ -48,7 +48,7 @@ export default {
 }
 
 .text-black {
-    color: #2B343A !important;
+    color: #2b343a !important;
 }
 
 @media (max-width: 991px) {
