@@ -11,8 +11,8 @@
                     <div class="p-3">
                         <form @submit="formSubmitted">
                             <div class="text-center mb-3">
-                                <h4 class="text-black">{{ title }}</h4>
-                                <p class="text-muted" v-if="subtitle !== undefined">{{ subtitle }}</p>
+                                <h4 class="form-title">{{ title }}</h4>
+                                <p class="form-subtitle" v-if="subtitle !== undefined">{{ subtitle }}</p>
                             </div>
                             <hr :class="tall ? 'tall-line' : ''">
                             <div class="secondary-form-body">
@@ -65,22 +65,28 @@ $l-size-1: $l-size - 1px; //991 px
     margin-bottom: 15px;
 }
 
-.text-black {
-    color: #2b343a !important;
+$color-form-title: #2b343a;
+$color-form-subtitle: #8a98ac;
+
+.form-title {
+    color: $color-form-title !important;
 }
 
-.text-muted {
-    color: #8a98ac !important;
+.form-subtitle {
+    color: $color-form-subtitle !important;
 }
+
+$color-button-primary: #346bf1;
+$color-button-success: #27b866;
 
 %button-primary {
-    background-color: #346bf1;
-    border-color: #346bf1;
+    background-color: $color-button-primary;
+    border-color: $color-button-primary;
 }
 
 %button-success {
-    background-color: #27b866;
-    border-color: #27b866;
+    background-color: $color-button-success;
+    border-color: $color-button-success;
 }
 
 .btn {
@@ -138,16 +144,6 @@ $l-size-1: $l-size - 1px; //991 px
         @media (max-width: 767px) {
             width: 100%;
         }
-    }
-}
-
-h5 {
-    @media (max-width: $l-size-1) {
-        font-size: 16px;
-    }
-
-    @media (max-width: $m-size-1) {
-        font-size: 15px;
     }
 }
 
