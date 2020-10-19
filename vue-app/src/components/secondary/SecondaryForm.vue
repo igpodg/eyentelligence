@@ -46,6 +46,11 @@ export default {
 </script>
 
 <style lang="scss">
+$m-size: 768px;
+$m-size-1: $m-size - 1px; //767 px
+$l-size: 992px;
+$l-size-1: $l-size - 1px; //991 px
+
 .secondary {
     background: white !important;
 }
@@ -61,128 +66,90 @@ export default {
 }
 
 .text-black {
-    color: #2B343A !important;
+    color: #2b343a !important;
 }
 
 .text-muted {
-    color: #8A98AC !important;
+    color: #8a98ac !important;
 }
 
-.btn-primary:active {
+%button-primary {
     background-color: #346bf1;
     border-color: #346bf1;
 }
 
-.btn-primary:hover {
-    background-color: #346bf1;
-    border-color: #346bf1;
-}
-
-.btn-primary:focus {
-    background-color: #346bf1;
-    border-color: #346bf1;
-}
-
-.btn-primary:visited {
-    background-color: #346bf1;
-    border-color: #346bf1;
-}
-
-.btn-primary:not(:disabled):not(.disabled):active {
-    background-color: #346bf1;
-    border-color: #346bf1;
-}
-
-.btn-success:active {
+%button-success {
     background-color: #27b866;
     border-color: #27b866;
 }
 
-.btn-success:hover {
-    background-color: #27b866;
-    border-color: #27b866;
-}
+.btn {
+    &-primary {
+        &:active { @extend %button-primary; }
+        &:hover { @extend %button-primary; }
+        &:focus { @extend %button-primary; }
+        &:visited { @extend %button-primary; }
+        &:not(:disabled):not(.disabled):active {
+            @extend %button-primary;
+        }
+    }
 
-.btn-success:focus {
-    background-color: #27b866;
-    border-color: #27b866;
-}
-
-.btn-success:visited {
-    background-color: #27b866;
-    border-color: #27b866;
-}
-
-.btn-success:not(:disabled):not(.disabled):active {
-    background-color: #27b866;
-    border-color: #27b866;
+    &-success {
+        &:active { @extend %button-success; }
+        &:hover { @extend %button-success; }
+        &:focus { @extend %button-success; }
+        &:visited { @extend %button-success; }
+        &:not(:disabled):not(.disabled):active {
+            @extend %button-success;
+        }
+    }
 }
 
 .form-control {
     background-color: #f0f1f4;
     font-size: 15px;
-    color: #8A98AC;
+    color: #8a98ac;
     border: none;
     border-radius: 5px;
-}
 
-.form-control:focus {
-    background-color: #dbe5fd;
-    border-color: none;
-    box-shadow: none;
-}
+    &:focus {
+        background-color: #dbe5fd;
+        border-color: none;
+        box-shadow: none;
 
-.form-control:focus:disabled {
-    background-color: #e1e4e9;
-    opacity: 1;
-}
-
-.xp-container .xp-auth-box {
-    position: relative;
-    //width: 500px;
-    width: 700px;
-    margin: 0 auto;
-}
-
-.xp-container .xp-auth-box .xp-web-logo img {
-    margin: 30px 0;
-}
-
-@media (max-width: 767px) {
-    .xp-container .xp-auth-box {
-        width: 100%;
+        &:disabled {
+            background-color: #e1e4e9;
+            opacity: 1;
+        }
     }
 }
 
-@media (max-width: 991px) {
-    h3 {
-        font-size: 26px;
-    }
+.xp-container {
+    .xp-auth-box {
+        position: relative;
+        //width: 500px;
+        width: 700px;
+        margin: 0 auto;
 
-    h4 {
-        font-size: 22px;
-    }
+        .xp-web-logo img {
+            margin: 30px 0;
+        }
 
-    h6 {
+        @media (max-width: 767px) {
+            width: 100%;
+        }
+    }
+}
+
+h5 {
+    @media (max-width: $l-size-1) {
         font-size: 16px;
     }
-}
 
-@media (max-width: 767px) {
-    h3 {
-        font-size: 24px;
-    }
-
-    h4 {
-        font-size: 20px;
-    }
-
-    h6 {
+    @media (max-width: $m-size-1) {
         font-size: 15px;
     }
 }
-
-
 
 
 
