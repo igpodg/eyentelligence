@@ -35,32 +35,20 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.font-12 {
-    font-size: 12px;
+$color-statistics: #2b343a;
+
+.text-black {
+    color: $color-statistics !important;
 }
 
-.font-26 {
-    font-size: 26px;
+@each $size in (12px, 26px) {
+    .font-#{$size} {
+        font-size: $size;
+    }
 }
 
 .f-w-7 {
     font-weight: 700;
-}
-
-.text-black {
-    color: #2b343a !important;
-}
-
-@media (max-width: 991px) {
-    h4 {
-        font-size: 22px;
-    }
-}
-
-@media (max-width: 767px) {
-    h4 {
-        font-size: 20px;
-    }
 }
 
 </style>
