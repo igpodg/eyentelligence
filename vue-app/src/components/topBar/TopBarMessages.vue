@@ -3,7 +3,7 @@
         <div class="dropdown xp-message">
             <a class="dropdown-toggle text-white" href="#" role="button" id="xp-message" data-toggle="dropdown"
                aria-haspopup="true" aria-expanded="false">
-                <i class="icon-speech font-18 v-a-m"></i>&nbsp;
+                <i class="icon-speech"></i>&nbsp;
                 <span v-if="badge !== undefined" class="badge badge-pill bg-success-gradient xp-badge-up">
                     {{ badge }}
                 </span>
@@ -40,23 +40,20 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.font-18 {
+.dropdown-toggle > i {
     font-size: 18px;
-}
-
-.v-a-m {
     vertical-align: middle;
 }
 
-.bg-success-gradient {
-    background-image: linear-gradient(58deg, #2bcd72 0, #9acd2b 100%);
+@mixin background-gradient($name, $begin, $end) {
+    .bg-#{$name}-gradient {
+        background-image: linear-gradient(58deg, $begin 0, $end 100%);
+    }
 }
 
+$gradient-success-begin: #2bcd72;
+$gradient-success-end: #9acd2b;
 
-
-
-
-
-
+@include background-gradient("success", $gradient-success-begin, $gradient-success-end);
 
 </style>
