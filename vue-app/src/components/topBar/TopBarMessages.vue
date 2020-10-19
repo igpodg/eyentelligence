@@ -40,5 +40,16 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.font-18 {
+    font-size: 18px;
+}
+
+.v-a-m {
+    vertical-align: middle;
+}
+
+.bg-success-gradient {
+    background-image: linear-gradient(58deg, #2bcd72 0, #9acd2b 100%);
+}
 
 </style>

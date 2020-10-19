@@ -30,5 +30,20 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.font-12 {
+    font-size: 12px;
+}
+
+.font-13 {
+    font-size: 13px;
+}
+
+.font-14 {
+    font-size: 14px;
+}
+
+.f-w-4 {
+    font-weight: 400;
+}
 
 </style>

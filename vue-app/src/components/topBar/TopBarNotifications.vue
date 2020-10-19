@@ -40,5 +40,17 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.font-18 {
+    font-size: 18px;
+}
+
+.v-a-m {
+    vertical-align: middle;
+}
+
+.bg-danger-gradient {
+    background-image: linear-gradient(58deg, #ff4b5b 0, #ff7e4b 100%);
+}
+
 
 </style>

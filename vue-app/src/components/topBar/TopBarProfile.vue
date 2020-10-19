@@ -37,5 +37,18 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.xp-userprofile a img {
+    width: 40px;
+}
+.xp-userprofile a .xp-user-live {
+    position: absolute;
+    bottom: -2px;
+    right: -2px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    background-image: linear-gradient(58deg, #2bcd72 0, #9acd2b 100%);
+}
 
 </style>

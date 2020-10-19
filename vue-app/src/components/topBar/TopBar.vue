@@ -46,13 +46,11 @@ export default {
 </script>
 
 <style lang="scss">
-
 .xp-toggle-menu {
     .xp-topbar {
         left: 0;
     }
 }
-
 
 .xp-menu-hamburger {
     color: #4c7cf3;
@@ -61,76 +59,22 @@ export default {
     cursor: pointer;
 }
 
-
-
-
-
-
-
-
-
 .xp-badge-up {
     font-size: 11px !important;
-}
-
-
-
-
-.font-12 {
-    font-size: 12px;
-}
-
-.font-13 {
-    font-size: 13px;
-}
-
-.font-14 {
-    font-size: 14px;
-}
-
-.font-16 {
-    font-size: 16px;
-}
-
-.font-18 {
-    font-size: 18px;
 }
 
 .font-20 {
     font-size: 20px;
 }
 
-/*  -----  Font Weight  ----  */
 
-.f-w-4 {
-    font-weight: 400;
-}
 
-/*  -----  Extra  ----  */
 
-.v-a-m {
-    vertical-align: middle;
-}
 
-.bg-success-gradient {
-    background-image: linear-gradient(58deg, #2bcd72 0, #9acd2b 100%);
-}
 
-.bg-danger-gradient {
-    background-image: linear-gradient(58deg, #ff4b5b 0, #ff7e4b 100%);
-}
 
-.primary-rgba {
-    background-color: rgba(76, 124, 243, 0.3);
-}
 
-.success-rgba {
-    background-color: rgba(43, 205, 114, 0.3);
-}
 
-.danger-rgba {
-    background-color: rgba(255, 75, 91, 0.3);
-}
 
 /*
 ==================
@@ -162,97 +106,8 @@ export default {
 .xp-topbar .xp-profilebar > ul > li:last-child {
     margin-right: 0;
 }
-.xp-topbar .xp-userprofile a img {
-    width: 40px;
-}
-.xp-topbar .xp-userprofile a .xp-user-live {
-    position: absolute;
-    bottom: -2px;
-    right: -2px;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    border: 2px solid #ffffff;
-    background-image: linear-gradient(58deg, #2bcd72 0, #9acd2b 100%);
-}
-.xp-topbar .xp-userprofile .dropdown-menu {
-    top: 26px !important;
-    background-color: #ffffff;
-    border: 1px solid #dee7f2;
-    border-radius: 15px;
-    padding: 0;
-}
-.xp-topbar .xp-userprofile .dropdown-menu .dropdown-item:first-child {
-    background-image: linear-gradient(58deg, #4c7cf3 0, #4cc6f3 100%);
-    border-radius: 15px 15px 0 0;
-    font-weight: 700;
-    line-height: 1.2;
-}
-.xp-topbar .xp-userprofile .dropdown-menu .dropdown-item:last-child {
-    border-radius: 0 0 15px 15px;
-}
-.xp-topbar .xp-userprofile .dropdown-menu a:hover {
-    background-color: #F0F4F9;
-}
-.xp-topbar .xp-notification .dropdown-menu {
-    width: 310px;
-    top: 26px !important;
-    background-color: #ffffff;
-    border: 1px solid #dee7f2;
-    border-radius: 15px;
-    padding: 0;
-}
-.xp-topbar .xp-notification li.media:first-child {
-    background-image: linear-gradient(58deg, #4c7cf3 0, #4cc6f3 100%);
-    border-radius: 15px 15px 0 0;
-}
-.xp-topbar .xp-notification li.media:last-child {
-    border-radius: 0 0 15px 15px;
-    border-top: 1px solid #F0F4F9;
-}
-.xp-topbar .xp-notification li.media.xp-noti {
-    padding: 15px;
-    background-color: #ffffff;
-    border: none;
-}
-.xp-topbar .xp-notification li.media.xp-noti a h5 {
-    color: #2B343A;
-}
-.xp-topbar .xp-notification li.media.xp-noti a h5 span {
-    color: #8A98AC;
-}
-.xp-topbar .xp-notification li.media.xp-noti a p {
-    color: #8A98AC;
-}
-.xp-topbar .xp-notification li.media.xp-noti .xp-noti-icon {
-    width: 40px;
-    height: 40px;
-    line-height: 42px;
-    font-size: 16px;
-    border-radius: 50%;
-    text-align: center;
-    vertical-align: middle;
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-}
-.xp-topbar .xp-notification li.media.xp-noti:hover {
-    background-color: #F0F4F9;
-}
-.xp-topbar .xp-message .dropdown-menu {
-    width: 310px;
-    top: 26px !important;
-    background-color: #ffffff;
-    border: 1px solid #dee7f2;
-    border-radius: 15px;
-    padding: 0;
-}
-.xp-topbar .xp-message li.media:first-child {
-    background-image: linear-gradient(58deg, #4c7cf3 0, #4cc6f3 100%);
-    border-radius: 15px 15px 0 0;
-}
-.xp-topbar .xp-message li.media:last-child {
-    border-radius: 0 0 15px 15px;
-    border-top: 1px solid #F0F4F9;
-}
+
+
 .xp-topbar .xp-message li.media.xp-msg {
     padding: 15px;
     background-color: #ffffff;
