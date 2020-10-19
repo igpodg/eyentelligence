@@ -67,22 +67,6 @@ $color-popup-item-hover: #f0f4f9;
     &:hover {
         background-color: $color-popup-item-hover;
     }
-
-    /*.xp-noti-icon {
-        width: 40px;
-        height: 40px;
-        line-height: 40px;
-        background: #dbe5fd;
-        color: #4c7cf3;
-        font-size: 20px;
-        border-radius: 50%;
-        text-align: center;
-        vertical-align: middle;
-    }
-
-    &:hover .xp-noti-icon {
-        background: $color-white;
-    }*/
 }
 
 .media-body {
