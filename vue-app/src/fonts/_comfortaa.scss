@@ -1,0 +1,18 @@
+//$font-weights: ("light": 300, "normal": 400, "bold": 700);
+$font-weights: (300: "300", 400: "regular", 700: "700");
+
+@each $fw, $name in $font-weights {
+    $path: "~@/fonts/comfortaa-v29-latin-ext_latin_cyrillic-ext_cyrillic-#{$name}";
+    @font-face {
+        font-family: "Comfortaa";
+        font-style: normal;
+        font-weight: $fw;
+        src: url("#{$path}.eot"); // IE9 Compat Modes
+        src: local(""),
+        url("#{$path}.eot?#iefix") format("embedded-opentype"), // IE6-IE8
+        url("#{$path}.woff2") format("woff2"), // Super Modern Browsers
+        url("#{$path}.woff") format("woff"), // Modern Browsers
+        url("#{$path}.ttf") format("truetype"), // Safari, Android, iOS
+        url("#{$path}.svg#Comfortaa") format("svg"); // Legacy iOS
+    }
+}
