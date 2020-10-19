@@ -1,6 +1,6 @@
 <template>
     <div class="dropdown-menu dropdown-menu-right" :aria-labelledby="'xp-' + name">
-        <span class="dropdown-item py-3 text-white text-center font-16">{{ title }}</span>
+        <span class="dropdown-item py-3 text-white text-center">{{ title }}</span>
         <slot></slot>
     </div>
 </template>
@@ -16,29 +16,35 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.font-16 {
-    font-size: 16px;
-}
+$color-popup-border: #dee7f2;
+$color-popup-item-hover: #f0f4f9;
 
+$gradient-primary-begin: #4c7cf3;
+$gradient-primary-end: #4cc6f3;
 
 .dropdown-menu {
-    top: 26px !important;
-    background-color: #ffffff;
-    border: 1px solid #dee7f2;
-    border-radius: 15px;
-    padding: 0;
+    border: 1px solid $color-popup-border;
+
+    &>.dropdown-item:first-child {
+        background-image: linear-gradient(58deg,
+            $gradient-primary-begin 0,
+            $gradient-primary-end 100%);
+        border-radius: 15px 15px 0 0;
+        font-weight: 700;
+        line-height: 1.2;
+    }
+
+    .dropdown-item:last-child {
+        border-radius: 0 0 15px 15px;
+    }
+
+    a:hover {
+        background-color: $color-popup-item-hover;
+    }
 }
-.dropdown-menu .dropdown-item:first-child {
-    background-image: linear-gradient(58deg, #4c7cf3 0, #4cc6f3 100%);
-    border-radius: 15px 15px 0 0;
-    font-weight: 700;
-    line-height: 1.2;
-}
-.dropdown-menu .dropdown-item:last-child {
-    border-radius: 0 0 15px 15px;
-}
-.dropdown-menu a:hover {
-    background-color: #F0F4F9;
+
+.dropdown-item {
+    font-size: 16px;
 }
 
 </style>

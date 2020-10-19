@@ -143,7 +143,7 @@ $color-popup-item-selected-background: #e1e4e9;
 $color-popup-item-selected: #313131;
 
 .dropdown-menu {
-    padding: 5px 0;
+    //padding: 5px 0;
     font-size: 15px;
     border-color: $color-popup-border;
     box-shadow: 0 0 30px 0 rgba($color-popup-shadow, 0.2);
@@ -157,6 +157,11 @@ $color-popup-item-selected: #313131;
             text-decoration: none;
         }
     }
+
+    top: 26px !important;
+    background-color: $color-white;
+    border-radius: 15px;
+    padding: 0;
 }
 
 </style>
