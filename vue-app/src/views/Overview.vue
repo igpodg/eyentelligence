@@ -5,13 +5,13 @@
                 <card heading="Recent Changes" subtitle="Here you can see the changes you've made in the past week.">
                     <card heading="My Dashboard #2" inner>
                         <div style="text-align: center;">
-                            <img src="img/tempthumb.png">
+                            <img src="assets/img/tempthumb.png">
                         </div>
                     </card>
                     <span style="width: 30px; float: left; visibility: hidden;">.</span>
                     <card heading="My Dashboard" inner>
                         <div style="text-align: center;">
-                            <img src="img/tempthumb.png">
+                            <img src="assets/img/tempthumb.png">
                         </div>
                     </card>
                 </card>
