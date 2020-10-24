@@ -147,32 +147,29 @@ a {
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
     font-weight: 700;
 }
-h1 {
-    font-size: 40px;
-}
-@for $i from 2 through 6 {
-    h#{$i} {
-        font-size: 40 - $i*4px;
+
+$heading-font-sizes: ("h1": 40, "h2": 32, "h3": 28, "h4": 24, "h5": 20, "h6": 16);
+@each $heading, $size in $heading-font-sizes {
+    #{$heading} {
+        font-size: #{$size}px;
     }
 }
-@for $i from 3 through 5 {
-    h#{$i} {
+
+$heading-font-sizes-responsive-l: ("h3": 26, "h4": 22, "h5": 18, "h6": 16);
+@each $heading, $l in $heading-font-sizes-responsive-l {
+    #{$heading} {
         @media (max-width: $l-size-1) {
-            font-size: 30 - ($i - 2)*4px;
-        }
-
-        @media (max-width: $m-size-1) {
-            font-size: 28 - ($i - 2)*4px;
+            font-size: #{$l}px;
         }
     }
 }
-h6 {
-    @media (max-width: $l-size-1) {
-        font-size: 16px;
-    }
 
-    @media (max-width: $m-size-1) {
-        font-size: 15px;
+$heading-font-sizes-responsive-m: ("h3": 24, "h4": 20, "h5": 16, "h6": 15);
+@each $heading, $m in $heading-font-sizes-responsive-m {
+    #{$heading} {
+        @media (max-width: $m-size-1) {
+            font-size: #{$m}px;
+        }
     }
 }
 
