@@ -188,6 +188,12 @@ $color-form-control-disabled: #e1e4e9;
     //    border-top-right-radius: 0;
     //    border-bottom-right-radius: 0;
     //}
+
+    @at-root select#{&} {
+        width: auto;
+        min-width: 180px;
+        max-width: 25.5vw;
+    }
 }
 
 .input-group-append {
