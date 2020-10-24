@@ -9,7 +9,7 @@
         <div class="xp-navigationbar">
             <ul class="xp-vertical-menu">
                 <left-bar-heading name="Main"/>
-                <left-bar-static icon="doc" name="Overview" url=""/>
+                <left-bar-static icon="doc" name="Overview" url="/"/>
                 <left-bar-static icon="list" name="Statistics" url=""/>
 
                 <left-bar-heading name="Teams / Organizations"/>
