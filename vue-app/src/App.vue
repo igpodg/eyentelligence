@@ -73,7 +73,9 @@ export default {
         },
         downloadTeams: function() {
             this.$logDetailed("Querying the team listing...");
-            let response = this.$fetchSync("https://127.0.0.1:9090/team");
+            let response = this.$fetchSync("https://127.0.0.1:9090/team", {
+                headers: { "X-API-Key": "xxxxxxxx" }
+            });
             response = JSON.parse(response);
             this.teams = response.map(x => x.name);
             this.$logDetailed("Team listing query finished.");
