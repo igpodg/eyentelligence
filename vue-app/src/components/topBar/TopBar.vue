@@ -15,7 +15,7 @@
                         <top-bar-search/>&nbsp;
                         <top-bar-messages :badge="8"/>&nbsp;
                         <top-bar-notifications :badge="3"/>&nbsp;
-                        <top-bar-profile avatar-url="assets/img/user.svg"/>
+                        <top-bar-profile avatar-url="assets/img/user.svg" :user="user"/>
                     </ul>
                 </div>
             </div>
@@ -36,6 +36,9 @@ export default {
         TopBarMessages,
         TopBarNotifications,
         TopBarProfile
+    },
+    props: {
+        user: Object
     },
     methods: {
         toggleHamburger: function() {

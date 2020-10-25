@@ -7,7 +7,7 @@
                 <span class="xp-user-live"></span>
             </a>
 
-            <popup-mini name="userprofile" title="Welcome, John Doe">
+            <popup-mini name="userprofile" :title="'Welcome, ' + getFullName()">
                 <!--<popup-mini-item color="primary" icon="user" title="Profile"/>
                 <popup-mini-item color="success" icon="wallet" title="Billing"/>
                 <popup-mini-item color="warning" icon="settings" title="Setting"/>
@@ -31,7 +31,17 @@ export default {
         PopupMiniItem
     },
     props: {
-        avatarUrl: String
+        avatarUrl: String,
+        user: Object
+    },
+    methods: {
+        getFullName: function() {
+            return [this.user.firstName,
+                this.user.middleName,
+                this.user.lastName]
+                .filter(Boolean)
+                .join(" ");
+        }
     }
 }
 </script>

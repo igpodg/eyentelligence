@@ -7,7 +7,7 @@
                           main-button="Leave Team" cancel-button="Cancel"/>
         <left-bar :logo="this.$logoPath" url="/" :teams="teams"/>
         <div class="xp-rightbar">
-            <top-bar/>
+            <top-bar :user="user"/>
             <breadcrumbs :hierarchy="genHierarchy()"
                          ref="crumb" :key="crumbKey"/>
             <div class="xp-contentbar">
@@ -41,7 +41,8 @@ export default {
     data: function() {
         return {
             crumbKey: false,
-            teams: []
+            teams: [],
+            user: {}
         }
     },
     methods: {
@@ -79,10 +80,20 @@ export default {
             response = JSON.parse(response);
             this.teams = response.map(x => x.name);
             this.$logDetailed("Team listing query finished.");
+        },
+        downloadUser: function() {
+            this.$logDetailed("Querying the user info...");
+            let response = this.$fetchSync("https://127.0.0.1:9090/user", {
+                headers: { "X-API-Key": "xxxxxxxx" }
+            });
+            response = JSON.parse(response);
+            this.user = response;
+            this.$logDetailed("User info query finished.");
         }
     },
     created: function() {
         this.downloadTeams();
+        this.downloadUser();
     },
     mounted: function() {
         this.switchBodyColor();
