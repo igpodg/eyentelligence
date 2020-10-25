@@ -14,7 +14,7 @@ let routes = [
         component: Overview
     },
     {
-        path: "/dashboard",
+        path: "/dashboard/:id",
         name: "Dashboard",
         component: Dashboard
     },

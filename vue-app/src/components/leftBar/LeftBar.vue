@@ -13,10 +13,10 @@
                 <left-bar-static icon="list" name="Statistics" url=""/>
 
                 <left-bar-heading name="Teams / Organizations"/>
-                <left-bar-dropdown v-for="th in tempHeadings" :key="th"
-                                   icon="briefcase" :name="th" url="">
+                <left-bar-dropdown v-for="(th, i) in tempHeadings" :key="th"
+                                   icon="briefcase" :name="th" url="" :index="i">
                     <left-bar-static-mini name="Home" url=""/>
-                    <left-bar-static-mini name="My Dashboard" url="/dashboard"/>
+                    <left-bar-static-mini name="My Dashboard" :url="'/dashboard/' + i"/>
                     <left-bar-static-mini name="My Dashboard #2" url=""/>
                     <hr>
                     <left-bar-static-mini name="Dashboards..." url=""/>
@@ -54,13 +54,15 @@ export default {
     },
     data: function() {
         return {
-            tempHeadings: [
-                "SuperTeam",
-                "Company Inc.",
-                "Europe Sales",
-                "Asia Sales"
-            ]
-        };
+            tempHeadings: []
+        }
+    },
+    created: function() {
+        this.$logDetailed("Querying the team listing...");
+        let response = this.$fetchSync("https://127.0.0.1:9090/team");
+        response = JSON.parse(response);
+        this.tempHeadings = response.map(x => x.name);
+        this.$logDetailed("Team listing query finished.");
     }
 }
 </script>

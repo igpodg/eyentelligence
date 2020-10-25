@@ -82,6 +82,7 @@ export default {
     beforeUpdate: function() {
         //this.$refs.crumb.$forceUpdate();
         this.crumbKey = !this.crumbKey;
+        this.$eventBus.$emit("crumb-updated");
     }
 }
 </script>

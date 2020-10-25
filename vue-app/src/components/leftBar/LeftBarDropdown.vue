@@ -1,10 +1,10 @@
 <template>
-    <li :class="(name === 'SuperTeam' && this.$route.name === 'Dashboard') ? 'active' : ''">
+    <li :class="isActive ? 'active' : ''">
         <router-link :to="url">
             <i :class="'icon-' + icon"></i><span>{{ name }}</span>
             <i class="icon-arrow-right pull-right"></i>
         </router-link>
-        <ul class="xp-vertical-submenu" :style="(name === 'SuperTeam' && this.$route.name === 'Dashboard') ? 'display: block;' : ''">
+        <ul class="xp-vertical-submenu" :style="isActive ? 'display: block;' : ''">
             <slot></slot>
         </ul>
     </li>
@@ -16,7 +16,30 @@ export default {
     props: {
         icon: String,
         name: String,
-        url: String
+        url: String,
+        index: {
+            type: Number,
+            default: -1
+        }
+    },
+    data: function() {
+        return {
+            isActive: false
+        }
+    },
+    created: function() {
+        this.isActive = parseInt(this.$route.params.id) === this.index &&
+            this.$route.name === "Dashboard";
+    },
+    mounted: function() {
+        let that = this;
+        this.$eventBus.$on("crumb-updated", function() {
+            that.isActive = parseInt(that.$route.params.id) === that.index &&
+                that.$route.name === "Dashboard";
+        });
+    },
+    beforeDestroy: function() {
+        this.$eventBus.$off("crumb-updated");
     }
 }
 </script>
