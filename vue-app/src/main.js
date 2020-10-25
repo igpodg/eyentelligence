@@ -25,7 +25,10 @@ Vue.prototype.$fetchSync = function(url, options= {}) {
             xhr.setRequestHeader(key, value);
         }
     }
-    xhr.send(null);
+    if (options.method !== "GET")
+        xhr.send(options.body);
+    else
+        xhr.send(null);
 
     if (xhr.status === 200)
         return xhr.responseText;
