@@ -19,16 +19,16 @@ Vue.prototype.$fetchSync = function(url, options= {}) {
     let xhr = new XMLHttpRequest();
     if (!("method" in options))
         options["method"] = "GET";
+    if (!("body" in options))
+        options["body"] = null;
+
     xhr.open(options.method, url, false);
     if ("headers" in options) {
         for (const [key, value] of Object.entries(options.headers)) {
             xhr.setRequestHeader(key, value);
         }
     }
-    if (options.method !== "GET")
-        xhr.send(options.body);
-    else
-        xhr.send(null);
+    xhr.send(options.body);
 
     if (xhr.status === 200)
         return xhr.responseText;
