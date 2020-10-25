@@ -5,7 +5,7 @@
                           subtitle="Warning: By leaving the team as an Owner,
                             a new Owner will have to be assigned."
                           main-button="Leave Team" cancel-button="Cancel"/>
-        <left-bar :logo="this.$logoPath" url="/"/>
+        <left-bar :logo="this.$logoPath" url="/" :teams="teams"/>
         <div class="xp-rightbar">
             <top-bar/>
             <breadcrumbs :hierarchy="genHierarchy()"
@@ -40,7 +40,8 @@ export default {
     },
     data: function() {
         return {
-            crumbKey: false
+            crumbKey: false,
+            teams: []
         }
     },
     methods: {
@@ -69,7 +70,17 @@ export default {
                 hierarchy["path"] = [];
             }
             return hierarchy;
+        },
+        downloadTeams: function() {
+            this.$logDetailed("Querying the team listing...");
+            let response = this.$fetchSync("https://127.0.0.1:9090/team");
+            response = JSON.parse(response);
+            this.teams = response.map(x => x.name);
+            this.$logDetailed("Team listing query finished.");
         }
+    },
+    created: function() {
+        this.downloadTeams();
     },
     mounted: function() {
         this.switchBodyColor();
