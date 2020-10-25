@@ -61,7 +61,7 @@ export default {
                 hierarchy["title"] = "My Dashboard";
                 hierarchy["path"] = [
                     {
-                        title: "SuperTeam",
+                        title: this.teams[this.$route.params.id],
                         url: "/"
                     }
                 ];
