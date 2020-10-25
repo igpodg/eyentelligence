@@ -97,6 +97,12 @@ export default {
     },
     mounted: function() {
         this.switchBodyColor();
+        this.$eventBus.$on("update-teams", this.downloadTeams);
+        this.$eventBus.$on("update-user", this.downloadUser);
+    },
+    beforeDestroy: function() {
+        this.$eventBus.$off("update-user");
+        this.$eventBus.$off("update-teams");
     },
     watch: {
         $route: function() {

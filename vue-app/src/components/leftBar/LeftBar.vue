@@ -52,6 +52,10 @@ export default {
         logo: String,
         url: String,
         teams: Array
+    },
+    created: function() {
+        this.$eventBus.$emit("update-teams");
+        this.$eventBus.$emit("update-user");
     }
 }
 </script>
