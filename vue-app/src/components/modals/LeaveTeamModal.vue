@@ -1,5 +1,5 @@
 <template>
-    <div class="modal fade" id="xpLeaveModal" tabindex="-1" role="dialog" aria-labelledby="xpLeaveModalLabel" aria-hidden="true">
+    <div class="modal fade" :id="name" :ref="name" tabindex="-1" role="dialog" :aria-labelledby="name + 'Label'" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body">
@@ -7,8 +7,8 @@
                         <form>
                             <h5 class="text-heading">{{ heading }}</h5>
                             <div class="text-subtitle">{{ subtitle }}</div>
-                            <button type="button" class="btn btn-danger main-button">{{ mainButton }}</button>&nbsp;
-                            <button type="button" class="btn btn-light">{{ cancelButton }}</button>
+                            <button type="button" class="btn btn-danger main-button" @click="closeLeaveTeam">{{ mainButton }}</button>&nbsp;
+                            <button type="button" class="btn btn-light" @click="closeLeaveTeam">{{ cancelButton }}</button>
                         </form>
                     </div>
                 </div>
@@ -24,7 +24,16 @@ export default {
         heading: String,
         subtitle: String,
         mainButton: String,
-        cancelButton: String
+        cancelButton: String,
+        name: {
+            type: String,
+            default: "xpLeaveModal"
+        }
+    },
+    methods: {
+        closeLeaveTeam: function() {
+            this.$refs[this.name].click();
+        }
     }
 }
 </script>

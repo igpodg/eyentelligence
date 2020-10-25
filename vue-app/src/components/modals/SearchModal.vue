@@ -1,5 +1,5 @@
 <template>
-    <div class="modal search-modal fade" id="xpSearchModal" tabindex="-1" role="dialog" aria-labelledby="xpSearchModalLabel" aria-hidden="true">
+    <div class="modal search-modal fade" :id="name" :ref="name" tabindex="-1" role="dialog" :aria-labelledby="name + 'Label'" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body">
@@ -8,7 +8,7 @@
                             <div class="input-group">
                                 <input type="search" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="button-addon2">
                                 <div class="input-group-append">
-                                    <button class="btn" type="submit" id="button-addon2">{{ caption }}</button>
+                                    <button class="btn" type="submit" id="button-addon2" @click="closeSearch">{{ caption }}</button>
                                 </div>
                             </div>
                         </form>
@@ -23,7 +23,16 @@
 export default {
     name: "SearchModal",
     props: {
-        caption: String
+        caption: String,
+        name: {
+            type: String,
+            default: "xpSearchModal"
+        }
+    },
+    methods: {
+        closeSearch: function() {
+            this.$refs[this.name].click();
+        }
     }
 }
 </script>
