@@ -14,6 +14,8 @@ let routes = [
         component: Overview
     },
     {
+        // todo: implement a more unique identifier
+        //   or change the api
         path: "/dashboard/:id",
         name: "Dashboard",
         component: Dashboard
