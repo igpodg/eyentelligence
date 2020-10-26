@@ -9,7 +9,7 @@
                         </router-link>
                     </h3>
                     <div class="p-3">
-                        <form @submit="formSubmitted">
+                        <form @submit="formSubmitted" ref="secform">
                             <div class="text-center mb-3">
                                 <h4 class="form-title">{{ title }}</h4>
                                 <p class="form-subtitle" v-if="subtitle !== undefined">{{ subtitle }}</p>
@@ -38,7 +38,29 @@ export default {
         }
     },
     methods: {
-        formSubmitted: function() {
+        formSubmitted: function(event) {
+            event.preventDefault();
+            if (this.$route.name === "Invited") {
+                let newData = {
+                    "firstName": null,
+                    "middleName": null,
+                    "lastName": null
+                };
+                for (let el of this.$refs.secform.elements) {
+                    if (el.id === "firstname")
+                        newData.firstName = el.value;
+                    else if (el.id === "lastname")
+                        newData.lastName = el.value;
+                }
+                this.$logDetailed("Updating the user info...");
+                this.$fetchSync("https://127.0.0.1:9090/user", {
+                    method: "POST",
+                    headers: { "X-API-Key": "xxxxxxxx" },
+                    body: JSON.stringify(newData)
+                });
+                this.$logDetailed("User info update finished.");
+                this.$router.push("/");
+            }
             return false;
         }
     }
