@@ -1,10 +1,12 @@
 <template>
     <div id="xp-container" v-if="!isSecondaryRoute()">
         <search-modal caption="GO"/>
-        <leave-team-modal heading="Are you sure you want to leave SuperTeam?"
+        <leave-team-modal heading="Are you sure you want to leave the team?"
                           subtitle="Warning: By leaving the team as an Owner,
                             a new Owner will have to be assigned."
                           main-button="Leave Team" cancel-button="Cancel"/>
+        <create-team-modal/>
+        <rename-team-modal/>
         <left-bar :logo="this.$logoPath" url="/" :teams="teams"/>
         <div class="xp-rightbar">
             <top-bar :user="user"/>
@@ -28,6 +30,8 @@ import BottomBar from "@/components/BottomBar.vue";
 import Breadcrumbs from "@/components/Breadcrumbs.vue";
 import SearchModal from "@/components/modals/SearchModal.vue";
 import LeaveTeamModal from "@/components/modals/LeaveTeamModal.vue";
+import CreateTeamModal from "@/components/modals/CreateTeamModal.vue";
+import RenameTeamModal from "@/components/modals/RenameTeamModal.vue";
 
 export default {
     components: {
@@ -36,7 +40,9 @@ export default {
         BottomBar,
         Breadcrumbs,
         SearchModal,
-        LeaveTeamModal
+        LeaveTeamModal,
+        CreateTeamModal,
+        RenameTeamModal
     },
     data: function() {
         return {

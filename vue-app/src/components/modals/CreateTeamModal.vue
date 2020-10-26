@@ -5,10 +5,9 @@
                 <div class="modal-body">
                     <div class="xp-modalhbar">
                         <form>
-                            <h5 class="text-heading">{{ heading }}</h5>
-                            <div class="text-subtitle">{{ subtitle }}</div>
-                            <button type="button" class="btn btn-danger main-button" @click="leaveTeam">{{ mainButton }}</button>&nbsp;
-                            <button type="button" class="btn btn-light" @click="closeLeaveTeam">{{ cancelButton }}</button>
+                            <h5 class="text-heading">Enter the new team name:</h5>
+                            <input id="newTeamField"><br><br>
+                            <button type="button" class="btn btn-light" @click="createTeam">Create</button>
                         </form>
                     </div>
                 </div>
@@ -19,32 +18,28 @@
 
 <script>
 export default {
-    name: "LeaveTeamModal",
+    name: "CreateTeamModal",
     props: {
-        heading: String,
-        subtitle: String,
-        mainButton: String,
-        cancelButton: String,
         name: {
             type: String,
-            default: "xpLeaveModal"
+            default: "xpCreateTeamModal"
         }
     },
     methods: {
-        leaveTeam: function() {
-            //console.log(this.$refs[this.name]);
-            // todo: implement getting the proper team ID
-            let teamId = 0;
-            this.$logDetailed("Leaving Team with ID " + teamId + "...");
-            this.$fetchSync("https://127.0.0.1:9090/team/" + teamId, {
-                method: "DELETE",
-                headers: { "X-API-Key": "xxxxxxxx" }
+        createTeam: function() {
+            let value = document.getElementById("newTeamField").value;
+            this.$logDetailed("Creating a Team ...");
+            this.$fetchSync("https://127.0.0.1:9090/team", {
+                method: "POST",
+                headers: { "X-API-Key": "xxxxxxxx" },
+                body: JSON.stringify({
+                    name: value,
+                    type: "T",
+                    parentTeamId: null
+                })
             });
-            this.$logDetailed("Team leaving finished.");
+            this.$logDetailed("Team creation finished.");
             this.$eventBus.$emit("update-teams");
-            this.closeLeaveTeam();
-        },
-        closeLeaveTeam: function() {
             this.$refs[this.name].click();
         }
     }

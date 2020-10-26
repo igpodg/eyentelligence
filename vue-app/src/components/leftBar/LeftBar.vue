@@ -15,18 +15,20 @@
                 <left-bar-heading name="Teams / Organizations"/>
                 <left-bar-dropdown v-for="(th, i) in teams" :key="th"
                                    icon="briefcase" :name="th" url="" :index="i">
-                    <left-bar-static-mini name="Home" url=""/>
+                    <!--<left-bar-static-mini name="Home" url=""/>-->
+                    <left-bar-static-modal name="Home" target="xpRenameModal"/>
                     <left-bar-static-mini name="My Dashboard" :url="'/dashboard/' + i"/>
                     <left-bar-static-mini name="My Dashboard #2" url=""/>
                     <hr>
                     <left-bar-static-mini name="Dashboards..." url=""/>
                     <left-bar-static-mini name="Members..." url=""/>
-                    <left-bar-static-modal name="Leave Team" color="danger"/>
+                    <left-bar-static-modal name="Leave Team" target="xpLeaveModal" color="danger"/>
                 </left-bar-dropdown>
 
                 <left-bar-heading name="Extras"/>
                 <left-bar-static icon="plus" name="Join a Team" url=""/>
-                <left-bar-static icon="people" name="Create a New Team" url=""/>
+                <left-bar-static icon="people" name="Create a New Team" url=""
+                                 data-toggle="modal" data-target="#xpCreateTeamModal"/>
             </ul>
         </div>
     </div>

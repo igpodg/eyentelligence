@@ -1,6 +1,7 @@
 <template>
     <li :class="(name === 'Overview' && this.$route.name === 'Overview') ? 'active' : ''">
-        <router-link :to="url" :class="(name === 'Overview' && this.$route.name === 'Overview') ? 'active' : ''">
+        <router-link :to="url" :class="(name === 'Overview' && this.$route.name === 'Overview') ? 'active' : ''"
+                     :data-toggle="dataToggle" :data-target="dataTarget">
             <i :class="'icon-' + icon"></i><span>{{ name }}</span>
         </router-link>
     </li>
@@ -12,7 +13,9 @@ export default {
     props: {
         icon: String,
         name: String,
-        url: String
+        url: String,
+        dataToggle: String,
+        dataTarget: String
     }
 }
 </script>
