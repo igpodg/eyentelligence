@@ -27,8 +27,7 @@
 
                 <left-bar-heading name="Extras"/>
                 <left-bar-static icon="plus" name="Join a Team" url=""/>
-                <left-bar-static icon="people" name="Create a New Team" url=""
-                                 data-toggle="modal" data-target="#xpCreateTeamModal"/>
+                <left-bar-static icon="people" name="Create a New Team" url="/create"/>
             </ul>
         </div>
     </div>

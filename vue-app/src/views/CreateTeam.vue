@@ -19,7 +19,7 @@
                             <form-dropdown id="createTeamParent"
                                            :items="[]"/>
                         </form-row>
-                        <form-button label="Create" size="5"/>
+                        <form-button label="Create" :size="5"/>
                     </form>
                 </card>
             </div>
@@ -54,12 +54,28 @@ export default {
     methods: {
         formSubmitted: function(event) {
             event.preventDefault();
-            //for (let el of this.$refs.createform.elements) {
-            //    if (el.id === "firstname")
-            //        newData.firstName = el.value;
-            //    else if (el.id === "lastname")
-            //        newData.lastName = el.value;
-            //}
+
+            let toSend = {
+                name: null,
+                type: null,
+                parentTeamId: null
+            };
+            for (let el of this.$refs.createform.elements) {
+                if (el.id === "createTeamName")
+                    toSend.name = el.value;
+                else if (el.id === "createTeamType")
+                    toSend.type = el.value;
+            }
+            this.$logDetailed("Creating a Team ...");
+            this.$fetchSync("https://127.0.0.1:9090/team", {
+                method: "POST",
+                headers: { "X-API-Key": "xxxxxxxx" },
+                body: JSON.stringify(toSend)
+            });
+            this.$logDetailed("Team creation finished.");
+            this.$eventBus.$emit("update-teams");
+            this.$router.push("/");
+
             return false;
         }
     }
