@@ -72,6 +72,9 @@ export default {
                         url: "/"
                     }
                 ];
+            } else if (this.$route.name === "CreateTeam") {
+                hierarchy["title"] = "Create a New Team";
+                hierarchy["path"] = [];
             } else {
                 hierarchy["title"] = this.$route.name;
                 hierarchy["path"] = [];
