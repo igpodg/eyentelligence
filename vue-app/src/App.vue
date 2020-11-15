@@ -72,7 +72,7 @@ export default {
                 hierarchy["path"] = [
                     {
                         title: this.getTeamById(this.$route.params.id).name,
-                        url: "/"
+                        url: "/team/" + this.$route.params.id
                     }
                 ];
             } else if (this.$route.name === "TeamHome") {
