@@ -5,7 +5,6 @@
                           subtitle="Warning: By leaving the team as an Owner,
                             a new Owner will have to be assigned."
                           main-button="Leave Team" cancel-button="Cancel"/>
-        <rename-team-modal/>
         <left-bar :logo="this.$logoPath" url="/" :teams="teams"/>
         <div class="xp-rightbar">
             <top-bar :user="user"/>
@@ -29,7 +28,6 @@ import BottomBar from "@/components/BottomBar.vue";
 import Breadcrumbs from "@/components/Breadcrumbs.vue";
 import SearchModal from "@/components/modals/SearchModal.vue";
 import LeaveTeamModal from "@/components/modals/LeaveTeamModal.vue";
-import RenameTeamModal from "@/components/modals/RenameTeamModal.vue";
 
 export default {
     components: {
@@ -38,8 +36,7 @@ export default {
         BottomBar,
         Breadcrumbs,
         SearchModal,
-        LeaveTeamModal,
-        RenameTeamModal
+        LeaveTeamModal
     },
     data: function() {
         return {
@@ -59,18 +56,28 @@ export default {
             else
                 document.body.classList.remove(secondary);
         },
+        getTeamById: function(id) {
+            // todo: find a better way to do this
+            // todo:   + other parseInts
+            id = parseInt(id);
+            for (let team of this.teams) {
+                if (team.id === id)
+                    return team;
+            }
+            return null;
+        },
         genHierarchy: function() {
             let hierarchy = {};
             if (this.$route.name === "Dashboard") {
                 hierarchy["title"] = "My Dashboard";
                 hierarchy["path"] = [
                     {
-                        title: this.teams[this.$route.params.id],
+                        title: this.getTeamById(this.$route.params.id).name,
                         url: "/"
                     }
                 ];
             } else if (this.$route.name === "TeamHome") {
-                hierarchy["title"] = this.teams[this.$route.params.id];
+                hierarchy["title"] = this.getTeamById(this.$route.params.id).name;
                 hierarchy["path"] = [];
             } else if (this.$route.name === "CreateTeam") {
                 hierarchy["title"] = "Create a New Team";
@@ -87,7 +94,8 @@ export default {
                 headers: { "X-API-Key": "xxxxxxxx" }
             });
             response = JSON.parse(response);
-            this.teams = response.map(x => x.name);
+            //this.teams = response.map(x => x.name);
+            this.teams = response;
             this.$logDetailed("Team listing query finished.");
         },
         downloadUser: function() {

@@ -13,11 +13,10 @@
                 <left-bar-static icon="list" name="Statistics" url=""/>
 
                 <left-bar-heading name="Teams / Organizations"/>
-                <left-bar-dropdown v-for="(th, i) in teams" :key="th"
-                                   icon="briefcase" :name="th" url="" :index="i">
-                    <!--<left-bar-static-mini name="Home" url=""/>-->
-                    <left-bar-static-modal name="Home" target="xpRenameModal"/>
-                    <left-bar-static-mini name="My Dashboard" :url="'/dashboard/' + i"/>
+                <left-bar-dropdown v-for="team in teams" :key="team.id"
+                                   icon="briefcase" :name="team.name" url="" :index="team.id">
+                    <left-bar-static-mini name="Home" :url="'/team/' + team.id"/>
+                    <left-bar-static-mini name="My Dashboard" :url="'/dashboard/' + team.id"/>
                     <left-bar-static-mini name="My Dashboard #2" url=""/>
                     <hr>
                     <left-bar-static-mini name="Dashboards..." url=""/>

@@ -27,23 +27,30 @@
                     </div>
                 </card>
                 <card heading="Team Information" subtitle="View or edit basic
-                    information about the team here." :edit-pressed="edittt">
+                    information about the team here." :edit-clicked="editClicked">
                     <form class="edit-team-body" ref="editform" @submit="formSubmitted">
                         <form-row label="Name" :size="2">
                             <form-input id="createTeamName" is-required
                                         tip="This is a required field.
-                                            It will be displayed across the system."/>
+                                            It will be displayed across the system."
+                                        v-if="editEnabled"/>
+                            <span v-else>test</span>
                         </form-row>
                         <form-row label="Type" :size="2">
                             <form-dropdown id="createTeamType" is-required
                                            :items="[{id: 'A', label: 'B'}]"
-                                           tip="This is a required field."/>
+                                           tip="This is a required field."
+                                           v-if="editEnabled"/>
+                            <span v-else>test</span>
                         </form-row>
                         <form-row label="Location" :size="2">
                             <form-dropdown id="createTeamParent"
-                                           :items="[]"/>
+                                           :items="[]"
+                                           v-if="editEnabled"/>
+                            <span v-else>test</span>
                         </form-row>
-                        <form-two-buttons label1="Cancel" label2="Change" :size="4"/>
+                        <form-two-buttons label1="Cancel" label2="Change" :size="4"
+                                          v-if="editEnabled"/>
                     </form>
                 </card>
             </div>
@@ -75,6 +82,7 @@ export default {
     },
     data: function() {
         return {
+            editEnabled: false,
             stats: [
                 ["First", "5.3 hrs", "+18.68%", "vs in last 7 days",
                     "-34.23%", "vs in last 31 days", "0.67%", "vs in last 365 days"],
@@ -91,11 +99,24 @@ export default {
         formSubmitted: function(event) {
             event.preventDefault();
             this.$logDetailed("submitted");
+            //
             return false;
         },
-        edittt: function() {
-            this.$logDetailed("a");
+        editClicked: function() {
+            this.$logDetailed("edit clicked");
+            this.editEnabled = true;
+            console.log(this.$root.$children[0].getTeamById(this.$route.params.id).name);
+        },
+        editCancelled: function() {
+            console.log("cancelled!");
+            this.editEnabled = false;
         }
+    },
+    mounted: function() {
+        this.$eventBus.$on("edit-cancelled", this.editCancelled);
+    },
+    beforeDestroy: function() {
+        this.$eventBus.$off("edit-cancelled");
     }
 }
 </script>

@@ -2,7 +2,7 @@
     <div class="row">
         <div :class="'col-' + (12-size-size)"></div>
         <div :class="'col-sm-12 col-md-' + size">
-            <button type="submit"
+            <button type="submit" @click="sendCancelled"
                     class="btn btn-outline-secondary btn-rounded btn-lg btn-block">{{ label1 }}</button>
         </div>
         <div :class="'col-sm-12 col-md-' + size">
@@ -19,6 +19,13 @@ export default {
         label1: String,
         label2: String,
         size: Number
+    },
+    methods: {
+        sendCancelled: function(event) {
+            event.preventDefault();
+            this.$eventBus.$emit("edit-cancelled");
+            return false;
+        }
     }
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
     <div :class="'card' + (inner ? ' inner-card' : '')">
         <div class="card-header">
-            <div v-if="editPressed === null">
+            <div v-if="editClicked === null">
                 <h5 class="card-title">{{ heading }}</h5>
                 <h6 class="card-subtitle" v-if="subtitle !== undefined">{{ subtitle }}</h6>
             </div>
@@ -13,7 +13,7 @@
                 <div class="col-3">
                     <div style="float: right;">
                         <button type="button" class="btn btn-rounded btn-outline-primary"
-                                @click="editPressed">
+                                @click="editClicked">
                             <i class="icon-pencil mr-2"></i>&nbsp;Edit
                         </button>
                     </div>
@@ -36,7 +36,7 @@ export default {
             type: Boolean,
             default: false
         },
-        editPressed: {
+        editClicked: {
             type: Function,
             default: null
         }

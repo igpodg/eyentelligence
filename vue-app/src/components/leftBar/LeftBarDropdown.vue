@@ -29,13 +29,13 @@ export default {
     },
     created: function() {
         this.isActive = parseInt(this.$route.params.id) === this.index &&
-            this.$route.name === "Dashboard";
+            (this.$route.name === "TeamHome" || this.$route.name === "Dashboard");
     },
     mounted: function() {
         let that = this;
         this.$eventBus.$on("crumb-updated", function() {
             that.isActive = parseInt(that.$route.params.id) === that.index &&
-                that.$route.name === "Dashboard";
+                (that.$route.name === "TeamHome" || this.$route.name === "Dashboard");
         });
     },
     beforeDestroy: function() {
