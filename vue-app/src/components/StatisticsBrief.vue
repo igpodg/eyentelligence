@@ -41,11 +41,11 @@ $color-statistics: #2b343a;
     color: $color-statistics !important;
 }
 
-@each $size in (12px, 26px) {
-    .font-#{$size} {
-        font-size: $size;
-    }
-}
+//@each $size in (12px, 26px) {
+//    .font-#{$size} {
+//        font-size: $size;
+//    }
+//}
 
 .f-w-7 {
     font-weight: 700;

@@ -15,7 +15,7 @@
                         </div>
                     </card>
                 </card>
-                <card heading="Statistics (general)" subtitle="The brief statistics of usage.
+                <card heading="Statistics — General" subtitle="The brief statistics of usage.
                     For more information, visit the appropriate section.">
                     <statistics-brief :data="statisticsData()"/>
                 </card>

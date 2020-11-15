@@ -6,8 +6,9 @@
                     <form-element label="My Dashboard"/>
                     <form-element label="My Dashboard #2" last/>
                 </card>
-                <card heading="Statistics (general)" subtitle="The brief statistics of usage.
-                    For more information, visit the appropriate section.">
+                <card heading="Statistics — Detailed" subtitle="The detailed usage statistics are shown here.
+                    Determine how well your teamwork is going.">
+                    <statistics-detailed :data="stats"/>
                 </card>
             </div>
             <div class="col-md-12 col-lg-12 col-xl-7">
@@ -37,13 +38,29 @@
 import Card from "@/components/card/Card.vue";
 import ActivityRow from "@/components/ActivityRow.vue";
 import FormElement from "@/components/FormElement.vue";
+import StatisticsDetailed from "@/components/StatisticsDetailed.vue";
 
 export default {
     name: "TeamHome",
     components: {
         Card,
         ActivityRow,
-        FormElement
+        FormElement,
+        StatisticsDetailed
+    },
+    data: function() {
+        return {
+            stats: [
+                ["First", "5.3 hrs", "+18.68%", "vs in last 7 days",
+                    "-34.23%", "vs in last 31 days", "0.67%", "vs in last 365 days"],
+                ["Overall", "6.4 hrs", "+23.54%", "vs in last 7 days",
+                    "+1.34%", "vs in last 31 days", "0.00%", "vs in last 365 days"],
+                ["Last year only", "12.8 hrs", "+5.29%", "vs in last 7 days",
+                    "+0.33%", "vs in last 31 days", "0.00%", "vs in last 365 days"],
+                ["Everything", "23.1 hrs", "+1.53%", "vs in last 7 days",
+                    "0.00%", "vs in last 31 days", "0.00%", "vs in last 365 days"]
+            ]
+        }
     }
 }
 </script>

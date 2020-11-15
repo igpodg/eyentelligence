@@ -24,7 +24,8 @@ export default {
 
 <style scoped lang="scss">
 $color-main-text: #2b343a;
-$color-vertical-line: #adadad;
+$color-icon: #b5b5b5;
+$color-vertical-line: #e5e5e5;
 $color-shadow: #c8c8c8;
 
 .inner-card {
@@ -47,6 +48,7 @@ $color-shadow: #c8c8c8;
                 i {
                     position: relative;
                     top: 30%;
+                    color: $color-icon;
                 }
             }
 
