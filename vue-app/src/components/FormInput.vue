@@ -2,8 +2,9 @@
     <div>
         <label :for="id"></label>
         <input type="text" class="form-control"
-               :name="id" :id="id"
-               :placeholder="placeholder" :required="isRequired">
+               :name="id" :id="id" :ref="id"
+               :placeholder="placeholder" :required="isRequired"
+               :value="value">
         <form-tip :id="id" :tip="tip"/>
     </div>
 </template>
@@ -26,7 +27,8 @@ export default {
         isRequired: {
             type: Boolean,
             default: false
-        }
+        },
+        value: String
     }
 }
 </script>

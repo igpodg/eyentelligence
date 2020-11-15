@@ -1,7 +1,7 @@
 <template>
     <div>
         <label :for="id">Choose a car:</label>
-        <select class="form-control" :id="id" :name="id"
+        <select class="form-control" :id="id" :name="id" ref="select"
                 :required="isRequired">
             <option value="" disabled selected>Choose here</option>
             <option v-for="(item, i) in items"
@@ -26,6 +26,16 @@ export default {
         isRequired: {
             type: Boolean,
             default: false
+        },
+        value: String
+    },
+    mounted: function() {
+        if (this.value === undefined)
+            return;
+
+        for (let el of this.$refs.select) {
+            if (el.value === this.value)
+                el.selected = true;
         }
     }
 }

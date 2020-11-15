@@ -33,21 +33,23 @@
                             <form-input id="createTeamName" is-required
                                         tip="This is a required field.
                                             It will be displayed across the system."
+                                        :value="this.teamName"
                                         v-if="editEnabled"/>
-                            <span v-else>test</span>
+                            <span v-else>{{ this.teamName }}</span>
                         </form-row>
                         <form-row label="Type" :size="2">
                             <form-dropdown id="createTeamType" is-required
-                                           :items="[{id: 'A', label: 'B'}]"
+                                           :items="teamTypes"
                                            tip="This is a required field."
+                                           :value="this.teamType"
                                            v-if="editEnabled"/>
-                            <span v-else>test</span>
+                            <span v-else>{{ this.teamType }}</span>
                         </form-row>
                         <form-row label="Location" :size="2">
                             <form-dropdown id="createTeamParent"
                                            :items="[]"
                                            v-if="editEnabled"/>
-                            <span v-else>test</span>
+                            <span v-else>{{ this.teamParent }}</span>
                         </form-row>
                         <form-two-buttons label1="Cancel" label2="Change" :size="4"
                                           v-if="editEnabled"/>
@@ -82,7 +84,15 @@ export default {
     },
     data: function() {
         return {
+            teamTypes: [
+                {id: "O", label: "Organization"},
+                {id: "T", label: "Regular team"}
+            ],
             editEnabled: false,
+            getTeamById: null,
+            teamName: "",
+            teamType: "",
+            teamParent: null,
             stats: [
                 ["First", "5.3 hrs", "+18.68%", "vs in last 7 days",
                     "-34.23%", "vs in last 31 days", "0.67%", "vs in last 365 days"],
@@ -96,24 +106,53 @@ export default {
         }
     },
     methods: {
+        updateTeamValues: function() {
+            let team = this.getTeamById(this.$route.params.id);
+            this.teamId = parseInt(this.$route.params.id);
+            this.teamName = team.name;
+            this.teamType = team.type;
+            this.teamParent = team.parentTeamId;
+        },
         formSubmitted: function(event) {
             event.preventDefault();
             this.$logDetailed("submitted");
-            //
+            for (let el of this.$refs.editform.elements) {
+                //console.log(el.value);
+                if (el.id === "createTeamName")
+                    this.teamName = el.value;
+                else if (el.id === "createTeamType")
+                    this.teamType = el.value;
+            }
+
+            this.$logDetailed("Renaming a Team ...");
+            this.$fetchSync("https://127.0.0.1:9090/team/" + this.teamId, {
+                method: "PUT",
+                headers: { "X-API-Key": "xxxxxxxx" },
+                body: JSON.stringify({
+                    id: this.teamId,
+                    name: this.teamName,
+                    type: this.teamType,
+                    parentTeamId: this.teamParent
+                })
+            });
+            this.$logDetailed("Team renaming finished.");
+            this.$eventBus.$emit("update-teams");
+            this.editEnabled = false;
             return false;
         },
         editClicked: function() {
             this.$logDetailed("edit clicked");
             this.editEnabled = true;
-            console.log(this.$root.$children[0].getTeamById(this.$route.params.id).name);
         },
         editCancelled: function() {
-            console.log("cancelled!");
+            this.$logDetailed("cancelled!");
             this.editEnabled = false;
         }
     },
     mounted: function() {
         this.$eventBus.$on("edit-cancelled", this.editCancelled);
+        this.getTeamById = this.$root.$children[0].getTeamById;
+        this.updateTeamValues();
     },
     beforeDestroy: function() {
         this.$eventBus.$off("edit-cancelled");
