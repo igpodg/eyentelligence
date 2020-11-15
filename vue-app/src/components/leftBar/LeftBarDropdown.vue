@@ -35,7 +35,7 @@ export default {
         let that = this;
         this.$eventBus.$on("crumb-updated", function() {
             that.isActive = parseInt(that.$route.params.id) === that.index &&
-                (that.$route.name === "TeamHome" || this.$route.name === "Dashboard");
+                (that.$route.name === "TeamHome" || that.$route.name === "Dashboard");
         });
     },
     beforeDestroy: function() {
