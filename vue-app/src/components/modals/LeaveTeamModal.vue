@@ -6,8 +6,8 @@
                     <div class="xp-modalhbar">
                         <form>
                             <h5 class="text-heading">Are you sure you want to leave {{ this.teamName }}?</h5>
-                            <div class="text-subtitle">Warning: By leaving the team as an Owner,
-                                a new Owner will have to be assigned.</div>
+                            <div class="text-danger">Warning: If this Team contains subteams,
+                                all of them will be removed upon leaving!</div>
                             <button type="button" class="btn btn-danger main-button" @click="leaveTeam">Leave Team</button>&nbsp;
                             <button type="button" class="btn btn-light" @click="closeLeaveTeam">Cancel</button>
                         </form>
@@ -85,6 +85,10 @@ form {
 
     .text-subtitle {
         color: $color-subtitle !important;
+        padding-bottom: 80px;
+    }
+
+    .text-danger {
         padding-bottom: 80px;
     }
 }
