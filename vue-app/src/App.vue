@@ -1,10 +1,7 @@
 <template>
     <div id="xp-container" v-if="!isSecondaryRoute()">
         <search-modal caption="GO"/>
-        <leave-team-modal heading="Are you sure you want to leave the team?"
-                          subtitle="Warning: By leaving the team as an Owner,
-                            a new Owner will have to be assigned."
-                          main-button="Leave Team" cancel-button="Cancel"/>
+        <leave-team-modal/>
         <left-bar :logo="this.$logoPath" url="/" :teams="teams"/>
         <div class="xp-rightbar">
             <top-bar :user="user"/>

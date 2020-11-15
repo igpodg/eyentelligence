@@ -1,7 +1,7 @@
 <template>
     <li>
         <a href="#" :class="(color === undefined) ? '' : 'text-' + color"
-           data-toggle="modal" :data-target="'#' + target">
+           data-toggle="modal" :data-target="'#' + target" @click="sendCurrentTeam">
             {{ name }}
         </a>
     </li>
@@ -13,7 +13,14 @@ export default {
     props: {
         name: String,
         color: String,
-        target: String
+        target: String,
+        team: Object
+    },
+    methods: {
+        sendCurrentTeam: function() {
+            if (this.team !== undefined)
+                this.$eventBus.$emit("leftbar-team-selected", this.team);
+        }
     }
 }
 </script>

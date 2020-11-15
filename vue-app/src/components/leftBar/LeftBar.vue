@@ -21,7 +21,8 @@
                     <hr>
                     <left-bar-static-mini name="Dashboards..." url=""/>
                     <left-bar-static-mini name="Members..." url=""/>
-                    <left-bar-static-modal name="Leave Team" target="xpLeaveModal" color="danger"/>
+                    <left-bar-static-modal name="Leave Team" color="danger"
+                                           target="xpLeaveModal" :team="team"/>
                 </left-bar-dropdown>
 
                 <left-bar-heading name="Extras"/>

@@ -5,10 +5,11 @@
                 <div class="modal-body">
                     <div class="xp-modalhbar">
                         <form>
-                            <h5 class="text-heading">{{ heading }}</h5>
-                            <div class="text-subtitle">{{ subtitle }}</div>
-                            <button type="button" class="btn btn-danger main-button" @click="leaveTeam">{{ mainButton }}</button>&nbsp;
-                            <button type="button" class="btn btn-light" @click="closeLeaveTeam">{{ cancelButton }}</button>
+                            <h5 class="text-heading">Are you sure you want to leave {{ this.teamName }}?</h5>
+                            <div class="text-subtitle">Warning: By leaving the team as an Owner,
+                                a new Owner will have to be assigned.</div>
+                            <button type="button" class="btn btn-danger main-button" @click="leaveTeam">Leave Team</button>&nbsp;
+                            <button type="button" class="btn btn-light" @click="closeLeaveTeam">Cancel</button>
                         </form>
                     </div>
                 </div>
@@ -21,22 +22,25 @@
 export default {
     name: "LeaveTeamModal",
     props: {
-        heading: String,
-        subtitle: String,
-        mainButton: String,
-        cancelButton: String,
         name: {
             type: String,
             default: "xpLeaveModal"
         }
     },
+    data: function() {
+        return {
+            teamId: null,
+            teamName: ""
+        }
+    },
     methods: {
+        setTeamIdName: function(team) {
+            this.teamId = team.id;
+            this.teamName = team.name;
+        },
         leaveTeam: function() {
-            //console.log(this.$refs[this.name]);
-            // todo: implement getting the proper team ID
-            let teamId = 0;
-            this.$logDetailed("Leaving Team with ID " + teamId + "...");
-            this.$fetchSync("https://127.0.0.1:9090/team/" + teamId, {
+            this.$logDetailed("Leaving Team with ID " + this.teamId + "...");
+            this.$fetchSync("https://127.0.0.1:9090/team/" + this.teamId, {
                 method: "DELETE",
                 headers: { "X-API-Key": "xxxxxxxx" }
             });
@@ -47,6 +51,14 @@ export default {
         closeLeaveTeam: function() {
             this.$refs[this.name].click();
         }
+    },
+    mounted: function() {
+        //this.getTeamById = this.$root.$children[0].getTeamById;
+        //this.teamName = this.getTeamById(0).name;
+        this.$eventBus.$on("leftbar-team-selected", this.setTeamIdName);
+    },
+    beforeDestroy: function() {
+        this.$eventBus.$off("leftbar-team-selected");
     }
 }
 </script>
