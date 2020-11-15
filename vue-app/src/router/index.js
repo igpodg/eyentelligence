@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Overview from "@/views/Overview.vue";
 import Dashboard from "@/views/Dashboard.vue";
+import TeamHome from "@/views/TeamHome.vue";
 import CreateTeam from "@/views/CreateTeam.vue";
 import Login from "@/views/Login.vue";
 import Invited from "@/views/Invited.vue";
@@ -20,6 +21,11 @@ let routes = [
         path: "/dashboard/:id",
         name: "Dashboard",
         component: Dashboard
+    },
+    {
+        path: "/team/:id",
+        name: "TeamHome",
+        component: TeamHome
     },
     {
         path: "/create",
