@@ -24,18 +24,19 @@ export default {
     },
     data: function() {
         return {
+            activeRoutes: ["TeamHome", "Dashboard", "AllDashboards", "AllMembers"],
             isActive: false
         }
     },
     created: function() {
         this.isActive = parseInt(this.$route.params.id) === this.index &&
-            (this.$route.name === "TeamHome" || this.$route.name === "Dashboard");
+            this.activeRoutes.some(route => this.$route.name === route);
     },
     mounted: function() {
         let that = this;
         this.$eventBus.$on("crumb-updated", function() {
             that.isActive = parseInt(that.$route.params.id) === that.index &&
-                (that.$route.name === "TeamHome" || that.$route.name === "Dashboard");
+                that.activeRoutes.some(route => that.$route.name === route);
         });
     },
     beforeDestroy: function() {

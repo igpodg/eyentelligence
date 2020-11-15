@@ -78,6 +78,9 @@ export default {
             } else if (this.$route.name === "TeamHome") {
                 hierarchy["title"] = this.getTeamById(this.$route.params.id).name;
                 hierarchy["path"] = [];
+            } else if (this.$route.name === "JoinTeam") {
+                hierarchy["title"] = "Join a Team";
+                hierarchy["path"] = [];
             } else if (this.$route.name === "CreateTeam") {
                 hierarchy["title"] = "Create a New Team";
                 hierarchy["path"] = [];

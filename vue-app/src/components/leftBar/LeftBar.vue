@@ -10,24 +10,26 @@
             <ul class="xp-vertical-menu">
                 <left-bar-heading name="Main"/>
                 <left-bar-static icon="doc" name="Overview" url="/"/>
-                <left-bar-static icon="list" name="Statistics" url=""/>
+                <left-bar-static icon="list" name="Statistics" url="/statistics"/>
 
                 <left-bar-heading name="Teams / Organizations"/>
                 <left-bar-dropdown v-for="team in teams" :key="team.id"
                                    icon="briefcase" :name="team.name" url="" :index="team.id">
                     <left-bar-static-mini name="Home" :url="'/team/' + team.id"/>
                     <left-bar-static-mini name="My Dashboard" :url="'/dashboard/' + team.id"/>
-                    <left-bar-static-mini name="My Dashboard #2" url=""/>
+                    <left-bar-static-mini name="My Dashboard #2" :url="'/dashboard/' + team.id"/>
                     <hr>
-                    <left-bar-static-mini name="Dashboards..." url=""/>
-                    <left-bar-static-mini name="Members..." url=""/>
+                    <left-bar-static-mini name="Dashboards..." :url="'/dashboards/' + team.id"/>
+                    <left-bar-static-mini name="Members..." :url="'/members/' + team.id"/>
                     <left-bar-static-modal name="Leave Team" color="danger"
                                            target="xpLeaveModal" :team="team"/>
                 </left-bar-dropdown>
 
                 <left-bar-heading name="Extras"/>
-                <left-bar-static icon="plus" name="Join a Team" url=""/>
-                <left-bar-static icon="people" name="Create a New Team" url="/create"/>
+                <left-bar-static icon="plus" name="Join a Team" url="/join"
+                                 internal-name="JoinTeam"/>
+                <left-bar-static icon="people" name="Create a New Team" url="/create"
+                                 internal-name="CreateTeam"/>
             </ul>
         </div>
     </div>
