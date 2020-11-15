@@ -49,7 +49,7 @@
                             <form-dropdown id="createTeamParent"
                                            :items="[]"
                                            v-if="editEnabled"/>
-                            <span v-else>{{ this.teamParent }}</span>
+                            <span v-else>{{ convertParent(this.teamParent) }}</span>
                         </form-row>
                         <form-two-buttons label1="Cancel" label2="Change" :size="4"
                                           v-if="editEnabled"/>
@@ -119,6 +119,11 @@ export default {
                     return type.label;
             }
             return null;
+        },
+        convertParent: function(id) {
+            //let parentTeam = this.getTeamById(id);
+            //console.log(parentTeam);
+            return `Team (id: ${id})`;
         },
         formSubmitted: function(event) {
             event.preventDefault();

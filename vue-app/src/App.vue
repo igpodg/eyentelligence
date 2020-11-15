@@ -64,6 +64,8 @@ export default {
                 if (team.id === id)
                     return team;
             }
+            // not found
+            this.$router.push("/");
             return null;
         },
         genHierarchy: function() {
