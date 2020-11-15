@@ -20,7 +20,8 @@ export default {
 
 <style scoped lang="scss">
 .row {
-    padding-top: 30px;
+    padding-top: 20px;
+    padding-bottom: 5px;
 }
 
 </style>

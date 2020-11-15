@@ -1,10 +1,25 @@
 <template>
     <div :class="'card' + (inner ? ' inner-card' : '')">
         <div class="card-header">
-            <h5 class="card-title">{{ heading }}</h5>
-            <h6 class="card-subtitle" v-if="subtitle !== undefined">{{ subtitle }}</h6>
+            <div v-if="editPressed === null">
+                <h5 class="card-title">{{ heading }}</h5>
+                <h6 class="card-subtitle" v-if="subtitle !== undefined">{{ subtitle }}</h6>
+            </div>
+            <div class="row" v-else>
+                <div class="col-9">
+                    <h5 class="card-title">{{ heading }}</h5>
+                    <h6 class="card-subtitle" v-if="subtitle !== undefined">{{ subtitle }}</h6>
+                </div>
+                <div class="col-3">
+                    <div style="float: right;">
+                        <button type="button" class="btn btn-rounded btn-outline-primary"
+                                @click="editPressed">
+                            <i class="icon-pencil mr-2"></i>&nbsp;Edit
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
-
         <div class="card-body">
             <slot></slot>
         </div>
@@ -20,6 +35,10 @@ export default {
         inner: {
             type: Boolean,
             default: false
+        },
+        editPressed: {
+            type: Function,
+            default: null
         }
     }
 }

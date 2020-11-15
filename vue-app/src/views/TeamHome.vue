@@ -26,8 +26,25 @@
                                       tip="Resized tile &quot;Monthly Sales&quot;" time="Thu, 16:26"/>
                     </div>
                 </card>
-                <card heading="Statistics (general)" subtitle="The brief statistics of usage.
-                    For more information, visit the appropriate section.">
+                <card heading="Team Information" subtitle="View or edit basic
+                    information about the team here." :edit-pressed="edittt">
+                    <form class="edit-team-body" ref="editform" @submit="formSubmitted">
+                        <form-row label="Name" :size="2">
+                            <form-input id="createTeamName" is-required
+                                        tip="This is a required field.
+                                            It will be displayed across the system."/>
+                        </form-row>
+                        <form-row label="Type" :size="2">
+                            <form-dropdown id="createTeamType" is-required
+                                           :items="[{id: 'A', label: 'B'}]"
+                                           tip="This is a required field."/>
+                        </form-row>
+                        <form-row label="Location" :size="2">
+                            <form-dropdown id="createTeamParent"
+                                           :items="[]"/>
+                        </form-row>
+                        <form-two-buttons label1="Cancel" label2="Change" :size="4"/>
+                    </form>
                 </card>
             </div>
         </div>
@@ -37,16 +54,24 @@
 <script>
 import Card from "@/components/card/Card.vue";
 import ActivityRow from "@/components/ActivityRow.vue";
-import FormElement from "@/components/FormElement.vue";
 import StatisticsDetailed from "@/components/StatisticsDetailed.vue";
+import FormElement from "@/components/FormElement.vue";
+import FormRow from "@/components/FormRow.vue";
+import FormInput from "@/components/FormInput.vue";
+import FormDropdown from "@/components/FormDropdown.vue";
+import FormTwoButtons from "@/components/FormTwoButtons.vue";
 
 export default {
     name: "TeamHome",
     components: {
         Card,
         ActivityRow,
+        StatisticsDetailed,
         FormElement,
-        StatisticsDetailed
+        FormRow,
+        FormInput,
+        FormDropdown,
+        FormTwoButtons
     },
     data: function() {
         return {
@@ -61,10 +86,23 @@ export default {
                     "0.00%", "vs in last 31 days", "0.00%", "vs in last 365 days"]
             ]
         }
+    },
+    methods: {
+        formSubmitted: function(event) {
+            event.preventDefault();
+            this.$logDetailed("submitted");
+            return false;
+        },
+        edittt: function() {
+            this.$logDetailed("a");
+        }
     }
 }
 </script>
 
 <style scoped lang="scss">
+.edit-team-body {
+    padding-left: 15px;
+}
 
 </style>

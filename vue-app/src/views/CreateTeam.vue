@@ -83,5 +83,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.create-team-body {
+}
 
 </style>
