@@ -29,7 +29,7 @@
                 <card heading="Team Information" subtitle="View or edit basic
                     information about the team here." :edit-clicked="editClicked">
                     <form class="edit-team-body" ref="editform" @submit="formSubmitted">
-                        <form-row label="Name" :size="2">
+                        <form-row label="Name" :size="2" :centered="!editEnabled">
                             <form-input id="createTeamName" is-required
                                         tip="This is a required field.
                                             It will be displayed across the system."
@@ -37,15 +37,15 @@
                                         v-if="editEnabled"/>
                             <span v-else>{{ this.teamName }}</span>
                         </form-row>
-                        <form-row label="Type" :size="2">
+                        <form-row label="Type" :size="2" :centered="!editEnabled">
                             <form-dropdown id="createTeamType" is-required
                                            :items="teamTypes"
                                            tip="This is a required field."
                                            :value="this.teamType"
                                            v-if="editEnabled"/>
-                            <span v-else>{{ this.teamType }}</span>
+                            <span v-else>{{ convertTeamType(this.teamType) }}</span>
                         </form-row>
-                        <form-row label="Location" :size="2">
+                        <form-row label="Location" :size="2" :centered="!editEnabled">
                             <form-dropdown id="createTeamParent"
                                            :items="[]"
                                            v-if="editEnabled"/>
@@ -112,6 +112,13 @@ export default {
             this.teamName = team.name;
             this.teamType = team.type;
             this.teamParent = team.parentTeamId;
+        },
+        convertTeamType: function(id) {
+            for (let type of this.teamTypes) {
+                if (type.id === id)
+                    return type.label;
+            }
+            return null;
         },
         formSubmitted: function(event) {
             event.preventDefault();

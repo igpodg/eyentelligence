@@ -3,7 +3,7 @@
         <div :class="'col-sm-12 col-md-' + size">
             <span class="form-control-plaintext">{{ label }}:</span>
         </div>
-        <div :class="'col-' + (12-size)">
+        <div :class="'col-' + (12-size) + (centered ? ' centered' : '')">
             <slot></slot>
         </div>
     </div>
@@ -14,7 +14,11 @@ export default {
     name: "FormRow",
     props: {
         label: String,
-        size: Number
+        size: Number,
+        centered: {
+            type: Boolean,
+            default: false
+        }
     }
 }
 </script>
@@ -25,6 +29,11 @@ export default {
 
     >div:first-child {
         padding-right: 0;
+    }
+
+    .centered {
+        display: flex;
+        align-items: center;
     }
 }
 
