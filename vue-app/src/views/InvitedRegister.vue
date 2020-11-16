@@ -17,7 +17,7 @@
             <secondary-input :cols="4" id="firstname" name="First name" is-required/>
             <secondary-input :cols="5" id="lastname" name="Last name" is-required/>
         </div>
-        <secondary-button color="success" name="Done"/>
+        <secondary-button color="success" name="Begin the work!"/>
     </secondary-form>
 </template>
 

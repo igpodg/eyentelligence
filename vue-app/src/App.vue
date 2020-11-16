@@ -37,7 +37,7 @@ export default {
     },
     data: function() {
         return {
-            secondaryRoutes: ["Login", "Invited", "Register"],
+            secondaryRoutes: ["Login", "Recover", "Invited", "Register"],
             crumbKey: false,
             teams: [],
             user: {}
