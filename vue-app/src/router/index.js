@@ -66,7 +66,7 @@ let routes = [
         component: Recover
     },
     {
-        path: "/invited",
+        path: "/invited/:token",
         name: "Invited",
         component: InvitedRegister
     },
