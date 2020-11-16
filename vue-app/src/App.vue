@@ -1,7 +1,7 @@
 <template>
     <div id="xp-container" v-if="!isSecondaryRoute()">
         <search-modal caption="GO"/>
-        <leave-team-modal/>
+        <leave-team-modal is-owner/>
         <left-bar :logo="this.$logoPath" url="/" :teams="teams"/>
         <div class="xp-rightbar">
             <top-bar :user="user"/>

@@ -8,11 +8,17 @@
                             <h5 class="text-heading">Are you sure you want to leave {{ this.teamName }}?</h5>
                             <div class="text-danger">Warning: If this Team contains subteams,
                                 all of them will be removed upon leaving as a last member!</div>
-                            <div class="inner-buttons">
-                                <form ref="leaveform" @submit="leaveTeamSubmitted">
+                            <div class="inner-controls">
+                                <form ref="leaveform" @submit="leaveTeamSubmitted" :class="!isOwner ? 'extra-padding' : ''">
+                                    <form-row label="New owner" :size="3" v-if="isOwner">
+                                        <form-dropdown id="createTeamType" is-required
+                                                       :items="newOwnersTemp"
+                                                       :key="selectKey"
+                                                       tip="This is a required field."/>
+                                    </form-row>
                                     <button type="submit" class="btn btn-danger main-button">Leave Team</button>
+                                    <button type="button" class="btn btn-light" @click="closeLeaveTeam">Cancel</button>
                                 </form>
-                                <button type="button" class="btn btn-light" @click="closeLeaveTeam">Cancel</button>
                             </div>
                         </div>
                     </div>
@@ -23,24 +29,42 @@
 </template>
 
 <script>
+import FormRow from "@/components/FormRow.vue";
+import FormDropdown from "@/components/FormDropdown.vue";
+
 export default {
     name: "LeaveTeamModal",
+    components: {
+        FormRow,
+        FormDropdown,
+    },
     props: {
         name: {
             type: String,
             default: "xpLeaveModal"
+        },
+        isOwner: {
+            type: Boolean,
+            default: false
         }
     },
     data: function() {
         return {
+            newOwnersTemp: [
+                {id: "0", label: "John Johnson"},
+                {id: "1", label: "Emily Watson"},
+                {id: "2", label: "Mike Anders"}
+            ],
             teamId: null,
-            teamName: ""
+            teamName: "",
+            selectKey: false
         }
     },
     methods: {
-        setTeamIdName: function(team) {
+        refreshModal: function(team) {
             this.teamId = team.id;
             this.teamName = team.name;
+            this.selectKey = !this.selectKey;
         },
         leaveTeamSubmitted: function(event) {
             event.preventDefault();
@@ -63,7 +87,7 @@ export default {
     mounted: function() {
         //this.getTeamById = this.$root.$children[0].getTeamById;
         //this.teamName = this.getTeamById(0).name;
-        this.$eventBus.$on("leftbar-team-selected", this.setTeamIdName);
+        this.$eventBus.$on("leftbar-team-selected", this.refreshModal);
     },
     beforeDestroy: function() {
         this.$eventBus.$off("leftbar-team-selected");
@@ -93,24 +117,25 @@ $color-subtitle: #fac751;
 
     .text-subtitle {
         color: $color-subtitle !important;
-        padding-bottom: 80px;
     }
 
-    .text-danger {
-        padding-bottom: 80px;
+    .extra-padding {
+        padding-top: 80px;
     }
 
-    .inner-buttons {
-        display: flex;
+    .row {
+        //background-color: gray;
+        padding-top: 30px;
+        padding-bottom: 50px;
+    }
 
-        >form:first-child {
-            padding-right: 5px;
+    .inner-controls {
+        //padding-top: 80px;
+
+        .main-button {
+            margin-right: 20px;
         }
     }
-}
-
-.main-button {
-    margin-right: 15px;
 }
 
 $color-button-danger: #ff4b5b;
