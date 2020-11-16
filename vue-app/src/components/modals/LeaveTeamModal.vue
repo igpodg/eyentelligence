@@ -4,13 +4,17 @@
             <div class="modal-content">
                 <div class="modal-body">
                     <div class="xp-modalhbar">
-                        <form>
+                        <div class="modal-content-inner">
                             <h5 class="text-heading">Are you sure you want to leave {{ this.teamName }}?</h5>
                             <div class="text-danger">Warning: If this Team contains subteams,
                                 all of them will be removed upon leaving as a last member!</div>
-                            <button type="button" class="btn btn-danger main-button" @click="leaveTeam">Leave Team</button>&nbsp;
-                            <button type="button" class="btn btn-light" @click="closeLeaveTeam">Cancel</button>
-                        </form>
+                            <div class="inner-buttons">
+                                <form ref="leaveform" @submit="leaveTeamSubmitted">
+                                    <button type="submit" class="btn btn-danger main-button">Leave Team</button>
+                                </form>
+                                <button type="button" class="btn btn-light" @click="closeLeaveTeam">Cancel</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -38,7 +42,9 @@ export default {
             this.teamId = team.id;
             this.teamName = team.name;
         },
-        leaveTeam: function() {
+        leaveTeamSubmitted: function(event) {
+            event.preventDefault();
+
             this.$logDetailed("Leaving Team with ID " + this.teamId + "...");
             this.$fetchSync("https://127.0.0.1:9090/team/" + this.teamId, {
                 method: "DELETE",
@@ -47,6 +53,8 @@ export default {
             this.$logDetailed("Team leaving finished.");
             this.$eventBus.$emit("update-teams");
             this.closeLeaveTeam();
+
+            return false;
         },
         closeLeaveTeam: function() {
             this.$refs[this.name].click();
@@ -77,7 +85,7 @@ $color-white: #ffffff;
 $color-heading: #2b343a;
 $color-subtitle: #fac751;
 
-form {
+.modal-content-inner {
     .text-heading {
         color: $color-heading !important;
         padding-bottom: 15px;
@@ -90,6 +98,14 @@ form {
 
     .text-danger {
         padding-bottom: 80px;
+    }
+
+    .inner-buttons {
+        display: flex;
+
+        >form:first-child {
+            padding-right: 5px;
+        }
     }
 }
 
