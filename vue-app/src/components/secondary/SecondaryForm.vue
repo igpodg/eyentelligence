@@ -61,6 +61,9 @@ export default {
                 this.$logDetailed("User info update finished.");
                 this.$setSession("SESSION_0_SESSION"); // for demo purposes
                 this.$router.push("/");
+            } else if (this.$route.name === "Login") {
+                this.$setSession("SESSION_0_SESSION"); // for demo purposes
+                this.$router.push("/");
             }
             return false;
         }
