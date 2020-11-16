@@ -100,6 +100,10 @@ export default {
             //this.teams = response.map(x => x.name);
             this.teams = response;
             this.$logDetailed("Team listing query finished.");
+
+            // todo: maybe there's a better way
+            // send to other components
+            this.$eventBus.$emit("update-teams-overview");
         },
         downloadUser: function() {
             this.$logDetailed("Querying the user info...");
