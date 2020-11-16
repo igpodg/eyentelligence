@@ -7,7 +7,7 @@
                         <form>
                             <h5 class="text-heading">Are you sure you want to leave {{ this.teamName }}?</h5>
                             <div class="text-danger">Warning: If this Team contains subteams,
-                                all of them will be removed upon leaving!</div>
+                                all of them will be removed upon leaving as a last member!</div>
                             <button type="button" class="btn btn-danger main-button" @click="leaveTeam">Leave Team</button>&nbsp;
                             <button type="button" class="btn btn-light" @click="closeLeaveTeam">Cancel</button>
                         </form>
