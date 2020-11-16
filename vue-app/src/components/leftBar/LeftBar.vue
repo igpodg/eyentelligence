@@ -22,7 +22,8 @@
                     <left-bar-static-mini name="Dashboards..." :url="'/dashboards/' + team.id"/>
                     <left-bar-static-mini name="Members..." :url="'/members/' + team.id"/>
                     <left-bar-static-modal name="Leave Team" color="danger"
-                                           target="xpLeaveModal" :team="team"/>
+                                           target="xpLeaveModal" :team="team"
+                                           :owner="team.id % 2 !== 0"/><!-- demo purposes -->
                 </left-bar-dropdown>
 
                 <left-bar-heading name="Extras"/>

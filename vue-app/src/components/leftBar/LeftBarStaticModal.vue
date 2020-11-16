@@ -14,12 +14,16 @@ export default {
         name: String,
         color: String,
         target: String,
-        team: Object
+        team: Object,
+        owner: {
+            type: Boolean,
+            default: false
+        }
     },
     methods: {
         sendCurrentTeam: function() {
             if (this.team !== undefined)
-                this.$eventBus.$emit("leftbar-team-selected", this.team);
+                this.$eventBus.$emit("leftbar-team-selected", this.team, this.owner);
         }
     }
 }

@@ -42,10 +42,6 @@ export default {
         name: {
             type: String,
             default: "xpLeaveModal"
-        },
-        isOwner: {
-            type: Boolean,
-            default: false
         }
     },
     data: function() {
@@ -57,13 +53,16 @@ export default {
             ],
             teamId: null,
             teamName: "",
+            isOwner: false,
             selectKey: false
         }
     },
     methods: {
-        refreshModal: function(team) {
+        refreshModal: function(team, isOwner) {
             this.teamId = team.id;
             this.teamName = team.name;
+            this.isOwner = isOwner;
+
             this.selectKey = !this.selectKey;
         },
         leaveTeamSubmitted: function(event) {
@@ -124,7 +123,6 @@ $color-subtitle: #fac751;
     }
 
     .row {
-        //background-color: gray;
         padding-top: 30px;
         padding-bottom: 50px;
     }
