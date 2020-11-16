@@ -35,6 +35,15 @@ Vue.prototype.$fetchSync = function(url, options= {}) {
 
     return null;
 };
+Vue.prototype.$getSession = function() {
+    return window.localStorage.getItem("eyentelligenceSession");
+}
+Vue.prototype.$setSession = function(session) {
+    window.localStorage.setItem("eyentelligenceSession", session);
+}
+Vue.prototype.$removeSession = function() {
+    window.localStorage.removeItem("eyentelligenceSession");
+}
 
 new Vue({
     router,

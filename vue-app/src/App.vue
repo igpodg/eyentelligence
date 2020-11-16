@@ -37,6 +37,7 @@ export default {
     },
     data: function() {
         return {
+            secondaryRoutes: ["Login", "Invited", "Register"],
             crumbKey: false,
             teams: [],
             user: {}
@@ -44,7 +45,7 @@ export default {
     },
     methods: {
         isSecondaryRoute: function() {
-            return ["Login", "Invited"].includes(this.$route.name);
+            return this.secondaryRoutes.includes(this.$route.name);
         },
         switchBodyColor: function() {
             let secondary = "secondary";

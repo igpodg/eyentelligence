@@ -2,7 +2,7 @@
     <div :class="'form-group' + ((cols !== undefined) ? ' col-' + cols : '')">
         <label :for="id"></label>
         <input :type="type" class="form-control" :id="id"
-               :placeholder="name" :required="required ? 'required' : ''">
+               :placeholder="name" :required="isRequired">
     </div>
 </template>
 
@@ -17,7 +17,7 @@ export default {
             type: String,
             default: "text"
         },
-        required: {
+        isRequired: {
             type: Boolean,
             default: false
         }

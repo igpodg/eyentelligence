@@ -9,7 +9,7 @@ import AllMembers from "@/views/AllMembers.vue";
 import JoinTeam from "@/views/JoinTeam.vue";
 import CreateTeam from "@/views/CreateTeam.vue";
 import Login from "@/views/Login.vue";
-import Invited from "@/views/Invited.vue";
+import InvitedRegister from "@/views/InvitedRegister.vue";
 
 Vue.use(VueRouter);
 
@@ -62,7 +62,12 @@ let routes = [
     {
         path: "/invited",
         name: "Invited",
-        component: Invited
+        component: InvitedRegister
+    },
+    {
+        path: "/register",
+        name: "Register",
+        component: InvitedRegister
     }
 ];
 

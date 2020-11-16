@@ -13,7 +13,7 @@
         <secondary-input id="password" name="Password" type="password" is-required/>
         <div class="form-row">
             <secondary-dropdown :cols="3" id="title" name="Title"
-                                :data="['Mr.', 'Mrs.', 'Ms.', 'Dr.']"/>
+                                :data="titles"/>
             <secondary-input :cols="4" id="firstname" name="First name" is-required/>
             <secondary-input :cols="5" id="lastname" name="Last name" is-required/>
         </div>
@@ -30,7 +30,7 @@ import SecondaryInput from "@/components/secondary/SecondaryInput.vue";
 import SecondaryButton from "@/components/secondary/SecondaryButton.vue";
 
 export default {
-    name: "Invited",
+    name: "InvitedRegister",
     components: {
         SecondaryForm,
         SecondaryMainText,
@@ -41,6 +41,7 @@ export default {
     },
     data: function() {
         return {
+            titles: ["Mr.", "Mrs.", "Ms.", "Dr."],
             availableTeams: [],
             isRegister: false,
             invitedTitle: "You've been invited to Eyentelligence!",
@@ -50,7 +51,11 @@ export default {
     created: function() {
         this.availableTeams = this.$root.$children[0]
             .teams.map(team => team.name);
-        this.isRegister = this.$route.name === "Register";
+    },
+    beforeRouteEnter: function(to, from, next) {
+        next(function(that) {
+            that.isRegister = that.$route.name === "Register";
+        });
     }
 }
 </script>
