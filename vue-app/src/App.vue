@@ -109,6 +109,11 @@ export default {
             response = JSON.parse(response);
             this.user = response;
             this.$logDetailed("User info query finished.");
+        },
+        checkSession: function() {
+            this.$logDetailed("checking session...");
+            if (this.$getSession() === null)
+                this.$router.replace("/register");
         }
     },
     created: function() {
@@ -129,7 +134,14 @@ export default {
             this.switchBodyColor();
         }
     },
+    beforeMount: function() {
+        if (!this.isSecondaryRoute())
+            this.checkSession();
+    },
     beforeUpdate: function() {
+        if (!this.isSecondaryRoute())
+            this.checkSession();
+
         //this.$refs.crumb.$forceUpdate();
         this.crumbKey = !this.crumbKey;
         this.$eventBus.$emit("crumb-updated");

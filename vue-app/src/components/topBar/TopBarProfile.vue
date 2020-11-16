@@ -16,7 +16,7 @@
                 <popup-mini-item color="success" icon="envelope" title="Got Invited" url="/invited"/>
                 <popup-mini-item color="success" icon="note" title="Register" url="/register"/>
                 <popup-mini-item color="primary" icon="key" title="Log In" url="/login"/>
-                <popup-mini-item color="danger" icon="power" title="Log Out" url="/login"/>
+                <popup-mini-item color="danger" icon="power" title="Log Out" url="/logout"/>
             </popup-mini>
         </div>
     </li>

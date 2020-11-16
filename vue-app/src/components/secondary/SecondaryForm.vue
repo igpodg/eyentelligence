@@ -4,9 +4,9 @@
             <div class="col-lg-12">
                 <div class="xp-auth-box">
                     <h3 class="text-center">
-                        <router-link to="/" class="xp-web-logo">
+                        <div class="xp-web-logo">
                             <img :src="this.$logoPath" alt="Logo">
-                        </router-link>
+                        </div>
                     </h3>
                     <div class="p-3">
                         <form @submit="formSubmitted" ref="secform">
@@ -40,7 +40,7 @@ export default {
     methods: {
         formSubmitted: function(event) {
             event.preventDefault();
-            if (this.$route.name === "Invited") {
+            if (["Invited", "Register"].includes(this.$route.name)) {
                 let newData = {
                     "firstName": null,
                     "middleName": null,
@@ -59,6 +59,7 @@ export default {
                     body: JSON.stringify(newData)
                 });
                 this.$logDetailed("User info update finished.");
+                this.$setSession("SESSION_0_SESSION"); // for demo purposes
                 this.$router.push("/");
             }
             return false;

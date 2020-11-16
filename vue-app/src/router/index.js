@@ -75,4 +75,12 @@ let router = new VueRouter({
     routes
 });
 
+// eslint-disable-next-line no-unused-vars
+router.afterEach(function(to, from) {
+    if (to.path === "/logout") {
+        Vue.prototype.$removeSession();
+        router.replace("/");
+    }
+});
+
 export default router;
