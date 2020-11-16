@@ -283,6 +283,16 @@ var user = {
 };
 
 app.get("/user", (req, res, next) => {
+	res.json([{...{id: 0}, ...user}]);
+});
+
+app.get("/user/:id", (req, res, next) => {
+	let id = parseInt(req.params.id);
+	if (id !== 0) {
+		next();
+		return;
+	}
+
 	res.json(user);
 });
 
@@ -307,7 +317,7 @@ app.post("/user", (req, res, next) => {
 	user.firstName = req.body.firstName;
 	user.middleName = req.body.middleName;
 	user.lastName = req.body.lastName;
-	res.setHeader("Location", "/user");
+	res.setHeader("Location", "/user/" + 0);
 	res.status(201).json(user);
 });
 
