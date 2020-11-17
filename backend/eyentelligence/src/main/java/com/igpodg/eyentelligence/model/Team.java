@@ -8,6 +8,7 @@ import javax.persistence.*;
 @Data
 @Table(name = "`Team`")
 public class Team {
+    public Team() {}
     public Team(String name, String type, Integer parentTeamId) {
         this.name = name;
         this.type = type;
