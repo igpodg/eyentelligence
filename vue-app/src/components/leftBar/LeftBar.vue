@@ -23,7 +23,7 @@
                     <left-bar-static-mini name="Members..." :url="'/members/' + team.id"/>
                     <left-bar-static-modal name="Leave Team" color="danger"
                                            target="xpLeaveModal" :team="team"
-                                           :owner="team.id % 2 !== 0"/><!-- demo purposes -->
+                                           :owner="team.id % 2 === 0"/><!-- demo purposes -->
                 </left-bar-dropdown>
 
                 <left-bar-heading name="Extras"/>

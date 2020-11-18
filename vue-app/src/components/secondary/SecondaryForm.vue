@@ -59,10 +59,10 @@ export default {
                     body: JSON.stringify(newData)
                 });
                 this.$logDetailed("User info update finished.");
-                this.$setSession("SESSION_0_SESSION"); // for demo purposes
+                this.$setSession("SESSION_1_SESSION"); // for demo purposes
                 this.$router.push("/");
             } else if (this.$route.name === "Login") {
-                this.$setSession("SESSION_0_SESSION"); // for demo purposes
+                this.$setSession("SESSION_1_SESSION"); // for demo purposes
                 this.$router.push("/");
             }
             return false;

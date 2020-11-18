@@ -304,12 +304,12 @@ var user = {
 };
 
 app.get("/user", (req, res, next) => {
-	res.json([{...{id: 0}, ...user}]);
+	res.json([{...{id: 1}, ...user}]);
 });
 
 app.get("/user/:id", (req, res, next) => {
 	let id = parseInt(req.params.id);
-	if (id !== 0) {
+	if (id !== 1) {
 		next();
 		return;
 	}
@@ -338,7 +338,7 @@ app.post("/user", (req, res, next) => {
 	user.firstName = req.body.firstName;
 	user.middleName = req.body.middleName;
 	user.lastName = req.body.lastName;
-	res.setHeader("Location", "/user/" + 0);
+	res.setHeader("Location", "/user/" + 1);
 	res.status(201).json(user);
 });
 

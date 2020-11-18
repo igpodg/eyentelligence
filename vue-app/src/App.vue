@@ -107,7 +107,7 @@ export default {
         },
         downloadUser: function() {
             this.$logDetailed("Querying the user info...");
-            let userId = 0; // todo: get this from the token
+            let userId = 1; // todo: get this from the token
             let response = this.$fetchSync("https://127.0.0.1:9090/user/" + userId, {
                 headers: { "X-API-Key": "xxxxxxxx" }
             });
