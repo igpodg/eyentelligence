@@ -126,8 +126,11 @@ var teams = [
 	}
 ];
 
-for (let i = 0; i < teams.length; i++)
-	teams[i] = {...{"id": i}, ...teams[i]};
+for (let i = 0; i < teams.length; i++) {
+	teams[i] = {...{"id": i+1}, ...teams[i]};
+	if (teams[i]["parentTeamId"] !== null)
+		teams[i]["parentTeamId"]++;
+}
 
 var user = {
 	"firstName": "Anderea",
@@ -141,8 +144,18 @@ function isString(obj) {
 }
 
 function isValidExistingTeamId(id) {
-	return !isNaN(id) && id < teams.length && id >= 0 &&
-		teams[id] !== null;
+	if (id === null)
+		return true;
+
+	if (isNaN(id))
+		return false;
+
+	for (let i = 0; i < teams.length; i++) {
+		if (teams[i] !== null && teams[i].id === id)
+			return true;
+	}
+
+	return false;
 }
 
 function getTeamById(id, reference=false) {
@@ -158,11 +171,19 @@ function getTeamById(id, reference=false) {
 	return null;
 }
 
+function getNewTeamId() {
+	for (let i = (teams.length-1); i >= 0; i--) {
+		if (teams[i] !== null)
+			return teams[i].id+1;
+	}
+	return 1;
+}
+
 // ----------------------------------------------
 
 app.get("/team", (req, res, next) => {
 	//res.json(teams.filter(x => x !== null).map(({id, ...x}) => x));
-	res.json(teams.filter(x => x !== null));
+	res.json(teams.filter(team => team !== null));
 });
 
 app.get("/team/:id", (req, res, next) => {
@@ -188,7 +209,7 @@ app.post("/team", (req, res, next) => {
 	if (!("parentTeamId" in req.body))
 		req.body.parentTeamId = null;
 
-	let newId = teams.length;
+	let newId = getNewTeamId();
 	let toPush = {
 		"id": newId,
 		"name": req.body.name,
