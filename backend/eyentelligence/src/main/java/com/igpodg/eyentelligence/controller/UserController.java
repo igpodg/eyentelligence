@@ -26,8 +26,8 @@ public class UserController {
         return this.userService.getUserById(id);
     }
 
-    @PostMapping(value = "/user")
     @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/user")
     public User addUser(@RequestBody User user, HttpServletResponse response) {
         user.setUsername("user");
         user.setPasswordHash("useruseruser");
