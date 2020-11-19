@@ -20,4 +20,10 @@ public class TeamService {
     public Team getTeamById(Integer id) {
         return this.teamRepository.findById(id).orElseThrow(EyenNotFoundException::new);
     }
+
+    public Team saveTeam(Team team) {
+        Team newTeam = this.teamRepository.save(team);
+        this.teamRepository.refresh(newTeam);
+        return newTeam;
+    }
 }
