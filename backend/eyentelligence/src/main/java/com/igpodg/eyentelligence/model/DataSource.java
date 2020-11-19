@@ -22,7 +22,7 @@ public class DataSource {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(columnDefinition = "CHAR(1)", nullable = false)
+    @Column(columnDefinition = "char(1)", nullable = false)
     private String type;
 
     @Column(nullable = false)

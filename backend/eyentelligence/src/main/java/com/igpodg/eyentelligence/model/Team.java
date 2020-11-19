@@ -1,6 +1,8 @@
 package com.igpodg.eyentelligence.model;
 
 import lombok.Data;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -8,10 +10,10 @@ import javax.persistence.*;
 @Data
 public class Team {
     public Team() {}
-    public Team(String name, String type, Integer parentTeamId) {
+    public Team(String name, String type, Team parentTeam) {
         this.name = name;
         this.type = type;
-        this.parentTeamId = parentTeamId;
+        this.parentTeam = parentTeam;
     }
 
     @Id
@@ -21,8 +23,11 @@ public class Team {
     @Column(nullable = false)
     private String name;
 
-    @Column(columnDefinition = "CHAR(1)", nullable = false)
+    @Column(columnDefinition = "char(1)", nullable = false)
     private String type;
 
-    private Integer parentTeamId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "parentTeamId")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Team parentTeam;
 }

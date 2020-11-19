@@ -12,10 +12,10 @@ import javax.persistence.*;
 @TypeDef(name = "jsonb", typeClass = JsonBinaryType.class)
 public class DashboardFilter {
     public DashboardFilter() {}
-    public DashboardFilter(Short priority, String name, Integer dashboardId, Object settings) {
+    public DashboardFilter(Short priority, String name, Dashboard dashboard, Object settings) {
         this.priority = priority;
         this.name = name;
-        this.dashboardId = dashboardId;
+        this.dashboard = dashboard;
         this.settings = settings;
     }
 
@@ -29,8 +29,9 @@ public class DashboardFilter {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
-    private Integer dashboardId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "dashboardId", nullable = false)
+    private Dashboard dashboard;
 
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb", nullable = false)

@@ -40,7 +40,7 @@ public class User_Team {
     @Id
     private PK_User_Team id;
 
-    @Column(columnDefinition = "CHAR(1)", nullable = false)
+    @Column(columnDefinition = "char(1)", nullable = false)
     private String role;
 
     @Column(length = 5)

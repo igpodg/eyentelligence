@@ -9,11 +9,11 @@ import java.util.Date;
 @Data
 public class Invitation {
     public Invitation() {}
-    public Invitation(Integer creatorUserId, Integer targetTeamId,
+    public Invitation(User creatorUser, Team targetTeam,
                       Date createdDateTime, Date expirationDateTime)
     {
-        this.creatorUserId = creatorUserId;
-        this.targetTeamId = targetTeamId;
+        this.creatorUser = creatorUser;
+        this.targetTeam = targetTeam;
         this.createdDateTime = createdDateTime;
         this.expirationDateTime = expirationDateTime;
     }
@@ -22,11 +22,13 @@ public class Invitation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false)
-    private Integer creatorUserId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "creatorUserId", nullable = false)
+    private User creatorUser;
 
-    @Column(nullable = false)
-    private Integer targetTeamId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "targetTeamId", nullable = false)
+    private Team targetTeam;
 
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)

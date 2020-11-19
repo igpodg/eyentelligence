@@ -8,23 +8,24 @@ import javax.persistence.*;
 @Data
 public class Tile {
     public Tile() {}
-    public Tile(Integer dashboardId, Short width, Short height,
-                Short positionX, Short positionY, Integer visualizationId)
+    public Tile(Dashboard dashboard, Short width, Short height,
+                Short positionX, Short positionY, Visualization visualization)
     {
-        this.dashboardId = dashboardId;
+        this.dashboard = dashboard;
         this.width = width;
         this.height = height;
         this.positionX = positionX;
         this.positionY = positionY;
-        this.visualizationId = visualizationId;
+        this.visualization = visualization;
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false)
-    private Integer dashboardId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "dashboardId", nullable = false)
+    private Dashboard dashboard;
 
     @Column(nullable = false)
     private Short width;
@@ -38,6 +39,7 @@ public class Tile {
     @Column(nullable = false)
     private Short positionY;
 
-    @Column(nullable = false)
-    private Integer visualizationId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "visualizationId", nullable = false)
+    private Visualization visualization;
 }

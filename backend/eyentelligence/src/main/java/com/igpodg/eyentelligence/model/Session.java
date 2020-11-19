@@ -13,11 +13,11 @@ import java.util.Date;
 @TypeDef(name = "ipv4", typeClass = PostgreSQLInetType.class, defaultForType = Inet.class)
 public class Session {
     public Session() {}
-    public Session(Integer userId,
+    public Session(User user,
                    Date issueDateTime, String issueClientUA, Inet issueClientIP,
                    Date lastDateTime, String lastClientUA, Inet lastClientIP)
     {
-        this.userId = userId;
+        this.user = user;
         this.issueDateTime = issueDateTime;
         this.issueClientUA = issueClientUA;
         this.issueClientIP = issueClientIP;
@@ -30,8 +30,9 @@ public class Session {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false)
-    private Integer userId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "userId", nullable = false)
+    private User user;
 
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)

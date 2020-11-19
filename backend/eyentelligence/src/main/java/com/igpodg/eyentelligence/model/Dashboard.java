@@ -9,10 +9,10 @@ import java.util.Date;
 @Data
 public class Dashboard {
     public Dashboard() {}
-    public Dashboard(Integer teamId, String name,
+    public Dashboard(Team team, String name,
                      Date createdDateTime, Date lastModifiedDateTime)
     {
-        this.teamId = teamId;
+        this.team = team;
         this.name = name;
         this.createdDateTime = createdDateTime;
         this.lastModifiedDateTime = lastModifiedDateTime;
@@ -22,8 +22,9 @@ public class Dashboard {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false)
-    private Integer teamId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "teamId", nullable = false)
+    private Team team;
 
     @Column(nullable = false)
     private String name;
