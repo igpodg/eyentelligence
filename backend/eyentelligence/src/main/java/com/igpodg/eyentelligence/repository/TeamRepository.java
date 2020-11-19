@@ -1,6 +1,6 @@
 package com.igpodg.eyentelligence.repository;
 
-import com.igpodg.eyentelligence.CrudRefreshRepository;
+import com.igpodg.eyentelligence.JpaRefreshRepository;
 import com.igpodg.eyentelligence.model.Team;
 import org.springframework.stereotype.Repository;
 
@@ -8,7 +8,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface TeamRepository extends CrudRefreshRepository<Team, Integer> {
+public interface TeamRepository extends JpaRefreshRepository<Team, Integer> {
+    @Override
+    void delete(Team entity);
+
     @Override
     List<Team> findAll();
 

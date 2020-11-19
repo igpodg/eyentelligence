@@ -6,13 +6,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 
-public class CrudRefreshRepositoryImpl<T, ID>
-        extends SimpleJpaRepository<T, ID> implements CrudRefreshRepository<T, ID>
+public class JpaRefreshRepositoryImpl<T, ID>
+        extends SimpleJpaRepository<T, ID> implements JpaRefreshRepository<T, ID>
 {
     private final EntityManager entityManager;
 
-    public CrudRefreshRepositoryImpl(JpaEntityInformation<T, ID> entityInformation,
-                                     EntityManager entityManager)
+    public JpaRefreshRepositoryImpl(JpaEntityInformation<T, ID> entityInformation,
+                                    EntityManager entityManager)
     {
         super(entityInformation, entityManager);
         this.entityManager = entityManager;

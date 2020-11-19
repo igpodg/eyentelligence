@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @ServletComponentScan
-@EnableJpaRepositories(repositoryBaseClass = CrudRefreshRepositoryImpl.class)
+@EnableJpaRepositories(repositoryBaseClass = JpaRefreshRepositoryImpl.class)
 public class EyentelligenceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(EyentelligenceApplication.class, args);

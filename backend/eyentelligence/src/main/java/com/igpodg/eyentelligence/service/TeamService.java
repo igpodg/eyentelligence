@@ -30,4 +30,8 @@ public class TeamService {
     public Boolean doesTeamExistById(Integer id) {
         return this.teamRepository.findById(id).isPresent();
     }
+
+    public void deleteTeam(Team team) {
+        this.teamRepository.delete(team);
+    }
 }
