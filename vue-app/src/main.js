@@ -21,6 +21,11 @@ Vue.prototype.$fetchSync = function(url, options= {}) {
         options["method"] = "GET";
     if (!("body" in options))
         options["body"] = null;
+    else {
+        xhr.setRequestHeader("Accept", "application/json");
+        xhr.setRequestHeader("Accept-Encoding", "charset=utf-8");
+        xhr.setRequestHeader("Content-Type", "application/json;charset=utf-8");
+    }
 
     xhr.open(options.method, url, false);
     if ("headers" in options) {

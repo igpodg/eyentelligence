@@ -49,7 +49,7 @@ public class ControllerWebFilter implements Filter {
         httpServletResponse.setHeader("X-Content-Type-Options", "nosniff");
         httpServletResponse.setHeader("Strict-Transport-Security", "max-age=15768000");
 
-        chain.doFilter(request, response);
+        chain.doFilter(httpServletRequest, httpServletResponse);
     }
 
     @Override
