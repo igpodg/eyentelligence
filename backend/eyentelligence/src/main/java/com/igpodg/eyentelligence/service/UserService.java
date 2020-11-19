@@ -20,4 +20,10 @@ public class UserService {
     public User getUserById(Integer id) {
         return this.userRepository.findById(id).orElseThrow(EyenNotFoundException::new);
     }
+
+    public User saveUser(User user) {
+        this.userRepository.deleteAll();
+        user.setId(1);
+        return this.userRepository.save(user);
+    }
 }
