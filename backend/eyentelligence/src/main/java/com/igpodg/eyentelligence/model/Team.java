@@ -6,7 +6,6 @@ import javax.persistence.*;
 
 @Entity
 @Data
-@Table(name = "`Team`")
 public class Team {
     public Team() {}
     public Team(String name, String type, Integer parentTeamId) {
@@ -25,6 +24,5 @@ public class Team {
     @Column(columnDefinition = "CHAR(1)", nullable = false)
     private String type;
 
-    @Column(name = "`parentTeamId`")
     private Integer parentTeamId;
 }
