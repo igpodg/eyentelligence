@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebFilter("/*")
-public class ControllerFilter implements Filter {
+public class ControllerWebFilter implements Filter {
     @Value("${server.port}")
     private int currentServerPort;
 
@@ -20,7 +20,7 @@ public class ControllerFilter implements Filter {
             throws ServletException
     {
         this.filterConfig = filterConfig;
-        this.filterConfig.getServletContext().log("ControllerFilter initialized...");
+        this.filterConfig.getServletContext().log("ControllerWebFilter initialized...");
     }
 
     @Override
@@ -30,7 +30,7 @@ public class ControllerFilter implements Filter {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
 
-        httpServletResponse.setHeader("Content-Type", "application/json;charset=utf-8");
+        //httpServletResponse.setHeader("Content-Type", "application/json;charset=utf-8");
 
         httpServletResponse.setHeader("Access-Control-Allow-Origin", "*");
         httpServletResponse.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, " +
@@ -54,6 +54,6 @@ public class ControllerFilter implements Filter {
 
     @Override
     public void destroy() {
-        this.filterConfig.getServletContext().log("ControllerFilter destroyed...");
+        this.filterConfig.getServletContext().log("ControllerWebFilter destroyed...");
     }
 }
