@@ -1,6 +1,5 @@
 package com.igpodg.eyentelligence.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.igpodg.eyentelligence.EyenBadRequestException;
 import com.igpodg.eyentelligence.model.User;
 import com.igpodg.eyentelligence.service.UserService;
@@ -29,7 +28,7 @@ public class UserController {
 
     @PostMapping(value = "/user")
     @ResponseStatus(HttpStatus.CREATED)
-    public User addUser(@RequestBody User user, HttpServletResponse response) throws JsonProcessingException {
+    public User addUser(@RequestBody User user, HttpServletResponse response) {
         user.setUsername("user");
         user.setPasswordHash("useruseruser");
 
