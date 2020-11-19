@@ -37,7 +37,8 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    protected String handleUnknown(Exception exception) {
+    protected String handleUnknown(Exception exception) throws JSONException {
+        this.unknown.put("error", exception.getMessage());
         return this.unknown.toString();
     }
 }

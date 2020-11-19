@@ -26,4 +26,8 @@ public class TeamService {
         this.teamRepository.refresh(newTeam);
         return newTeam;
     }
+
+    public Boolean doesTeamExistById(Integer id) {
+        return this.teamRepository.findById(id).isPresent();
+    }
 }
