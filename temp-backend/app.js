@@ -77,59 +77,59 @@ var teams = [
 	{
 		"name": "Zathin",
 		"type": "T",
-		"parentTeamId": null
+		"parentTeam": null
 	},
 	{
 		"name": "Rank",
 		"type": "O",
-		"parentTeamId": 0
+		"parentTeam": 0
 	},
 	{
 		"name": "Tresom",
 		"type": "T",
-		"parentTeamId": null
+		"parentTeam": null
 	},
 	{
 		"name": "Tres-Zap",
 		"type": "O",
-		"parentTeamId": 2
+		"parentTeam": 2
 	},
 	{
 		"name": "Hatity",
 		"type": "O",
-		"parentTeamId": 3
+		"parentTeam": 3
 	},
 	{
 		"name": "Toughjoyfax",
 		"type": "O",
-		"parentTeamId": 4
+		"parentTeam": 4
 	},
 	{
 		"name": "Ventosanzap",
 		"type": "O",
-		"parentTeamId": 3
+		"parentTeam": 3
 	},
 	{
 		"name": "Keylex",
 		"type": "T",
-		"parentTeamId": null
+		"parentTeam": null
 	},
 	{
 		"name": "Vagram",
 		"type": "O",
-		"parentTeamId": 4
+		"parentTeam": 4
 	},
 	{
 		"name": "Daltfresh",
 		"type": "O",
-		"parentTeamId": 1
+		"parentTeam": 1
 	}
 ];
 
 for (let i = 0; i < teams.length; i++) {
 	teams[i] = {...{"id": i+1}, ...teams[i]};
-	if (teams[i]["parentTeamId"] !== null)
-		teams[i]["parentTeamId"]++;
+	if (teams[i]["parentTeam"] !== null)
+		teams[i]["parentTeam"]++;
 }
 
 var user = {
@@ -199,22 +199,22 @@ app.post("/team", (req, res, next) => {
 	if (!("name" in req.body && isString(req.body.name)) ||
 		!("type" in req.body && (req.body.type === "T" ||
 			req.body.type === "O")) ||
-		("parentTeamId" in req.body &&
-			!isValidExistingTeamId(req.body.parentTeamId)))
+		("parentTeam" in req.body &&
+			!isValidExistingTeamId(req.body.parentTeam)))
 	{
 		next();
 		return;
 	}
 
-	if (!("parentTeamId" in req.body))
-		req.body.parentTeamId = null;
+	if (!("parentTeam" in req.body))
+		req.body.parentTeam = null;
 
 	let newId = getNewTeamId();
 	let toPush = {
 		"id": newId,
 		"name": req.body.name,
 		"type": req.body.type,
-		"parentTeamId": req.body.parentTeamId
+		"parentTeam": req.body.parentTeam
 	};
 	teams.push(toPush);
 	res.setHeader("Location", "/team/" + newId);
@@ -252,15 +252,15 @@ app.put("/team/:id", (req, res, next) => {
 		}
 	}
 
-	if ("parentTeamId" in req.body) {
-		if (req.body.parentTeamId !== null &&
-			(!isValidExistingTeamId(req.body.parentTeamId) ||
-				id === req.body.parentTeamId))
+	if ("parentTeam" in req.body) {
+		if (req.body.parentTeam !== null &&
+			(!isValidExistingTeamId(req.body.parentTeam) ||
+				id === req.body.parentTeam))
 		{
 			next();
 			return;
 		} else {
-			teamRef.parentTeamId = req.body.parentTeamId;
+			teamRef.parentTeam = req.body.parentTeam;
 		}
 	}
 
@@ -288,7 +288,7 @@ app.delete("/team/:id", (req, res, next) => {
 
 			if (teams[i].id === cur) {
 				teams[i] = null;
-			} else if (teams[i].parentTeamId === cur) {
+			} else if (teams[i].parentTeam === cur) {
 				toRemove.push(teams[i].id);
 				teams[i] = null;
 			}

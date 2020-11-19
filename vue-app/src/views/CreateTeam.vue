@@ -58,7 +58,7 @@ export default {
             let toSend = {
                 name: null,
                 type: null,
-                parentTeamId: null
+                parentTeam: null
             };
             for (let el of this.$refs.createform.elements) {
                 if (el.id === "createTeamName")

@@ -111,7 +111,7 @@ export default {
             this.teamId = parseInt(this.$route.params.id);
             this.teamName = team.name;
             this.teamType = team.type;
-            this.teamParent = team.parentTeamId;
+            this.teamParent = team.parentTeam;
         },
         convertTeamType: function(id) {
             for (let type of this.teamTypes) {
@@ -141,10 +141,10 @@ export default {
                 method: "PUT",
                 headers: { "X-API-Key": "xxxxxxxx" },
                 body: JSON.stringify({
-                    id: this.teamId,
+                    //id: this.teamId,
                     name: this.teamName,
-                    type: this.teamType,
-                    parentTeamId: this.teamParent
+                    type: this.teamType
+                    //parentTeamId: this.teamParent
                 })
             });
             this.$logDetailed("Team renaming finished.");

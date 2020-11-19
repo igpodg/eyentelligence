@@ -1,18 +1,23 @@
 package com.igpodg.eyentelligence.service;
 
+import com.igpodg.eyentelligence.EyenNotFoundException;
 import com.igpodg.eyentelligence.model.Team;
 import com.igpodg.eyentelligence.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.List;
 
 @Service
 public class TeamService {
     @Autowired
     private TeamRepository teamRepository;
 
-    public Optional<Team> getFirst() {
-        return teamRepository.findById(1);
+    public List<Team> getAllTeams() {
+        return this.teamRepository.findAll();
+    }
+
+    public Team getTeamById(Integer id) {
+        return this.teamRepository.findById(id).orElseThrow(EyenNotFoundException::new);
     }
 }
