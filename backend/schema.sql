@@ -7,9 +7,9 @@ DROP TABLE IF EXISTS data_source_dashboard CASCADE;
 DROP TABLE IF EXISTS invitation CASCADE;
 DROP TABLE IF EXISTS session CASCADE;
 DROP TABLE IF EXISTS team CASCADE;
+DROP TABLE IF EXISTS team_management CASCADE;
 DROP TABLE IF EXISTS tile CASCADE;
 DROP TABLE IF EXISTS "user" CASCADE;
-DROP TABLE IF EXISTS team_management CASCADE;
 DROP TABLE IF EXISTS visualization CASCADE;
 
 -- Create
@@ -76,6 +76,13 @@ CREATE TABLE team
 	parent_team_id integer NULL
 );
 
+CREATE TABLE team_management
+(
+	user_id integer NOT NULL,
+	team_id integer NOT NULL,
+	role char(1) NOT NULL
+);
+
 CREATE TABLE tile
 (
 	id serial NOT NULL,
@@ -98,13 +105,6 @@ CREATE TABLE "user"
 	last_name varchar(255) NOT NULL,
 	email varchar(255) NULL,
 	avatar_link varchar(255) NULL
-);
-
-CREATE TABLE team_management
-(
-	user_id integer NOT NULL,
-	team_id integer NOT NULL,
-	role char(1) NOT NULL
 );
 
 CREATE TABLE visualization
@@ -137,14 +137,14 @@ ALTER TABLE session ADD CONSTRAINT "PK_Session"
 ALTER TABLE team ADD CONSTRAINT "PK_Team"
 	PRIMARY KEY (id);
 
+ALTER TABLE team_management ADD CONSTRAINT "PK_TeamManagement"
+	PRIMARY KEY (user_id,team_id);
+
 ALTER TABLE tile ADD CONSTRAINT "PK_Tile"
 	PRIMARY KEY (id);
 
 ALTER TABLE "user" ADD CONSTRAINT "PK_User"
 	PRIMARY KEY (id);
-
-ALTER TABLE team_management ADD CONSTRAINT "PK_TeamManagement"
-	PRIMARY KEY (user_id,team_id);
 
 ALTER TABLE visualization ADD CONSTRAINT "PK_Visualization"
 	PRIMARY KEY (id);
