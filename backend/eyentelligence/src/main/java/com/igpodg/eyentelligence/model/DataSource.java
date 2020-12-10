@@ -6,6 +6,7 @@ import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Data
@@ -31,4 +32,7 @@ public class DataSource {
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb", nullable = false)
     private Object settings;
+
+    @OneToMany(mappedBy = "id.dataSource")
+    private Set<DataSourceDashboard> dataSources;
 }

@@ -18,13 +18,18 @@ public class TeamManagement {
     @Embeddable
     @EqualsAndHashCode
     private static class PK_TeamManagement implements Serializable {
-        private Integer userId;
-        private Integer teamId;
+        @ManyToOne
+        @JoinColumn(name = "userId")
+        private User user;
+
+        @ManyToOne
+        @JoinColumn(name = "teamId")
+        private Team team;
 
         public PK_TeamManagement() {}
-        public PK_TeamManagement(Integer userId, Integer teamId) {
-            this.userId = userId;
-            this.teamId = teamId;
+        public PK_TeamManagement(User user, Team team) {
+            this.user = user;
+            this.team = team;
         }
     }
 

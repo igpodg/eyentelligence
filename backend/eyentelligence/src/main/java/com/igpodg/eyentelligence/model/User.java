@@ -3,6 +3,7 @@ package com.igpodg.eyentelligence.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Data
@@ -46,4 +47,7 @@ public class User {
     private String email;
 
     private String avatarLink;
+
+    @OneToMany(mappedBy = "id.user")
+    private Set<TeamManagement> mgmt;
 }

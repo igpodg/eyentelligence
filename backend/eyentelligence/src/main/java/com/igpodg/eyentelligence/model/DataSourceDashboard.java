@@ -21,16 +21,16 @@ public class DataSourceDashboard {
     private static class PK_DataSource_Dashboard implements Serializable {
         @ManyToOne
         @JoinColumn(name = "dataSourceId")
-        private DataSource dataSourceId;
+        private DataSource dataSource;
 
         @ManyToOne
         @JoinColumn(name = "dashboardId")
-        private Dashboard dashboardId;
+        private Dashboard dashboard;
 
         public PK_DataSource_Dashboard() {}
-        public PK_DataSource_Dashboard(DataSource dataSourceId, Dashboard dashboardId) {
-            this.dataSourceId = dataSourceId;
-            this.dashboardId = dashboardId;
+        public PK_DataSource_Dashboard(DataSource dataSource, Dashboard dashboard) {
+            this.dataSource = dataSource;
+            this.dashboard = dashboard;
         }
     }
 

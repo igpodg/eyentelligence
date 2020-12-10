@@ -5,6 +5,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Data
@@ -30,4 +31,7 @@ public class Team {
     @JoinColumn(name = "parentTeamId")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Team parentTeam;
+
+    @OneToMany(mappedBy = "id.team")
+    private Set<TeamManagement> mgmt;
 }

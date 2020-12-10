@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Data
@@ -36,4 +37,7 @@ public class Dashboard {
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModifiedDateTime;
+
+    @OneToMany(mappedBy = "id.dashboard")
+    private Set<DataSourceDashboard> dataSources;
 }
