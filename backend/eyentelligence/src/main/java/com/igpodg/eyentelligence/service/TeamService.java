@@ -17,7 +17,7 @@ public class TeamService {
         return this.teamRepository.findAll();
     }
 
-    public Team getTeamById(Integer id) {
+    public Team getTeamById(Long id) {
         return this.teamRepository.findById(id).orElseThrow(EyenNotFoundException::new);
     }
 
@@ -27,7 +27,7 @@ public class TeamService {
         return newTeam;
     }
 
-    public Boolean doesTeamExistById(Integer id) {
+    public Boolean doesTeamExistById(Long id) {
         return this.teamRepository.findById(id).isPresent();
     }
 

@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends CrudRepository<User, Integer> {
+public interface UserRepository extends CrudRepository<User, Long> {
     @Override
     void deleteAll();
 
@@ -16,7 +16,7 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     List<User> findAll();
 
     @Override
-    Optional<User> findById(Integer id);
+    Optional<User> findById(Long id);
 
     @Override
     User save(User entity);

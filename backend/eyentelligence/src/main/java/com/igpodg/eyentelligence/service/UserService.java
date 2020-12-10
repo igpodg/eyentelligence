@@ -17,7 +17,7 @@ public class UserService {
         return this.userRepository.findAll();
     }
 
-    public User getUserById(Integer id) {
+    public User getUserById(Long id) {
         return this.userRepository.findById(id).orElseThrow(EyenNotFoundException::new);
     }
 

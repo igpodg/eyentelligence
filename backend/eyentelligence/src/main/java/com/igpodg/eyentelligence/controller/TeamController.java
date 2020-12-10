@@ -25,7 +25,7 @@ public class TeamController {
     }
 
     @GetMapping("/team/{id}")
-    public Team getTeam(@PathVariable int id) {
+    public Team getTeam(@PathVariable long id) {
         return this.teamService.getTeamById(id);
     }
 
@@ -45,7 +45,7 @@ public class TeamController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PutMapping("/team/{id}")
-    public Team updateUser(@PathVariable int id, @RequestBody String body, HttpServletResponse response)
+    public Team updateUser(@PathVariable long id, @RequestBody String body, HttpServletResponse response)
             throws JSONException
     {
         if (!this.teamService.doesTeamExistById(id))
@@ -68,7 +68,7 @@ public class TeamController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/team/{id}")
-    public void deleteTeam(@PathVariable int id) {
+    public void deleteTeam(@PathVariable long id) {
         if (!this.teamService.doesTeamExistById(id))
             throw new EyenNotFoundException();
 

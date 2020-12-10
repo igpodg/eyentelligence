@@ -19,11 +19,16 @@ public class DataSourceDashboard {
     @Embeddable
     @EqualsAndHashCode
     private static class PK_DataSource_Dashboard implements Serializable {
-        private Integer dataSourceId;
-        private Integer dashboardId;
+        @ManyToOne
+        @JoinColumn(name = "dataSourceId")
+        private DataSource dataSourceId;
+
+        @ManyToOne
+        @JoinColumn(name = "dashboardId")
+        private Dashboard dashboardId;
 
         public PK_DataSource_Dashboard() {}
-        public PK_DataSource_Dashboard(Integer dataSourceId, Integer dashboardId) {
+        public PK_DataSource_Dashboard(DataSource dataSourceId, Dashboard dashboardId) {
             this.dataSourceId = dataSourceId;
             this.dashboardId = dashboardId;
         }
