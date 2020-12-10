@@ -1,7 +1,7 @@
 package com.igpodg.eyentelligence.controller;
 
-import com.igpodg.eyentelligence.EyenBadRequestException;
-import com.igpodg.eyentelligence.EyenNotFoundException;
+import com.igpodg.eyentelligence.exception.EyenBadRequestException;
+import com.igpodg.eyentelligence.exception.EyenNotFoundException;
 import com.igpodg.eyentelligence.model.Team;
 import com.igpodg.eyentelligence.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,9 +48,6 @@ public class TeamController {
     public Team updateUser(@PathVariable long id, @RequestBody String body, HttpServletResponse response)
             throws JSONException
     {
-        if (!this.teamService.doesTeamExistById(id))
-            throw new EyenNotFoundException();
-
         JSONObject requestTeam = new JSONObject(body);
         Team teamToUpdate = this.teamService.getTeamById(id);
         if (requestTeam.has("name"))
@@ -69,9 +66,6 @@ public class TeamController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/team/{id}")
     public void deleteTeam(@PathVariable long id) {
-        if (!this.teamService.doesTeamExistById(id))
-            throw new EyenNotFoundException();
-
         Team teamToDelete = this.teamService.getTeamById(id);
         this.teamService.deleteTeam(teamToDelete);
     }

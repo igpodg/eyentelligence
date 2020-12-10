@@ -1,6 +1,6 @@
 package com.igpodg.eyentelligence.service;
 
-import com.igpodg.eyentelligence.EyenNotFoundException;
+import com.igpodg.eyentelligence.exception.EyenNotFoundException;
 import com.igpodg.eyentelligence.model.User;
 import com.igpodg.eyentelligence.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,8 @@ public class UserService {
     }
 
     public User getUserById(Long id) {
-        return this.userRepository.findById(id).orElseThrow(EyenNotFoundException::new);
+        return this.userRepository.findById(id)
+                .orElseThrow(EyenNotFoundException::new);
     }
 
     public User saveUser(User user) {

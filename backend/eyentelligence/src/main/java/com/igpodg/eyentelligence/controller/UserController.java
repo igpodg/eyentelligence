@@ -1,6 +1,6 @@
 package com.igpodg.eyentelligence.controller;
 
-import com.igpodg.eyentelligence.EyenBadRequestException;
+import com.igpodg.eyentelligence.exception.EyenBadRequestException;
 import com.igpodg.eyentelligence.model.User;
 import com.igpodg.eyentelligence.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

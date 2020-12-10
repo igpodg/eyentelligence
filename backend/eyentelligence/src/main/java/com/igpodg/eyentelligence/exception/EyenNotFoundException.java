@@ -1,4 +1,4 @@
-package com.igpodg.eyentelligence;
+package com.igpodg.eyentelligence.exception;
 
 public class EyenNotFoundException extends RuntimeException {
     public EyenNotFoundException() {
