@@ -23,7 +23,7 @@ public class TeamService {
 
     public Team saveTeam(Team team) {
         Team newTeam = this.teamRepository.save(team);
-        this.teamRepository.refresh(newTeam);
+        //this.teamRepository.refresh(newTeam);
         return newTeam;
     }
 

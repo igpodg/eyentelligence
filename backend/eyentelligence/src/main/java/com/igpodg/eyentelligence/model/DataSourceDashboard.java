@@ -2,15 +2,16 @@ package com.igpodg.eyentelligence.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Data
-public class DataSource_Dashboard {
-    public DataSource_Dashboard() {}
-    public DataSource_Dashboard(PK_DataSource_Dashboard id, Boolean isActive) {
+public class DataSourceDashboard {
+    public DataSourceDashboard() {}
+    public DataSourceDashboard(PK_DataSource_Dashboard id, Boolean isActive) {
         this.id = id;
         this.isActive = isActive;
     }
@@ -32,5 +33,6 @@ public class DataSource_Dashboard {
     private PK_DataSource_Dashboard id;
 
     @Column(nullable = false)
+    @ColumnDefault("true")
     private Boolean isActive;
 }

@@ -9,7 +9,7 @@ DROP TABLE IF EXISTS session CASCADE;
 DROP TABLE IF EXISTS team CASCADE;
 DROP TABLE IF EXISTS tile CASCADE;
 DROP TABLE IF EXISTS "user" CASCADE;
-DROP TABLE IF EXISTS user_team CASCADE;
+DROP TABLE IF EXISTS team_management CASCADE;
 DROP TABLE IF EXISTS visualization CASCADE;
 
 -- Create
@@ -100,17 +100,11 @@ CREATE TABLE "user"
 	avatar_link varchar(255) NULL
 );
 
-CREATE TABLE user_team
+CREATE TABLE team_management
 (
 	user_id integer NOT NULL,
 	team_id integer NOT NULL,
-	role char(1) NOT NULL,
-	title varchar(5) NULL,
-	first_name varchar(255) NULL,
-	middle_name varchar(255) NULL,
-	last_name varchar(255) NULL,
-	email varchar(255) NULL,
-	avatar_link varchar(255) NULL
+	role char(1) NOT NULL
 );
 
 CREATE TABLE visualization
@@ -149,7 +143,7 @@ ALTER TABLE tile ADD CONSTRAINT "PK_Tile"
 ALTER TABLE "user" ADD CONSTRAINT "PK_User"
 	PRIMARY KEY (id);
 
-ALTER TABLE user_team ADD CONSTRAINT "PK_User_Team"
+ALTER TABLE team_management ADD CONSTRAINT "PK_TeamManagement"
 	PRIMARY KEY (user_id,team_id);
 
 ALTER TABLE visualization ADD CONSTRAINT "PK_Visualization"
