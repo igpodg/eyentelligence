@@ -1,7 +1,7 @@
 package com.igpodg.eyentelligence.controller;
 
+import com.igpodg.eyentelligence.dto.UserDto;
 import com.igpodg.eyentelligence.exception.EyenBadRequestException;
-import com.igpodg.eyentelligence.model.User;
 import com.igpodg.eyentelligence.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,18 +17,18 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/user")
-    public List<User> getAllUsers() {
+    public List<UserDto> getAllUsers() {
         return this.userService.getAllUsers();
     }
 
     @GetMapping("/user/{id}")
-    public User getUser(@PathVariable long id) {
+    public UserDto getUser(@PathVariable int id) {
         return this.userService.getUserById(id);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/user")
-    public User addUser(@RequestBody User user, HttpServletResponse response) {
+    public UserDto addUser(@RequestBody UserDto user, HttpServletResponse response) {
         user.setUsername("user");
         user.setPasswordHash("useruseruser");
 

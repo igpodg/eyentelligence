@@ -1,8 +1,7 @@
 package com.igpodg.eyentelligence.controller;
 
+import com.igpodg.eyentelligence.dto.TeamDto;
 import com.igpodg.eyentelligence.exception.EyenBadRequestException;
-import com.igpodg.eyentelligence.exception.EyenNotFoundException;
-import com.igpodg.eyentelligence.model.Team;
 import com.igpodg.eyentelligence.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.configurationprocessor.json.JSONException;
@@ -20,24 +19,24 @@ public class TeamController {
     private TeamService teamService;
 
     @GetMapping("/team")
-    public List<Team> getAllTeams() {
+    public List<TeamDto> getAllTeams() {
         return this.teamService.getAllTeams();
     }
 
     @GetMapping("/team/{id}")
-    public Team getTeam(@PathVariable long id) {
+    public TeamDto getTeam(@PathVariable int id) {
         return this.teamService.getTeamById(id);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/team")
-    public Team addUser(@RequestBody Team team, HttpServletResponse response) {
+    public TeamDto addUser(@RequestBody TeamDto team, HttpServletResponse response) {
         if (team.getName() == null || team.getType() == null)
             throw new EyenBadRequestException();
         if (!team.getType().equals("T") && !team.getType().equals("O"))
             throw new EyenBadRequestException();
 
-        team.setId(null);
+        //team.setId(null);
         team = this.teamService.saveTeam(team);
         response.setHeader("Location", "/team/" + team.getId());
         return team;
@@ -45,11 +44,11 @@ public class TeamController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PutMapping("/team/{id}")
-    public Team updateUser(@PathVariable long id, @RequestBody String body, HttpServletResponse response)
+    public TeamDto updateUser(@PathVariable int id, @RequestBody String body, HttpServletResponse response)
             throws JSONException
     {
         JSONObject requestTeam = new JSONObject(body);
-        Team teamToUpdate = this.teamService.getTeamById(id);
+        TeamDto teamToUpdate = this.teamService.getTeamById(id);
         if (requestTeam.has("name"))
             teamToUpdate.setName(requestTeam.getString("name"));
         if (requestTeam.has("type")) {
@@ -65,8 +64,8 @@ public class TeamController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/team/{id}")
-    public void deleteTeam(@PathVariable long id) {
-        Team teamToDelete = this.teamService.getTeamById(id);
+    public void deleteTeam(@PathVariable int id) {
+        TeamDto teamToDelete = this.teamService.getTeamById(id);
         this.teamService.deleteTeam(teamToDelete);
     }
 }

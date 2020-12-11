@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface TeamRepository extends JpaRefreshRepository<Team, Long> {
+public interface TeamRepository extends JpaRefreshRepository<Team, Integer> {
     @Override
     void delete(Team entity);
 
@@ -16,7 +16,7 @@ public interface TeamRepository extends JpaRefreshRepository<Team, Long> {
     List<Team> findAll();
 
     @Override
-    Optional<Team> findById(Long id);
+    Optional<Team> findById(Integer id);
 
     @Override
     Team save(Team entity);
