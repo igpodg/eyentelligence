@@ -4,8 +4,6 @@ import com.igpodg.eyentelligence.dto.UserDto;
 import com.igpodg.eyentelligence.exception.EyenNotFoundException;
 import com.igpodg.eyentelligence.model.User;
 import com.igpodg.eyentelligence.repository.UserRepository;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.config.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,13 +16,18 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    private final ModelMapper modelMapper = new ModelMapper();
-
     private UserDto convertToUserDto(User user) {
-        modelMapper.getConfiguration()
-                .setFieldMatchingEnabled(true)
-                .setFieldAccessLevel(Configuration.AccessLevel.PRIVATE);
-        return modelMapper.map(user, UserDto.class);
+        UserDto userDto = new UserDto();
+        userDto.setId(user.getId());
+        userDto.setUsername(user.getUsername());
+        userDto.setPasswordHash(user.getPasswordHash());
+        userDto.setTitle(user.getTitle());
+        userDto.setFirstName(user.getFirstName());
+        userDto.setMiddleName(user.getMiddleName());
+        userDto.setLastName(user.getLastName());
+        userDto.setEmail(user.getEmail());
+        userDto.setAvatarLink(user.getAvatarLink());
+        return userDto;
     }
 
     private List<UserDto> convertToUserDto(List<User> users) {
@@ -33,11 +36,22 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
+    private <T> T unwrap(Optional<T> value) {
+        return (value == null) ? null : value.orElse(null);
+    }
+
     private User convertToUser(UserDto userDto) {
-        modelMapper.getConfiguration()
-                .setFieldMatchingEnabled(true)
-                .setFieldAccessLevel(Configuration.AccessLevel.PRIVATE);
-        return modelMapper.map(userDto, User.class);
+        User user = new User();
+        user.setId(userDto.getId());
+        user.setUsername(unwrap(userDto.getUsername()));
+        user.setPasswordHash(unwrap(userDto.getPasswordHash()));
+        user.setTitle(unwrap(userDto.getTitle()));
+        user.setFirstName(unwrap(userDto.getFirstName()));
+        user.setMiddleName(unwrap(userDto.getMiddleName()));
+        user.setLastName(unwrap(userDto.getLastName()));
+        user.setEmail(unwrap(userDto.getEmail()));
+        user.setAvatarLink(unwrap(userDto.getAvatarLink()));
+        return user;
     }
 
     private List<User> convertToUser(List<UserDto> userDtos) {

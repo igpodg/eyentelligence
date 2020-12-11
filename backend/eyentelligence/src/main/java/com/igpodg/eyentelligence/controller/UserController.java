@@ -1,13 +1,13 @@
 package com.igpodg.eyentelligence.controller;
 
 import com.igpodg.eyentelligence.dto.UserDto;
-import com.igpodg.eyentelligence.exception.EyenBadRequestException;
 import com.igpodg.eyentelligence.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -28,12 +28,9 @@ public class UserController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/user")
-    public UserDto addUser(@RequestBody UserDto user, HttpServletResponse response) {
+    public UserDto addUser(@RequestBody @Valid UserDto user, HttpServletResponse response) {
         user.setUsername("user");
         user.setPasswordHash("useruseruser");
-
-        if (user.getFirstName() == null || user.getLastName() == null)
-            throw new EyenBadRequestException();
 
         user = this.userService.saveUser(user);
         response.setHeader("Location", "/user/" + user.getId());

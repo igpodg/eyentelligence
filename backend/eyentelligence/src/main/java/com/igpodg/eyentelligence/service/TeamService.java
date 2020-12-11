@@ -1,11 +1,10 @@
 package com.igpodg.eyentelligence.service;
 
 import com.igpodg.eyentelligence.dto.TeamDto;
+import com.igpodg.eyentelligence.exception.EyenBadRequestException;
 import com.igpodg.eyentelligence.exception.EyenNotFoundException;
 import com.igpodg.eyentelligence.model.Team;
 import com.igpodg.eyentelligence.repository.TeamRepository;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.config.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,13 +17,15 @@ public class TeamService {
     @Autowired
     private TeamRepository teamRepository;
 
-    private final ModelMapper modelMapper = new ModelMapper();
-
     private TeamDto convertToTeamDto(Team team) {
-        modelMapper.getConfiguration()
-                .setFieldMatchingEnabled(true)
-                .setFieldAccessLevel(Configuration.AccessLevel.PRIVATE);
-        return modelMapper.map(team, TeamDto.class);
+        if (team == null)
+            return null;
+        TeamDto teamDto = new TeamDto();
+        teamDto.setId(team.getId());
+        teamDto.setName(team.getName());
+        teamDto.setType(team.getType());
+        teamDto.setParentTeam(convertToTeamDto(team.getParentTeam()));
+        return teamDto;
     }
 
     private List<TeamDto> convertToTeamDto(List<Team> teams) {
@@ -33,11 +34,19 @@ public class TeamService {
                 .collect(Collectors.toList());
     }
 
+    private <T> T unwrap(Optional<T> value) {
+        return (value == null) ? null : value.orElse(null);
+    }
+
     private Team convertToTeam(TeamDto teamDto) {
-        modelMapper.getConfiguration()
-                .setFieldMatchingEnabled(true)
-                .setFieldAccessLevel(Configuration.AccessLevel.PRIVATE);
-        return modelMapper.map(teamDto, Team.class);
+        if (teamDto == null)
+            return null;
+        Team team = new Team();
+        team.setId(teamDto.getId());
+        team.setName(unwrap(teamDto.getName()));
+        team.setType(unwrap(teamDto.getType()));
+        team.setParentTeam(this.convertToTeam(unwrap(teamDto.getParentTeam())));
+        return team;
     }
 
     private List<Team> convertToTeam(List<TeamDto> teamDtos) {
@@ -70,6 +79,11 @@ public class TeamService {
         ////this.teamRepository.refresh(newTeam);
         //return newTeam;
 
+        if (team.getName() == null)
+            throw new EyenBadRequestException();
+        if (team.getType() == null)
+            throw new EyenBadRequestException();
+
         Team entity = this.teamRepository.save(this.convertToTeam(team));
         this.teamRepository.refresh(entity);
         return this.convertToTeamDto(entity);
@@ -77,5 +91,19 @@ public class TeamService {
 
     public void deleteTeam(TeamDto team) {
         this.teamRepository.delete(this.convertToTeam(team));
+    }
+
+    public TeamDto mergeTeam(Integer id, TeamDto request) {
+        TeamDto team = this.getTeamById(id);
+        if (request.getName() != null && request.getName().isPresent())
+            team.setName(request.getName().get());
+        if (request.getType() != null && request.getType().isPresent())
+            team.setType(request.getType().get());
+        if (request.getParentTeam() != null && request.getParentTeam().isPresent())
+            team.setParentTeam(request.getParentTeam().get());
+
+        Team entity = this.teamRepository.save(this.convertToTeam(team));
+        this.teamRepository.refresh(entity);
+        return this.convertToTeamDto(entity);
     }
 }

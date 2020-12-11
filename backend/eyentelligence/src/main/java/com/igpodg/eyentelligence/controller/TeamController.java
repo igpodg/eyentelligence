@@ -1,15 +1,13 @@
 package com.igpodg.eyentelligence.controller;
 
 import com.igpodg.eyentelligence.dto.TeamDto;
-import com.igpodg.eyentelligence.exception.EyenBadRequestException;
 import com.igpodg.eyentelligence.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.configurationprocessor.json.JSONException;
-import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -30,13 +28,7 @@ public class TeamController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/team")
-    public TeamDto addUser(@RequestBody TeamDto team, HttpServletResponse response) {
-        if (team.getName() == null || team.getType() == null)
-            throw new EyenBadRequestException();
-        if (!team.getType().equals("T") && !team.getType().equals("O"))
-            throw new EyenBadRequestException();
-
-        //team.setId(null);
+    public TeamDto addTeam(@RequestBody @Valid TeamDto team, HttpServletResponse response) {
         team = this.teamService.saveTeam(team);
         response.setHeader("Location", "/team/" + team.getId());
         return team;
@@ -44,22 +36,11 @@ public class TeamController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PutMapping("/team/{id}")
-    public TeamDto updateUser(@PathVariable int id, @RequestBody String body, HttpServletResponse response)
-            throws JSONException
+    public TeamDto updateTeam(@PathVariable int id, @RequestBody @Valid TeamDto team,
+                              HttpServletResponse response)
     {
-        JSONObject requestTeam = new JSONObject(body);
-        TeamDto teamToUpdate = this.teamService.getTeamById(id);
-        if (requestTeam.has("name"))
-            teamToUpdate.setName(requestTeam.getString("name"));
-        if (requestTeam.has("type")) {
-            String type = requestTeam.getString("type");
-            if (!type.equals("T") && !type.equals("O"))
-                throw new EyenBadRequestException();
-            teamToUpdate.setType(type);
-        }
-
         response.setHeader("Location", "/team/" + id);
-        return this.teamService.saveTeam(teamToUpdate);
+        return this.teamService.mergeTeam(id, team);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
