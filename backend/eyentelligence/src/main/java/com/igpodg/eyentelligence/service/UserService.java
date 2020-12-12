@@ -4,6 +4,7 @@ import com.igpodg.eyentelligence.dto.UserDto;
 import com.igpodg.eyentelligence.exception.EyenNotFoundException;
 import com.igpodg.eyentelligence.model.User;
 import com.igpodg.eyentelligence.repository.UserRepository;
+import com.igpodg.eyentelligence.util.OptionalUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,21 +37,17 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
-    private <T> T unwrap(Optional<T> value) {
-        return (value == null) ? null : value.orElse(null);
-    }
-
     private User convertToUser(UserDto userDto) {
         User user = new User();
         user.setId(userDto.getId());
-        user.setUsername(unwrap(userDto.getUsername()));
-        user.setPasswordHash(unwrap(userDto.getPasswordHash()));
-        user.setTitle(unwrap(userDto.getTitle()));
-        user.setFirstName(unwrap(userDto.getFirstName()));
-        user.setMiddleName(unwrap(userDto.getMiddleName()));
-        user.setLastName(unwrap(userDto.getLastName()));
-        user.setEmail(unwrap(userDto.getEmail()));
-        user.setAvatarLink(unwrap(userDto.getAvatarLink()));
+        user.setUsername(OptionalUtil.unwrap(userDto.getUsername()));
+        user.setPasswordHash(OptionalUtil.unwrap(userDto.getPasswordHash()));
+        user.setTitle(OptionalUtil.unwrap(userDto.getTitle()));
+        user.setFirstName(OptionalUtil.unwrap(userDto.getFirstName()));
+        user.setMiddleName(OptionalUtil.unwrap(userDto.getMiddleName()));
+        user.setLastName(OptionalUtil.unwrap(userDto.getLastName()));
+        user.setEmail(OptionalUtil.unwrap(userDto.getEmail()));
+        user.setAvatarLink(OptionalUtil.unwrap(userDto.getAvatarLink()));
         return user;
     }
 
@@ -65,9 +62,6 @@ public class UserService {
     }
 
     public UserDto getUserById(Integer id) {
-        //return this.userRepository.findById(id)
-        //        .orElseThrow(EyenNotFoundException::new);
-
         Optional<User> user = this.userRepository.findById(id);
         if (user.isEmpty())
             throw new EyenNotFoundException();
@@ -76,13 +70,9 @@ public class UserService {
     }
 
     public UserDto saveUser(UserDto user) {
-        //this.userRepository.deleteAll();
-        //user.setId(1);
-        //return this.userRepository.save(user);
-
         this.userRepository.deleteAll();
         user.setId(1);
-        User saved = this.convertToUser(user);
+        User saved = this.userRepository.save(this.convertToUser(user));
         return this.convertToUserDto(saved);
     }
 }

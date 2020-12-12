@@ -5,6 +5,7 @@ import com.igpodg.eyentelligence.exception.EyenBadRequestException;
 import com.igpodg.eyentelligence.exception.EyenNotFoundException;
 import com.igpodg.eyentelligence.model.Team;
 import com.igpodg.eyentelligence.repository.TeamRepository;
+import com.igpodg.eyentelligence.util.OptionalUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,18 +35,14 @@ public class TeamService {
                 .collect(Collectors.toList());
     }
 
-    private <T> T unwrap(Optional<T> value) {
-        return (value == null) ? null : value.orElse(null);
-    }
-
     private Team convertToTeam(TeamDto teamDto) {
         if (teamDto == null)
             return null;
         Team team = new Team();
         team.setId(teamDto.getId());
-        team.setName(unwrap(teamDto.getName()));
-        team.setType(unwrap(teamDto.getType()));
-        team.setParentTeam(this.convertToTeam(unwrap(teamDto.getParentTeam())));
+        team.setName(OptionalUtil.unwrap(teamDto.getName()));
+        team.setType(OptionalUtil.unwrap(teamDto.getType()));
+        team.setParentTeam(this.convertToTeam(OptionalUtil.unwrap(teamDto.getParentTeam())));
         return team;
     }
 
@@ -64,9 +61,6 @@ public class TeamService {
     }
 
     public TeamDto getTeamById(Integer id) {
-        //return this.teamRepository.findById(id)
-        //        .orElseThrow(EyenNotFoundException::new);
-
         Optional<Team> team = this.teamRepository.findById(id);
         if (team.isEmpty())
             throw new EyenNotFoundException();
@@ -75,10 +69,6 @@ public class TeamService {
     }
 
     public TeamDto saveTeam(TeamDto team) {
-        //Team newTeam = this.teamRepository.save(team);
-        ////this.teamRepository.refresh(newTeam);
-        //return newTeam;
-
         if (team.getName() == null)
             throw new EyenBadRequestException();
         if (team.getType() == null)
@@ -95,11 +85,11 @@ public class TeamService {
 
     public TeamDto mergeTeam(Integer id, TeamDto request) {
         TeamDto team = this.getTeamById(id);
-        if (request.getName() != null && request.getName().isPresent())
+        if (OptionalUtil.isValid(request.getName()))
             team.setName(request.getName().get());
-        if (request.getType() != null && request.getType().isPresent())
+        if (OptionalUtil.isValid(request.getType()))
             team.setType(request.getType().get());
-        if (request.getParentTeam() != null && request.getParentTeam().isPresent())
+        if (OptionalUtil.isValid(request.getParentTeam()))
             team.setParentTeam(request.getParentTeam().get());
 
         Team entity = this.teamRepository.save(this.convertToTeam(team));
