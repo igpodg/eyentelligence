@@ -9,9 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.jdbc.datasource.init.ScriptUtils;
 import org.springframework.test.context.jdbc.Sql;
 
@@ -65,6 +63,11 @@ class EyentelligenceApplicationTests {
                     "{\"id\":10,\"name\":\"Daltfresh\",\"type\":\"O\",\"parentTeam\":" +
                     "{\"id\":2,\"name\":\"Rank\",\"type\":\"O\",\"parentTeam\":" +
                     "{\"id\":1,\"name\":\"Zathin\",\"type\":\"T\",\"parentTeam\":null}}}";
+
+    private final String initialContentsUser =
+            "{\"id\":1,\"username\":\"user\",\"passwordHash\":\"useruseruser\"," +
+                    "\"title\":null,\"firstName\":\"Anderea\",\"middleName\":null," +
+                    "\"lastName\":\"Carson\",\"email\":null,\"avatarLink\":null}";
 
     @BeforeAll
     static void contextLoads() throws NoSuchAlgorithmException, KeyManagementException {
@@ -121,19 +124,55 @@ class EyentelligenceApplicationTests {
 
     @Sql("classpath:schema.sql")
     @Test
-    public void testTeamAdd() {
+    public void testTeamListAll() {
         ResponseEntity<String> response = this.restTemplate.getForEntity(
                 this.apiPrefix + "/team", String.class);
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         Assertions.assertThat(response.getBody())
                 .isEqualTo(this.initialContents + "]");
+    }
+
+    @Sql("classpath:schema.sql")
+    @Test
+    public void testTeamListOne() {
+        ResponseEntity<String> response = this.restTemplate.getForEntity(
+                this.apiPrefix + "/team/1", String.class);
         Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        Assertions.assertThat(response.getBody())
+                .isEqualTo("{\"id\":1,\"name\":\"Zathin\",\"type\":\"T\",\"parentTeam\":null}");
+    }
+
+    @Sql("classpath:schema.sql")
+    @Test
+    public void testTeamListOneNonExisting() {
+        ResponseEntity<String> response = this.restTemplate.getForEntity(
+                this.apiPrefix + "/team/0", String.class);
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+
+        response = this.restTemplate.getForEntity(
+                this.apiPrefix + "/team/11", String.class);
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+    }
+
+    @Test
+    public void testTeamListOneGibberish() {
+        ResponseEntity<String> response = this.restTemplate.getForEntity(
+                this.apiPrefix + "/team/asdasdasd", String.class);
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
+    @Sql("classpath:schema.sql")
+    @Test
+    public void testTeamAdd() {
+        this.testTeamListAll();
 
         String teamName = this.getRandomString(this.random.nextInt(32) + 1);
         String teamType = this.random.nextBoolean() ? "T" : "O";
         String parentTeam = this.random.nextBoolean() ? "null" : "{\"id\":2}";
         String postBody = "{\"name\":\"" + teamName + "\",\"type\":\"" +
                 teamType + "\",\"parentTeam\":" + parentTeam + "}";
-        response = this.restTemplate.postForEntity(this.apiPrefix + "/team", postBody, String.class);
+        ResponseEntity<String> response = this.restTemplate.postForEntity(
+                this.apiPrefix + "/team", postBody, String.class);
 
         Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         List<String> locations = response.getHeaders().get("Location");
@@ -173,5 +212,328 @@ class EyentelligenceApplicationTests {
         response = this.restTemplate.getForEntity(this.apiPrefix + "/team", String.class);
         Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         Assertions.assertThat(response.getBody()).isEqualTo(expectedAll);
+    }
+
+    @Test
+    public void testTeamAddBadName() {
+        ResponseEntity<String> response = this.restTemplate.postForEntity(
+                this.apiPrefix + "/team",
+                "{\"name\":\"\",\"type\":\"O\",\"parentTeam\":null}", String.class);
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+
+        response = this.restTemplate.postForEntity(
+                this.apiPrefix + "/team",
+                "{\"name\":null,\"type\":\"O\",\"parentTeam\":null}", String.class);
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
+    public void testTeamAddBadType() {
+        ResponseEntity<String> response = this.restTemplate.postForEntity(
+                this.apiPrefix + "/team",
+                "{\"name\":\"NAME\",\"type\":\"Z\",\"parentTeam\":null}", String.class);
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
+    @Sql("classpath:schema.sql")
+    @Test
+    public void testTeamAddNoParentTeam() {
+        ResponseEntity<String> response = this.restTemplate.postForEntity(
+                this.apiPrefix + "/team",
+                "{\"name\":\"NAME\",\"type\":\"T\"}", String.class);
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+        List<String> locations = response.getHeaders().get("Location");
+        Assertions.assertThat(locations).isNotNull();
+        Assertions.assertThat(locations.get(0)).isEqualTo("/team/11");
+        Assertions.assertThat(response.getBody()).isEqualTo(
+                "{\"id\":11,\"name\":\"NAME\",\"type\":\"T\",\"parentTeam\":null}");
+    }
+
+    @Test
+    public void testTeamAddMissingNameOrType() {
+        ResponseEntity<String> response = this.restTemplate.postForEntity(
+                this.apiPrefix + "/team",
+                "{\"type\":\"T\"}", String.class);
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+
+        response = this.restTemplate.postForEntity(
+                this.apiPrefix + "/team",
+                "{\"name\":\"NAME\"}", String.class);
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
+    @Sql("classpath:schema.sql")
+    @Test
+    public void testTeamModifyName() {
+        ResponseEntity<String> response = this.restTemplate.exchange(
+                this.apiPrefix + "/team/1", HttpMethod.PUT,
+                new HttpEntity<>("{\"name\":\"NAME-NEW\"}"), String.class);
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+        List<String> locations = response.getHeaders().get("Location");
+        Assertions.assertThat(locations).isNotNull();
+        Assertions.assertThat(locations.get(0)).isEqualTo("/team/1");
+        Assertions.assertThat(response.getBody()).isEqualTo(
+                "{\"id\":1,\"name\":\"NAME-NEW\",\"type\":\"T\",\"parentTeam\":null}");
+    }
+
+    @Sql("classpath:schema.sql")
+    @Test
+    public void testTeamModifyUniform() {
+        this.testTeamModifyName();
+
+        ResponseEntity<String> response = this.restTemplate.getForEntity(
+                this.apiPrefix + "/team/1", String.class);
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        Assertions.assertThat(response.getBody())
+                .isEqualTo("{\"id\":1,\"name\":\"NAME-NEW\",\"type\":\"T\",\"parentTeam\":null}");
+    }
+
+    @Sql("classpath:schema.sql")
+    @Test
+    public void testTeamModifyType() {
+        ResponseEntity<String> response = this.restTemplate.exchange(
+                this.apiPrefix + "/team/1", HttpMethod.PUT,
+                new HttpEntity<>("{\"type\":\"O\"}"), String.class);
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+        List<String> locations = response.getHeaders().get("Location");
+        Assertions.assertThat(locations).isNotNull();
+        Assertions.assertThat(locations.get(0)).isEqualTo("/team/1");
+        Assertions.assertThat(response.getBody()).isEqualTo(
+                "{\"id\":1,\"name\":\"Zathin\",\"type\":\"O\",\"parentTeam\":null}");
+    }
+
+    @Sql("classpath:schema.sql")
+    @Test
+    public void testTeamModifyNameAndType() {
+        ResponseEntity<String> response = this.restTemplate.exchange(
+                this.apiPrefix + "/team/1", HttpMethod.PUT,
+                new HttpEntity<>("{\"name\":\"NAME-NEW\",\"type\":\"O\"}"), String.class);
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+        List<String> locations = response.getHeaders().get("Location");
+        Assertions.assertThat(locations).isNotNull();
+        Assertions.assertThat(locations.get(0)).isEqualTo("/team/1");
+        Assertions.assertThat(response.getBody()).isEqualTo(
+                "{\"id\":1,\"name\":\"NAME-NEW\",\"type\":\"O\",\"parentTeam\":null}");
+    }
+
+    @Sql("classpath:schema.sql")
+    @Test
+    public void testTeamModifyNonExisting() {
+        ResponseEntity<String> response = this.restTemplate.exchange(
+                this.apiPrefix + "/team/0", HttpMethod.PUT,
+                new HttpEntity<>("{\"name\":\"NAME-NEW\"}"), String.class);
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+    }
+
+    @Sql("classpath:schema.sql")
+    @Test
+    public void testTeamModifyParentTeam() {
+        ResponseEntity<String> response = this.restTemplate.exchange(
+                this.apiPrefix + "/team/1", HttpMethod.PUT,
+                new HttpEntity<>("{\"parentTeam\":{\"id\":4}}"), String.class);
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+        List<String> locations = response.getHeaders().get("Location");
+        Assertions.assertThat(locations).isNotNull();
+        Assertions.assertThat(locations.get(0)).isEqualTo("/team/1");
+        Assertions.assertThat(response.getBody()).isEqualTo(
+                "{\"id\":1,\"name\":\"Zathin\",\"type\":\"T\",\"parentTeam\":" +
+                        "{\"id\":4,\"name\":\"Tres-Zap\",\"type\":\"O\",\"parentTeam\":" +
+                        "{\"id\":3,\"name\":\"Tresom\",\"type\":\"T\",\"parentTeam\":null}}}");
+    }
+
+    @Sql("classpath:schema.sql")
+    @Test
+    public void testTeamModifyParentTeamNoId() {
+        ResponseEntity<String> response = this.restTemplate.exchange(
+                this.apiPrefix + "/team/1", HttpMethod.PUT,
+                new HttpEntity<>("{\"parentTeam\":{\"field\":1}}"), String.class);
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
+    @Sql("classpath:schema.sql")
+    @Test
+    public void testTeamModifyParentTeamIdTooBig() {
+        ResponseEntity<String> response = this.restTemplate.exchange(
+                this.apiPrefix + "/team/1", HttpMethod.PUT,
+                new HttpEntity<>("{\"parentTeam\":{\"id\":9999}}"), String.class);
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
+    @Sql("classpath:schema.sql")
+    @Test
+    public void testTeamModifyParentTeamIdRecursive() {
+        ResponseEntity<String> response = this.restTemplate.exchange(
+                this.apiPrefix + "/team/10", HttpMethod.PUT,
+                new HttpEntity<>("{\"parentTeam\":{\"id\":10}}"), String.class);
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
+    @Sql("classpath:schema.sql")
+    @Test
+    public void testTeamDeleteNonExisting() {
+        ResponseEntity<String> response = this.restTemplate.exchange(
+                this.apiPrefix + "/team/0", HttpMethod.DELETE,
+                new HttpEntity<>(""), String.class);
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+    }
+
+    @Sql("classpath:schema.sql")
+    @Test
+    public void testTeamDelete() {
+        ResponseEntity<String> response = this.restTemplate.exchange(
+                this.apiPrefix + "/team/10", HttpMethod.DELETE,
+                new HttpEntity<>(""), String.class);
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
+
+        response = this.restTemplate.exchange(
+                this.apiPrefix + "/team/10", HttpMethod.DELETE,
+                new HttpEntity<>(""), String.class);
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+
+        String expected = this.initialContents.substring(0,
+                this.initialContents.lastIndexOf(",{\"id\":10,")) + "]";
+        response = this.restTemplate.getForEntity(
+                this.apiPrefix + "/team", String.class);
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        Assertions.assertThat(response.getBody()).isEqualTo(expected);
+    }
+
+    @Sql("classpath:schema.sql")
+    @Test
+    public void testTeamDeleteCascade() {
+        ResponseEntity<String> response = this.restTemplate.exchange(
+                this.apiPrefix + "/team/3", HttpMethod.DELETE,
+                new HttpEntity<>(""), String.class);
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
+
+        String expected =
+                "[{\"id\":1,\"name\":\"Zathin\",\"type\":\"T\",\"parentTeam\":null}," +
+                "{\"id\":2,\"name\":\"Rank\",\"type\":\"O\",\"parentTeam\":" +
+                "{\"id\":1,\"name\":\"Zathin\",\"type\":\"T\",\"parentTeam\":null}}," +
+                "{\"id\":8,\"name\":\"Keylex\",\"type\":\"T\",\"parentTeam\":null}," +
+                "{\"id\":10,\"name\":\"Daltfresh\",\"type\":\"O\",\"parentTeam\":" +
+                "{\"id\":2,\"name\":\"Rank\",\"type\":\"O\",\"parentTeam\":" +
+                "{\"id\":1,\"name\":\"Zathin\",\"type\":\"T\",\"parentTeam\":null}}}]";
+        response = this.restTemplate.getForEntity(
+                this.apiPrefix + "/team", String.class);
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        Assertions.assertThat(response.getBody()).isEqualTo(expected);
+    }
+
+    @Test
+    public void testTeamDeleteGibberish() {
+        ResponseEntity<String> response = this.restTemplate.exchange(
+                this.apiPrefix + "/team/asdasdasd", HttpMethod.DELETE,
+                new HttpEntity<>(""), String.class);
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
+    @Sql("classpath:schema.sql")
+    @Test
+    public void testUserListAll() {
+        ResponseEntity<String> response = this.restTemplate.getForEntity(
+                this.apiPrefix + "/user", String.class);
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        Assertions.assertThat(response.getBody())
+                .isEqualTo("[" + this.initialContentsUser + "]");
+    }
+
+    @Sql("classpath:schema.sql")
+    @Test
+    public void testUserListOne() {
+        ResponseEntity<String> response = this.restTemplate.getForEntity(
+                this.apiPrefix + "/user/1", String.class);
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        Assertions.assertThat(response.getBody())
+                .isEqualTo(this.initialContentsUser);
+    }
+
+    @Test
+    public void testUserAdd() {
+        String firstName = this.getRandomString(this.random.nextInt(15) + 1);
+        String middleName = this.getRandomString(this.random.nextInt(15) + 1);
+        String lastName = this.getRandomString(this.random.nextInt(15) + 1);
+        String postBody = "{\"firstName\":\"" + firstName + "\",\"middleName\":\"" +
+                middleName + "\",\"lastName\":\"" + lastName + "\"}";
+        ResponseEntity<String> response = this.restTemplate.postForEntity(
+                this.apiPrefix + "/user", postBody, String.class);
+
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+        List<String> locations = response.getHeaders().get("Location");
+        Assertions.assertThat(locations).isNotNull();
+        Assertions.assertThat(locations.get(0)).isEqualTo("/user/1");
+        Assertions.assertThat(response.getBody()).isEqualTo(
+                "{\"id\":1,\"username\":\"user\",\"passwordHash\":\"useruseruser\"," +
+                        "\"title\":null,\"firstName\":\"" + firstName + "\"," +
+                        "\"middleName\":\"" + middleName + "\",\"lastName\":\"" + lastName + "\"," +
+                        "\"email\":null,\"avatarLink\":null}");
+    }
+
+    @Test
+    public void testUserAddNoMiddleName() {
+        String firstName = this.getRandomString(this.random.nextInt(15) + 1);
+        String lastName = this.getRandomString(this.random.nextInt(15) + 1);
+        String postBody = "{\"firstName\":\"" + firstName + "\"," +
+                "\"middleName\":null,\"lastName\":\"" + lastName + "\"}";
+        ResponseEntity<String> response = this.restTemplate.postForEntity(
+                this.apiPrefix + "/user", postBody, String.class);
+
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+        List<String> locations = response.getHeaders().get("Location");
+        Assertions.assertThat(locations).isNotNull();
+        Assertions.assertThat(locations.get(0)).isEqualTo("/user/1");
+        Assertions.assertThat(response.getBody()).isEqualTo(
+                "{\"id\":1,\"username\":\"user\",\"passwordHash\":\"useruseruser\"," +
+                        "\"title\":null,\"firstName\":\"" + firstName + "\"," +
+                        "\"middleName\":null,\"lastName\":\"" + lastName + "\"," +
+                        "\"email\":null,\"avatarLink\":null}");
+    }
+
+    @Test
+    public void testUserAddMissingFirstName() {
+        String middleName = this.getRandomString(this.random.nextInt(15) + 1);
+        String lastName = this.getRandomString(this.random.nextInt(15) + 1);
+        String postBody = "{\"middleName\":\"" + middleName + "\"," +
+                "\"lastName\":\"" + lastName + "\"}";
+        ResponseEntity<String> response = this.restTemplate.postForEntity(
+                this.apiPrefix + "/user", postBody, String.class);
+
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
+    public void testUserAddMissingLastName() {
+        String firstName = this.getRandomString(this.random.nextInt(15) + 1);
+        String postBody = "{\"firstName\":\"" + firstName + "\"}";
+        ResponseEntity<String> response = this.restTemplate.postForEntity(
+                this.apiPrefix + "/user", postBody, String.class);
+
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
+    public void testUserAddMalformed() {
+        String postBody = "{\"firstName\":\"    \",\"lastName\":\"LAST\"}";
+        ResponseEntity<String> response = this.restTemplate.postForEntity(
+                this.apiPrefix + "/user", postBody, String.class);
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+
+        postBody = "{\"firstName\":\"FIRST\",\"lastName\":null}";
+        response = this.restTemplate.postForEntity(
+                this.apiPrefix + "/user", postBody, String.class);
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
+    // ------------------------------------------------------------
+    // ------------------------- TODO FIX -------------------------
+    // ------------------------------------------------------------
+
+    @Sql("classpath:schema.sql")
+    @Test
+    public void testTeamModifyNested() {
+        ResponseEntity<String> response = this.restTemplate.exchange(
+                this.apiPrefix + "/team/3", HttpMethod.PUT,
+                new HttpEntity<>("{\"parentTeam\":{\"id\":4}}"), String.class);
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
     }
 }

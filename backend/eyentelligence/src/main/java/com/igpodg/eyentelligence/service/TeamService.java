@@ -74,6 +74,16 @@ public class TeamService {
         if (team.getType() == null)
             throw new EyenBadRequestException();
 
+        if (OptionalUtil.isValid(team.getParentTeam())) {
+            Integer parentTeamId = team.getParentTeam().get().getId();
+            // parent team must have an ID if exists
+            if (parentTeamId == null)
+                throw new EyenBadRequestException();
+            // wrong IDs are not accepted
+            else if (!this.doesTeamExistById(parentTeamId))
+                throw new EyenBadRequestException();
+        }
+
         Team entity = this.teamRepository.save(this.convertToTeam(team));
         this.teamRepository.refresh(entity);
         return this.convertToTeamDto(entity);
@@ -89,8 +99,21 @@ public class TeamService {
             team.setName(request.getName().get());
         if (OptionalUtil.isValid(request.getType()))
             team.setType(request.getType().get());
-        if (OptionalUtil.isValid(request.getParentTeam()))
+        if (OptionalUtil.isValid(request.getParentTeam())) {
+            TeamDto parentTeam = request.getParentTeam().get();
+            // parent team must have an ID if exists
+            if (parentTeam.getId() == null)
+                throw new EyenBadRequestException();
+            // wrong IDs are not accepted
+            else if (!this.doesTeamExistById(parentTeam.getId()))
+                throw new EyenBadRequestException();
+
+            // parent team cannot refer to itself
+            if (parentTeam.getId().equals(id))
+                throw new EyenBadRequestException();
+
             team.setParentTeam(request.getParentTeam().get());
+        }
 
         Team entity = this.teamRepository.save(this.convertToTeam(team));
         this.teamRepository.refresh(entity);
