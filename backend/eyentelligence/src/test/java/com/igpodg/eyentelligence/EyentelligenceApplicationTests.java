@@ -135,7 +135,24 @@ class EyentelligenceApplicationTests {
     @Sql("classpath:schema.sql")
     @Test
     public void testTeamAddAnother() {
-        System.out.println("another");
         this.testTeamAdd();
+
+        String expectedResponse = "{\"id\":12,\"name\":\"NAME\",\"type\":\"T\",\"parentTeam\":null}";
+        String expectedAll = this.restTemplate.getForObject(this.apiPrefix + "/team", String.class);
+        expectedAll = expectedAll.substring(0, expectedAll.length() - 1);
+        expectedAll += "," + expectedResponse + "]";
+
+        ResponseEntity<String> response = this.restTemplate.postForEntity(
+                this.apiPrefix + "/team",
+                "{\"name\":\"NAME\",\"type\":\"T\",\"parentTeam\":null}", String.class);
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+        List<String> locations = response.getHeaders().get("Location");
+        Assertions.assertThat(locations).isNotNull();
+        Assertions.assertThat(locations.get(0)).isEqualTo("/team/12");
+        Assertions.assertThat(response.getBody()).isEqualTo(expectedResponse);
+
+        response = this.restTemplate.getForEntity(this.apiPrefix + "/team", String.class);
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        Assertions.assertThat(response.getBody()).isEqualTo(expectedAll);
     }
 }
