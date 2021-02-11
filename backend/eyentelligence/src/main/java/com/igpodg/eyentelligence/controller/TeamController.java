@@ -46,7 +46,6 @@ public class TeamController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/team/{id}")
     public void deleteTeam(@PathVariable int id) {
-        TeamDto teamToDelete = this.teamService.getTeamById(id);
-        this.teamService.deleteTeam(teamToDelete);
+        this.teamService.deleteTeamById(id);
     }
 }

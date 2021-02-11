@@ -1,96 +1,64 @@
 package com.igpodg.eyentelligence.service;
 
 import com.igpodg.eyentelligence.dto.TeamDto;
-import com.igpodg.eyentelligence.exception.EyenBadRequestException;
-import com.igpodg.eyentelligence.exception.EyenNotFoundException;
+import com.igpodg.eyentelligence.exception.EyenUserException;
 import com.igpodg.eyentelligence.model.Team;
 import com.igpodg.eyentelligence.repository.TeamRepository;
+import com.igpodg.eyentelligence.util.DtoConversion;
 import com.igpodg.eyentelligence.util.OptionalUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class TeamService {
     @Autowired
     private TeamRepository teamRepository;
 
-    private TeamDto convertToTeamDto(Team team) {
-        if (team == null)
-            return null;
-        TeamDto teamDto = new TeamDto();
-        teamDto.setId(team.getId());
-        teamDto.setName(team.getName());
-        teamDto.setType(team.getType());
-        teamDto.setParentTeam(convertToTeamDto(team.getParentTeam()));
-        return teamDto;
-    }
-
-    private List<TeamDto> convertToTeamDto(List<Team> teams) {
-        return teams.stream()
-                .map(this::convertToTeamDto)
-                .collect(Collectors.toList());
-    }
-
-    private Team convertToTeam(TeamDto teamDto) {
-        if (teamDto == null)
-            return null;
-        Team team = new Team();
-        team.setId(teamDto.getId());
-        team.setName(OptionalUtil.unwrap(teamDto.getName()));
-        team.setType(OptionalUtil.unwrap(teamDto.getType()));
-        team.setParentTeam(this.convertToTeam(OptionalUtil.unwrap(teamDto.getParentTeam())));
-        return team;
-    }
-
-    private List<Team> convertToTeam(List<TeamDto> teamDtos) {
-        return teamDtos.stream()
-                .map(this::convertToTeam)
-                .collect(Collectors.toList());
-    }
+    private final static String ERR_TEAM_NOT_FOUND =
+            "The specified team has not been found.";
+    private final static String ERR_PARENT_TEAM_OBJ_INVALID_ID =
+            "The parent team object has a missing/invalid ID.";
+    private final static String ERR_PARENT_TEAM_INVALID_ID =
+            "The ID that the parent team is referring to is invalid.";
+    private final static String ERR_PARENT_TEAM_SELF_REFERENCE =
+            "The ID of the parent team cannot refer to itself.";
 
     public Boolean doesTeamExistById(Integer id) {
         return this.teamRepository.findById(id).isPresent();
     }
 
     public List<TeamDto> getAllTeams() {
-        return this.convertToTeamDto(this.teamRepository.findAll());
+        return DtoConversion.convertToTeamDto(this.teamRepository.findAll());
     }
 
     public TeamDto getTeamById(Integer id) {
         Optional<Team> team = this.teamRepository.findById(id);
         if (team.isEmpty())
-            throw new EyenNotFoundException();
+            throw new EyenUserException(ERR_TEAM_NOT_FOUND);
 
-        return this.convertToTeamDto(team.get());
+        return DtoConversion.convertToTeamDto(team.get());
     }
 
     public TeamDto saveTeam(TeamDto team) {
-        if (team.getName() == null)
-            throw new EyenBadRequestException();
-        if (team.getType() == null)
-            throw new EyenBadRequestException();
-
         if (OptionalUtil.isValid(team.getParentTeam())) {
             Integer parentTeamId = team.getParentTeam().get().getId();
-            // parent team must have an ID if exists
             if (parentTeamId == null)
-                throw new EyenBadRequestException();
-            // wrong IDs are not accepted
+                throw new EyenUserException(ERR_PARENT_TEAM_OBJ_INVALID_ID);
             else if (!this.doesTeamExistById(parentTeamId))
-                throw new EyenBadRequestException();
+                throw new EyenUserException(ERR_PARENT_TEAM_INVALID_ID);
         }
 
-        Team entity = this.teamRepository.save(this.convertToTeam(team));
+        Team entity = this.teamRepository.save(DtoConversion.convertToTeam(team));
         this.teamRepository.refresh(entity);
-        return this.convertToTeamDto(entity);
+        return DtoConversion.convertToTeamDto(entity);
     }
 
-    public void deleteTeam(TeamDto team) {
-        this.teamRepository.delete(this.convertToTeam(team));
+    public void deleteTeamById(Integer id) {
+        TeamDto team = this.getTeamById(id);
+        this.teamRepository.delete(DtoConversion.convertToTeam(team));
     }
 
     public TeamDto mergeTeam(Integer id, TeamDto request) {
@@ -101,22 +69,19 @@ public class TeamService {
             team.setType(request.getType().get());
         if (OptionalUtil.isValid(request.getParentTeam())) {
             TeamDto parentTeam = request.getParentTeam().get();
-            // parent team must have an ID if exists
             if (parentTeam.getId() == null)
-                throw new EyenBadRequestException();
-            // wrong IDs are not accepted
+                throw new EyenUserException(ERR_PARENT_TEAM_OBJ_INVALID_ID);
             else if (!this.doesTeamExistById(parentTeam.getId()))
-                throw new EyenBadRequestException();
+                throw new EyenUserException(ERR_PARENT_TEAM_INVALID_ID);
 
-            // parent team cannot refer to itself
             if (parentTeam.getId().equals(id))
-                throw new EyenBadRequestException();
+                throw new EyenUserException(ERR_PARENT_TEAM_SELF_REFERENCE);
 
             team.setParentTeam(request.getParentTeam().get());
         }
 
-        Team entity = this.teamRepository.save(this.convertToTeam(team));
+        Team entity = this.teamRepository.save(DtoConversion.convertToTeam(team));
         this.teamRepository.refresh(entity);
-        return this.convertToTeamDto(entity);
+        return DtoConversion.convertToTeamDto(entity);
     }
 }

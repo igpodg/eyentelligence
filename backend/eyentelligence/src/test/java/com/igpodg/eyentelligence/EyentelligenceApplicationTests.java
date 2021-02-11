@@ -147,11 +147,11 @@ class EyentelligenceApplicationTests {
     public void testTeamListOneNonExisting() {
         ResponseEntity<String> response = this.restTemplate.getForEntity(
                 this.apiPrefix + "/team/0", String.class);
-        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
 
         response = this.restTemplate.getForEntity(
                 this.apiPrefix + "/team/11", String.class);
-        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
 
     @Test
@@ -322,7 +322,7 @@ class EyentelligenceApplicationTests {
         ResponseEntity<String> response = this.restTemplate.exchange(
                 this.apiPrefix + "/team/0", HttpMethod.PUT,
                 new HttpEntity<>("{\"name\":\"NAME-NEW\"}"), String.class);
-        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
 
     @Sql("classpath:schema.sql")
@@ -374,7 +374,7 @@ class EyentelligenceApplicationTests {
         ResponseEntity<String> response = this.restTemplate.exchange(
                 this.apiPrefix + "/team/0", HttpMethod.DELETE,
                 new HttpEntity<>(""), String.class);
-        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
 
     @Sql("classpath:schema.sql")
@@ -388,7 +388,7 @@ class EyentelligenceApplicationTests {
         response = this.restTemplate.exchange(
                 this.apiPrefix + "/team/10", HttpMethod.DELETE,
                 new HttpEntity<>(""), String.class);
-        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
 
         String expected = this.initialContents.substring(0,
                 this.initialContents.lastIndexOf(",{\"id\":10,")) + "]";
@@ -535,5 +535,27 @@ class EyentelligenceApplicationTests {
                 this.apiPrefix + "/team/3", HttpMethod.PUT,
                 new HttpEntity<>("{\"parentTeam\":{\"id\":4}}"), String.class);
         Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+    }
+
+    @Sql("classpath:schema.sql")
+    @Test
+    public void testTripleOptional() {
+        String expectedResponse1 = "{\"id\":2,\"name\":\"Rank\",\"type\":\"O\"," +
+                "\"parentTeam\":{\"id\":1,\"name\":\"Zathin\",\"type\":\"T\",\"parentTeam\":null}}";
+
+        String expectedResponse2 = "{\"id\":2,\"name\":\"Rank\",\"type\":\"O\"," +
+                "\"parentTeam\":null}";
+
+        ResponseEntity<String> response = this.restTemplate.exchange(
+                this.apiPrefix + "/team/2", HttpMethod.PUT,
+                new HttpEntity<>("{}"), String.class);
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+        Assertions.assertThat(response.getBody()).isEqualTo(expectedResponse1);
+
+        response = this.restTemplate.exchange(
+                this.apiPrefix + "/team/2", HttpMethod.PUT,
+                new HttpEntity<>("{\"parentTeam\":null}"), String.class);
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+        Assertions.assertThat(response.getBody()).isEqualTo(expectedResponse2);
     }
 }

@@ -1,7 +1,6 @@
-package com.igpodg.eyentelligence;
+package com.igpodg.eyentelligence.exception;
 
-import com.igpodg.eyentelligence.exception.EyenBadRequestException;
-import com.igpodg.eyentelligence.exception.EyenNotFoundException;
+import lombok.SneakyThrows;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
@@ -16,44 +15,50 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import javax.validation.ConstraintViolationException;
+import java.util.Collections;
 
 @RestControllerAdvice
 public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
     private final String contentType = "Content-Type";
     private final String applicationJson = "application/json;charset=utf-8";
 
-    private final JSONObject notFound;
-    private final JSONObject badRequest;
-    private final JSONObject notSupported;
-    private final JSONObject unknown;
+    private final static JSONObject SERVER =
+            new JSONObject(Collections.singletonMap("error", "ERROR_TYPE_SERVER"));
+    private final static JSONObject USER =
+            new JSONObject(Collections.singletonMap("error", "ERROR_TYPE_USER"));
 
-    public ControllerExceptionHandler() throws JSONException {
-        this.notFound = new JSONObject();
-        this.notFound.put("error", "STATUS_NOTFOUND");
-        this.badRequest = new JSONObject();
-        this.badRequest.put("error", "STATUS_BADREQUEST");
-        this.notSupported = new JSONObject();
-        this.notSupported.put("error", "STATUS_NOTSUPPORTED");
-        this.unknown = new JSONObject();
-        this.unknown.put("error", "STATUS_UNKNOWN");
-    }
+    private final static String ERR_INVALID_REQUEST_ARGUMENT =
+            "A given request argument is invalid. Please check your input.";
+    private final static String ERR_HTTP_METHOD_UNSUPPORTED =
+            "The HTTP method used is not supported.";
+    private final static String ERR_SELECTOR_INVALID_TYPE =
+            "The selector type in the URL is incorrect.";
 
-    @ExceptionHandler(EyenNotFoundException.class)
-    protected ResponseEntity<String> handleNotFound(EyenNotFoundException exception) {
-        return ResponseEntity
-                .status(HttpStatus.NOT_FOUND)
-                .header(this.contentType, this.applicationJson)
-                .body(this.notFound.toString());
-    }
-
-    @ExceptionHandler(EyenBadRequestException.class)
-    protected ResponseEntity<String> handleBadRequest(EyenBadRequestException exception) {
+    @ExceptionHandler(EyenUserException.class)
+    protected ResponseEntity<String> handleTypeUser(EyenUserException exception)
+            throws JSONException
+    {
+        JSONObject result = new JSONObject(USER, new String[] {"error"});
+        result.put("reason", exception.getMessage());
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .header(this.contentType, this.applicationJson)
-                .body(this.badRequest.toString());
+                .body(result.toString());
     }
 
+    @ExceptionHandler(EyenServerException.class)
+    protected ResponseEntity<String> handleTypeServer(EyenServerException exception)
+            throws JSONException
+    {
+        JSONObject result = new JSONObject(SERVER, new String[] {"error"});
+        result.put("reason", exception.getMessage());
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .header(this.contentType, this.applicationJson)
+                .body(result.toString());
+    }
+
+    @SneakyThrows(JSONException.class)
     @Override
     protected ResponseEntity<Object>
         handleMethodArgumentNotValid(MethodArgumentNotValidException exception,
@@ -61,20 +66,24 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
                                      HttpStatus status,
                                      WebRequest request)
     {
+        JSONObject result = new JSONObject(USER, new String[] {"error"});
+        result.put("reason", ERR_INVALID_REQUEST_ARGUMENT);
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .header(this.contentType, this.applicationJson)
-                .body(this.badRequest.toString());
+                .body(result.toString());
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
     protected ResponseEntity<String> handleConstraintViolation(ConstraintViolationException exception) {
+        System.out.println("constraint violation");
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .header(this.contentType, this.applicationJson)
-                .body(this.badRequest.toString());
+                .body(SERVER.toString());
     }
 
+    @SneakyThrows(JSONException.class)
     @Override
     protected ResponseEntity<Object>
         handleHttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException exception,
@@ -82,30 +91,36 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
                                             HttpStatus status,
                                             WebRequest request)
     {
+        JSONObject result = new JSONObject(USER, new String[] {"error"});
+        result.put("reason", ERR_HTTP_METHOD_UNSUPPORTED);
         return ResponseEntity
                 .status(HttpStatus.METHOD_NOT_ALLOWED)
                 .header(this.contentType, this.applicationJson)
-                .body(this.notSupported.toString());
+                .body(result.toString());
     }
 
+    @SneakyThrows(JSONException.class)
     @Override
     protected ResponseEntity<Object> handleTypeMismatch(TypeMismatchException exception,
                                                         HttpHeaders headers,
                                                         HttpStatus status,
                                                         WebRequest request)
     {
+        JSONObject result = new JSONObject(USER, new String[] {"error"});
+        result.put("reason", ERR_SELECTOR_INVALID_TYPE);
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .header(this.contentType, this.applicationJson)
-                .body(this.badRequest.toString());
+                .body(result.toString());
     }
 
     @ExceptionHandler(Exception.class)
     protected ResponseEntity<String> handleUnknown(Exception exception) throws JSONException {
-        this.unknown.put("error", exception.getMessage());
+        JSONObject result = new JSONObject(SERVER, new String[] {"error"});
+        result.put("reason", exception.getMessage());
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .header(this.contentType, this.applicationJson)
-                .body(this.unknown.toString());
+                .body(result.toString());
     }
 }

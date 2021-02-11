@@ -1,5 +1,6 @@
 package com.igpodg.eyentelligence;
 
+import com.igpodg.eyentelligence.repository.JpaRefreshRepositoryImpl;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;

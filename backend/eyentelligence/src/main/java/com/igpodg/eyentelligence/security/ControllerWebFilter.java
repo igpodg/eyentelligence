@@ -1,4 +1,4 @@
-package com.igpodg.eyentelligence;
+package com.igpodg.eyentelligence.security;
 
 import org.springframework.beans.factory.annotation.Value;
 

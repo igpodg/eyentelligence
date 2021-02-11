@@ -1,4 +1,4 @@
-package com.igpodg.eyentelligence;
+package com.igpodg.eyentelligence.repository;
 
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
