@@ -120,10 +120,13 @@ export default {
             }
             return null;
         },
-        convertParent: function(id) {
+        convertParent: function(parentTeam) {
             //let parentTeam = this.getTeamById(id);
             //console.log(parentTeam);
-            return `Team (id: ${id})`;
+            if (parentTeam === null)
+                return "— Root";
+
+            return "Team " + parentTeam.name;
         },
         formSubmitted: function(event) {
             event.preventDefault();
@@ -168,6 +171,11 @@ export default {
     },
     beforeDestroy: function() {
         this.$eventBus.$off("edit-cancelled");
+    },
+    watch: {
+        $route: function() {
+            this.updateTeamValues();
+        }
     }
 }
 </script>
