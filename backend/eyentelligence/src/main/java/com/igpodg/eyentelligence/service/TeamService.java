@@ -19,6 +19,8 @@ public class TeamService {
 
     private final static String ERR_TEAM_NOT_FOUND =
             "The specified team has not been found.";
+    private final static String ERR_TEAM_CREATE_NOT_ENOUGH_FIELDS =
+            "Not enough required fields to create a new team.";
     private final static String ERR_PARENT_TEAM_OBJ_INVALID_ID =
             "The parent team object has a missing/invalid ID.";
     private final static String ERR_PARENT_TEAM_INVALID_ID =
@@ -43,6 +45,12 @@ public class TeamService {
     }
 
     public TeamDto saveTeam(TeamDto team) {
+        // fields "name" and "type" must exist when adding a new Team
+        //   (this doesn't apply to mergeTeam)
+        if (team.getName() == null || team.getType() == null) {
+            throw new EyenUserException(ERR_TEAM_CREATE_NOT_ENOUGH_FIELDS);
+        }
+
         if (OptionalUtil.isValid(team.getParentTeam())) {
             Integer parentTeamId = team.getParentTeam().get().getId();
             if (parentTeamId == null)
