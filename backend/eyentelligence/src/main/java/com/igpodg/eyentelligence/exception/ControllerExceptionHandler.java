@@ -5,6 +5,8 @@ import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import java.util.Collections;
 
 @RestControllerAdvice
+@Order(Ordered.HIGHEST_PRECEDENCE)
 public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
     private final String contentType = "Content-Type";
     private final String applicationJson = "application/json;charset=utf-8";
@@ -34,6 +37,22 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
             "The HTTP method used is not supported.";
     private final static String ERR_SELECTOR_INVALID_TYPE =
             "The selector type in the URL is incorrect.";
+
+    @RestControllerAdvice
+    public class ControllerExceptionFallbackHandler extends ResponseEntityExceptionHandler {
+        @ExceptionHandler(Exception.class)
+        protected ResponseEntity<String> handleUnknown(Exception exception) throws JSONException {
+            String contentType = ControllerExceptionHandler.this.contentType;
+            String applicationJson = ControllerExceptionHandler.this.applicationJson;
+
+            JSONObject result = new JSONObject(SERVER, new String[] {"error"});
+            result.put("reason", exception.getMessage());
+            return ResponseEntity
+                    .status(HttpStatus.NOT_IMPLEMENTED)
+                    .header(contentType, applicationJson)
+                    .body(result.toString());
+        }
+    }
 
     @ExceptionHandler(EyenUserException.class)
     protected ResponseEntity<String> handleTypeUser(EyenUserException exception)
@@ -76,12 +95,15 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
-    protected ResponseEntity<String> handleConstraintViolation(ConstraintViolationException exception) {
-        System.out.println("constraint violation");
+    protected ResponseEntity<String> handleConstraintViolation(ConstraintViolationException exception)
+            throws JSONException
+    {
+        JSONObject result = new JSONObject(SERVER, new String[] {"error"});
+        result.put("reason", exception.getMessage());
         return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .header(this.contentType, this.applicationJson)
-                .body(SERVER.toString());
+                .body(result.toString());
     }
 
     @SneakyThrows(JSONException.class)
@@ -111,16 +133,6 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
         result.put("reason", ERR_SELECTOR_INVALID_TYPE);
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
-                .header(this.contentType, this.applicationJson)
-                .body(result.toString());
-    }
-
-    @ExceptionHandler(Exception.class)
-    protected ResponseEntity<String> handleUnknown(Exception exception) throws JSONException {
-        JSONObject result = new JSONObject(SERVER, new String[] {"error"});
-        result.put("reason", exception.getMessage());
-        return ResponseEntity
-                .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .header(this.contentType, this.applicationJson)
                 .body(result.toString());
     }
