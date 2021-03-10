@@ -99,7 +99,7 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
             throws JSONException
     {
         JSONObject result = new JSONObject(SERVER, new String[] {"error"});
-        result.put("reason", exception.getMessage());
+        result.put("reason", exception.getSQLException().getMessage());
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .header(this.contentType, this.applicationJson)
