@@ -16,8 +16,8 @@
                 <left-bar-dropdown v-for="team in teams" :key="team.id"
                                    icon="briefcase" :name="team.name" url="" :index="team.id">
                     <left-bar-static-mini name="Home" :url="'/team/' + team.id"/>
-                    <left-bar-static-mini name="My Dashboard" :url="'/dashboard/' + team.id"/>
-                    <left-bar-static-mini name="My Dashboard #2" :url="'/dashboard/' + team.id"/>
+                    <left-bar-static-mini name="My Dashboard" :url="'/team/' + team.id + '/dashboard/1'"/>
+                    <left-bar-static-mini name="My Dashboard #2" :url="'/team/' + team.id + '/dashboard/2'"/>
                     <hr>
                     <left-bar-static-mini name="Dashboards..." :url="'/dashboards/' + team.id"/>
                     <left-bar-static-mini name="Members..." :url="'/members/' + team.id"/>

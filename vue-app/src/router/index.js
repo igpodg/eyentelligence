@@ -31,17 +31,17 @@ let routes = [
         component: TeamHome
     },
     {
-        path: "/dashboard/:id",
+        path: "/team/:id/dashboard/:dashid",
         name: "Dashboard",
         component: Dashboard
     },
     {
-        path: "/dashboards/:id",
+        path: "/team/:id/dashboards",
         name: "AllDashboards",
         component: AllDashboards
     },
     {
-        path: "/members/:id",
+        path: "/team/:id/members",
         name: "AllMembers",
         component: AllMembers
     },
