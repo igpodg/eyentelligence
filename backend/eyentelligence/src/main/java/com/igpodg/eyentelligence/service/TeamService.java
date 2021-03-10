@@ -64,11 +64,6 @@ public class TeamService {
         return DtoConversion.convertToTeamDto(entity);
     }
 
-    public void deleteTeamById(Integer id) {
-        TeamDto team = this.getTeamById(id);
-        this.teamRepository.delete(DtoConversion.convertToTeam(team));
-    }
-
     public TeamDto mergeTeam(Integer id, TeamDto request) {
         TeamDto team = this.getTeamById(id);
         if (OptionalUtil.isValid(request.getName()))
@@ -85,11 +80,16 @@ public class TeamService {
             if (parentTeam.getId().equals(id))
                 throw new EyenUserException(ERR_PARENT_TEAM_SELF_REFERENCE);
 
-            team.setParentTeam(request.getParentTeam().get());
+            team.setParentTeam(parentTeam);
         }
 
         Team entity = this.teamRepository.save(DtoConversion.convertToTeam(team));
         this.teamRepository.refresh(entity);
         return DtoConversion.convertToTeamDto(entity);
+    }
+
+    public void deleteTeamById(Integer id) {
+        TeamDto team = this.getTeamById(id);
+        this.teamRepository.delete(DtoConversion.convertToTeam(team));
     }
 }

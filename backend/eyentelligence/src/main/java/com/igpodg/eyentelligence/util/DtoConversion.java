@@ -1,14 +1,65 @@
 package com.igpodg.eyentelligence.util;
 
+import com.igpodg.eyentelligence.dto.DashboardDto;
 import com.igpodg.eyentelligence.dto.TeamDto;
 import com.igpodg.eyentelligence.dto.UserDto;
+import com.igpodg.eyentelligence.model.Dashboard;
 import com.igpodg.eyentelligence.model.Team;
 import com.igpodg.eyentelligence.model.User;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class DtoConversion {
+    // ------------- DASHBOARD ------------
+    public static DashboardDto convertToDashboardDto(Dashboard dashboard) {
+        if (dashboard == null)
+            return null;
+        DashboardDto dashboardDto = new DashboardDto();
+        dashboardDto.setId(dashboard.getId());
+        dashboardDto.setTeam(convertToTeamDto(dashboard.getTeam()));
+        dashboardDto.setName(dashboard.getName());
+        dashboardDto.setCreatedDateTime(dashboard.getCreatedDateTime().getTime() / 1000L);
+        dashboardDto.setLastModifiedDateTime(dashboard.getLastModifiedDateTime().getTime() / 1000L);
+        return dashboardDto;
+    }
+
+    public static List<DashboardDto> convertToDashboardDto(List<Dashboard> dashboards) {
+        return dashboards.stream()
+                .map(DtoConversion::convertToDashboardDto)
+                .collect(Collectors.toList());
+    }
+
+    public static Dashboard convertToDashboard(DashboardDto dashboardDto) {
+        if (dashboardDto == null)
+            return null;
+        Dashboard dashboard = new Dashboard();
+        dashboard.setId(dashboardDto.getId());
+        dashboard.setTeam(convertToTeam(OptionalUtil.unwrap(dashboardDto.getTeam())));
+        dashboard.setName(OptionalUtil.unwrap(dashboardDto.getName()));
+
+        Long createdDateTime = OptionalUtil.unwrap(dashboardDto.getCreatedDateTime());
+        if (createdDateTime != null)
+            dashboard.setCreatedDateTime(new Date(createdDateTime * 1000));
+        else
+            dashboard.setCreatedDateTime(new Date());
+
+        Long lastModifiedDateTime = OptionalUtil.unwrap(dashboardDto.getLastModifiedDateTime());
+        if (lastModifiedDateTime != null)
+            dashboard.setLastModifiedDateTime(new Date(lastModifiedDateTime * 1000));
+        else
+            dashboard.setLastModifiedDateTime(new Date());
+
+        return dashboard;
+    }
+
+    public static List<Dashboard> convertToDashboard(List<DashboardDto> dashboardDtos) {
+        return dashboardDtos.stream()
+                .map(DtoConversion::convertToDashboard)
+                .collect(Collectors.toList());
+    }
+
     // --------------- TEAM ---------------
     public static TeamDto convertToTeamDto(Team team) {
         if (team == null)

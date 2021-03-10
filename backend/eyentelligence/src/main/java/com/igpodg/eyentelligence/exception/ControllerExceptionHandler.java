@@ -42,6 +42,7 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
     public class ControllerExceptionFallbackHandler extends ResponseEntityExceptionHandler {
         @ExceptionHandler(Exception.class)
         protected ResponseEntity<String> handleUnknown(Exception exception) throws JSONException {
+            exception.printStackTrace();
             String contentType = ControllerExceptionHandler.this.contentType;
             String applicationJson = ControllerExceptionHandler.this.applicationJson;
 
