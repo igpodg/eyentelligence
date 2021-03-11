@@ -3,8 +3,16 @@
         <div class="row">
             <div class="col-md-12 col-lg-12 col-xl-5">
                 <card heading="Dashboards" subtitle="See a list of all dashboards available for the team.">
-                    <form-element label="My Dashboard"/>
-                    <form-element label="My Dashboard #2" last/>
+                    <div v-if="dashboards.length === 0">
+                        <span>No dashboards found.</span>&nbsp;
+                        <router-link :to="'/team/' + this.$route.params.id + '/dashboards'">
+                            View details...</router-link>
+                    </div>
+                    <div v-else>
+                        <form-element v-for="(dash, i) in dashboards" :key="dash.id"
+                                      :label="dash.name"
+                                      :last="i === dashboards.length-1"/>
+                    </div>
                 </card>
                 <card heading="Statistics — Detailed" subtitle="The detailed usage statistics are shown here.
                     Determine how well your teamwork is going.">
@@ -107,17 +115,26 @@ export default {
                     "0.00%", "vs in last 31 days", "0.00%", "vs in last 365 days"]
             ],
             teamLabels: [],
-            currentTeamParent: null
+            currentTeamParent: null,
+            dashboards: []
         }
     },
     methods: {
         updateTeamValues: function() {
-            let parsedId = parseInt(this.$route.params.id);
-            let team = this.getTeamById(parsedId);
-            this.teamId = parsedId;
+            let teamId = parseInt(this.$route.params.id);
+            let team = this.getTeamById(teamId);
+            this.teamId = teamId;
             this.teamName = team.name;
             this.teamType = team.type;
             this.teamParent = team.parentTeam;
+        },
+        updateDashboards: function() {
+            let teamId = parseInt(this.$route.params.id);
+            this.teamId = teamId;
+            if (teamId in this.$root.$children[0].dashboards)
+                this.dashboards = this.$root.$children[0].dashboards[teamId];
+            else
+                this.dashboards = [];
         },
         convertTeamType: function(id) {
             for (let type of this.teamTypes) {
@@ -189,6 +206,7 @@ export default {
         this.$eventBus.$on("edit-cancelled", this.editCancelled);
         this.getTeamById = this.$root.$children[0].getTeamById;
         this.updateTeamValues();
+        this.updateDashboards();
     },
     beforeDestroy: function() {
         this.$eventBus.$off("edit-cancelled");
@@ -197,6 +215,7 @@ export default {
         $route: function() {
             this.editCancelled();
             this.updateTeamValues();
+            this.updateDashboards();
         }
     }
 }
