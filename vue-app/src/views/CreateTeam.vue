@@ -17,7 +17,8 @@
                         </form-row>
                         <form-row label="Location" :size="2">
                             <form-dropdown id="createTeamParent"
-                                           :items="[]"/>
+                                           :items="this.teamLabels"
+                                           unselected="— Root"/>
                         </form-row>
                         <form-button label="Create" :size="5" color="success"/>
                     </form>
@@ -48,7 +49,8 @@ export default {
             teamTypes: [
                 {id: "O", label: "Organization"},
                 {id: "T", label: "Regular team"}
-            ]
+            ],
+            teamLabels: []
         }
     },
     methods: {
@@ -65,6 +67,9 @@ export default {
                     toSend.name = el.value;
                 else if (el.id === "createTeamType")
                     toSend.type = el.value;
+                else if (el.id === "createTeamParent")
+                    toSend.parentTeam = (el.value === "") ? null
+                        : {"id": parseInt(el.value)};
             }
             this.$logDetailed("Creating a Team ...");
             this.$fetchSync("https://127.0.0.1:9090/team", {
@@ -78,6 +83,14 @@ export default {
 
             return false;
         }
+    },
+    mounted: function() {
+        this.teamLabels = this.$root.$children[0].teams.map(function(team) {
+            return {
+                id: team.id,
+                label: "Team " + team.name
+            };
+        });
     }
 }
 </script>
