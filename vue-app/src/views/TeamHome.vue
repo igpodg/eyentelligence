@@ -16,7 +16,7 @@
                 </card>
                 <card heading="Statistics — Detailed" subtitle="The detailed usage statistics are shown here.
                     Determine how well your teamwork is going.">
-                    <statistics-detailed :data="stats"/>
+                    <statistics-detailed :data="generateStats()"/>
                 </card>
             </div>
             <div class="col-md-12 col-lg-12 col-xl-7">
@@ -104,16 +104,12 @@ export default {
             teamName: "",
             teamType: "",
             teamParent: null,
-            stats: [
-                ["First", "5.3 hrs", "+18.68%", "vs in last 7 days",
-                    "-34.23%", "vs in last 31 days", "0.67%", "vs in last 365 days"],
-                ["Overall", "6.4 hrs", "+23.54%", "vs in last 7 days",
-                    "+1.34%", "vs in last 31 days", "0.00%", "vs in last 365 days"],
-                ["Last year only", "12.8 hrs", "+5.29%", "vs in last 7 days",
-                    "+0.33%", "vs in last 31 days", "0.00%", "vs in last 365 days"],
-                ["Everything", "23.1 hrs", "+1.53%", "vs in last 7 days",
-                    "0.00%", "vs in last 31 days", "0.00%", "vs in last 365 days"]
-            ],
+            stats: {
+                "first": {"total": 5.3, "7days": 0.1868, "31days": -0.3423, "365days": 0.2354},
+                "overall": {"total": 6.4, "7days": 0.2354, "31days": 0.0134, "365days": 0},
+                "lastYear": {"total": 12.8, "7days": 0.0529, "31days": 0.0033, "365days": 0},
+                "everything": {"total": 23.1, "7days": 0.0153, "31days": 0, "365days": 0}
+            },
             teamLabels: [],
             currentTeamParent: null,
             dashboards: []
@@ -200,6 +196,38 @@ export default {
         editCancelled: function() {
             this.$logDetailed("cancelled!");
             this.editEnabled = false;
+        },
+        generateStats: function() {
+            return [
+                ["First", this.stats.first.total + " hrs",
+                    this.stats.first["7days"]*100 + "%",
+                    "vs in last 7 days",
+                    this.stats.first["31days"]*100 + "%",
+                    "vs in last 31 days",
+                    this.stats.first["365days"]*100 + "%",
+                    "vs in last 365 days"],
+                ["Overall", this.stats.overall.total + " hrs",
+                    this.stats.overall["7days"]*100 + "%",
+                    "vs in last 7 days",
+                    this.stats.overall["31days"]*100 + "%",
+                    "vs in last 31 days",
+                    this.stats.overall["365days"]*100 + "%",
+                    "vs in last 365 days"],
+                ["Last year only", this.stats.lastYear.total + " hrs",
+                    this.stats.lastYear["7days"]*100 + "%",
+                    "vs in last 7 days",
+                    this.stats.lastYear["31days"]*100 + "%",
+                    "vs in last 31 days",
+                    this.stats.lastYear["365days"]*100 + "%",
+                    "vs in last 365 days"],
+                ["Everything", this.stats.everything.total + " hrs",
+                    this.stats.everything["7days"]*100 + "%",
+                    "vs in last 7 days",
+                    this.stats.everything["31days"]*100 + "%",
+                    "vs in last 31 days",
+                    this.stats.everything["365days"]*100 + "%",
+                    "vs in last 365 days"]
+            ];
         }
     },
     mounted: function() {
