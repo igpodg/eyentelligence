@@ -19,7 +19,7 @@
                             <form-dropdown id="createTeamParent"
                                            :items="[]"/>
                         </form-row>
-                        <form-button label="Create" :size="5"/>
+                        <form-button label="Create" :size="5" color="success"/>
                     </form>
                 </card>
             </div>

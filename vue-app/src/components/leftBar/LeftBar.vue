@@ -16,11 +16,11 @@
                 <left-bar-dropdown v-for="team in teams" :key="team.id"
                                    icon="briefcase" :name="team.name" url="" :index="team.id">
                     <left-bar-static-mini name="Home" :url="'/team/' + team.id"/>
-                    <left-bar-static-mini name="My Dashboard" :url="'/team/' + team.id + '/dashboard/1'"/>
-                    <left-bar-static-mini name="My Dashboard #2" :url="'/team/' + team.id + '/dashboard/2'"/>
+                    <left-bar-static-mini v-for="dash in dashboards[team.id]" :key="dash.id"
+                                          :name="dash.name" :url="'/team/' + team.id + '/dashboard/' + dash.id"/>
                     <hr>
-                    <left-bar-static-mini name="Dashboards..." :url="'/dashboards/' + team.id"/>
-                    <left-bar-static-mini name="Members..." :url="'/members/' + team.id"/>
+                    <left-bar-static-mini name="Dashboards..." :url="'/team/' + team.id + '/dashboards'"/>
+                    <left-bar-static-mini name="Members..." :url="'/team/' + team.id + '/members'"/>
                     <left-bar-static-modal name="Leave Team" color="danger"
                                            target="xpLeaveModal" :team="team"
                                            :owner="team.id % 2 === 0"/><!-- demo purposes -->
@@ -55,7 +55,8 @@ export default {
     props: {
         logo: String,
         url: String,
-        teams: Array
+        teams: Array,
+        dashboards: Object
     },
     created: function() {
         this.$eventBus.$emit("update-teams");

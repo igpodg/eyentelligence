@@ -4,7 +4,7 @@
             <div class="col-md-6 col-lg-6">
                 <h4 class="xp-page-title">
                     <span class="breadcrumb-heading-editable" v-if="editable"
-                          @click="toggleBreadcrumbHeading"
+                          @click="toggleBreadcrumbHeading" ref="staticheading"
                           @keydown="enterKeyPressed">{{ hierarchy.title }}</span>
                     <span class="breadcrumb-heading" v-else>{{ hierarchy.title }}</span>
                 </h4>
@@ -46,6 +46,10 @@ export default {
     methods: {
         toggleEditable: function() {
             this.editable = !this.editable;
+            if (!this.editable) {
+                this.$eventBus.$emit("new-dashboard-name",
+                    this.$refs.staticheading.textContent);
+            }
         },
         enterKeyPressed: function(event) {
             if (event instanceof Event && event.keyCode === 13) {

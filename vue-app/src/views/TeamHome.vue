@@ -27,7 +27,8 @@
                     </div>
                 </card>
                 <card heading="Team Information" subtitle="View or edit basic
-                    information about the team here." :edit-clicked="editClicked">
+                    information about the team here." :perform-func="editClicked"
+                      button-icon="pencil" button-text="Edit">
                     <form class="edit-team-body" ref="editform" @submit="formSubmitted">
                         <form-row label="Name" :size="2" :centered="!editEnabled">
                             <form-input id="createTeamName" is-required
@@ -107,8 +108,9 @@ export default {
     },
     methods: {
         updateTeamValues: function() {
-            let team = this.getTeamById(this.$route.params.id);
-            this.teamId = parseInt(this.$route.params.id);
+            let parsedId = parseInt(this.$route.params.id);
+            let team = this.getTeamById(parsedId);
+            this.teamId = parsedId;
             this.teamName = team.name;
             this.teamType = team.type;
             this.teamParent = team.parentTeam;

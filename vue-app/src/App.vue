@@ -2,7 +2,8 @@
     <div id="xp-container" v-if="!isSecondaryRoute()">
         <search-modal caption="GO"/>
         <leave-team-modal/>
-        <left-bar :logo="this.$logoPath" url="/" :teams="teams"/>
+        <left-bar :logo="this.$logoPath" url="/" :teams="teams"
+                                                 :dashboards="dashboards"/>
         <div class="xp-rightbar">
             <top-bar :user="user"/>
             <breadcrumbs :hierarchy="genHierarchy()"
@@ -40,6 +41,7 @@ export default {
             secondaryRoutes: ["Login", "Recover", "Invited", "Register"],
             crumbKey: false,
             teams: [],
+            dashboards: {},
             user: {}
         }
     },
@@ -56,8 +58,6 @@ export default {
         },
         getTeamById: function(id) {
             // todo: find a better way to do this
-            // todo:   + other parseInts
-            id = parseInt(id);
             for (let team of this.teams) {
                 if (team.id === id)
                     return team;
@@ -66,18 +66,27 @@ export default {
             this.$router.push("/");
             return null;
         },
+        getDashboardById: function(teamId, id) {
+            for (let dash of this.dashboards[teamId]) {
+                if (dash.id === id)
+                    return dash;
+            }
+            return null;
+        },
         genHierarchy: function() {
             let hierarchy = {};
+            let parsedId = parseInt(this.$route.params.id);
             if (this.$route.name === "Dashboard") {
-                hierarchy["title"] = "My Dashboard";
+                hierarchy["title"] = this.getDashboardById(parsedId,
+                    parseInt(this.$route.params.dashid)).name;
                 hierarchy["path"] = [
                     {
-                        title: this.getTeamById(this.$route.params.id).name,
+                        title: this.getTeamById(parsedId).name,
                         url: "/team/" + this.$route.params.id
                     }
                 ];
             } else if (this.$route.name === "TeamHome") {
-                hierarchy["title"] = this.getTeamById(this.$route.params.id).name;
+                hierarchy["title"] = this.getTeamById(parsedId).name;
                 hierarchy["path"] = [];
             } else if (this.$route.name === "JoinTeam") {
                 hierarchy["title"] = "Join a Team";
@@ -85,6 +94,22 @@ export default {
             } else if (this.$route.name === "CreateTeam") {
                 hierarchy["title"] = "Create a New Team";
                 hierarchy["path"] = [];
+            } else if (this.$route.name === "AllDashboards") {
+                hierarchy["title"] = "All Dashboards";
+                hierarchy["path"] = [
+                    {
+                        title: this.getTeamById(parsedId).name,
+                        url: "/team/" + this.$route.params.id
+                    }
+                ];
+            } else if (this.$route.name === "AllMembers") {
+                hierarchy["title"] = "All Members";
+                hierarchy["path"] = [
+                    {
+                        title: this.getTeamById(parsedId).name,
+                        url: "/team/" + this.$route.params.id
+                    }
+                ];
             } else {
                 hierarchy["title"] = this.$route.name;
                 hierarchy["path"] = [];
@@ -105,6 +130,21 @@ export default {
             // send to other components
             this.$eventBus.$emit("update-teams-overview");
         },
+        downloadDashboards: function() {
+            this.$logDetailed("Querying all dashboards...");
+            let response = this.$fetchSync("https://127.0.0.1:9090/dashboard", {
+                headers: { "X-API-Key": "xxxxxxxx" }
+            });
+            response = JSON.parse(response);
+            response = response.reduce(function(acc, val) {
+                if (!(val.team.id in acc))
+                    acc[val.team.id] = [];
+                acc[val.team.id].push(val);
+                return acc;
+            }, {});
+            this.dashboards = response;
+            this.$logDetailed("All dashboards query finished.");
+        },
         downloadUser: function() {
             this.$logDetailed("Querying the user info...");
             let userId = 1; // todo: get this from the token
@@ -123,15 +163,18 @@ export default {
     },
     created: function() {
         this.downloadTeams();
+        this.downloadDashboards();
         this.downloadUser();
     },
     mounted: function() {
         this.switchBodyColor();
         this.$eventBus.$on("update-teams", this.downloadTeams);
+        this.$eventBus.$on("update-dashboards", this.downloadDashboards);
         this.$eventBus.$on("update-user", this.downloadUser);
     },
     beforeDestroy: function() {
         this.$eventBus.$off("update-user");
+        this.$eventBus.$off("update-dashboards");
         this.$eventBus.$off("update-teams");
     },
     watch: {

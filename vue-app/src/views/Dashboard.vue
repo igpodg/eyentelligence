@@ -61,15 +61,48 @@ export default {
     },
     data: function() {
         return {
-            editEnabled: false
+            editEnabled: false,
+            getDashboardById: null,
+            dashId: null,
+            name: ""
         }
     },
     methods: {
+        updateDashboard: function() {
+            let parsedTeamId = parseInt(this.$route.params.id);
+            let parsedDashId = parseInt(this.$route.params.dashid);
+            this.dashId = parsedDashId;
+            let dash = this.getDashboardById(parsedTeamId, parsedDashId);
+            this.name = dash.name;
+        },
         toggleEdit: function() {
             this.$refs.header1.classList.toggle("dashboard-edit-disabled");
             this.$refs.header2.classList.toggle("dashboard-edit-disabled");
             this.editEnabled = !this.editEnabled;
             this.$eventBus.$emit("being-edited");
+        },
+        sendNewDashboardName: function(newName) {
+            this.$logDetailed("Sending a new name for dashboard #" + this.dashId + "...");
+            this.$fetchSync("https://127.0.0.1:9090/dashboard/" + this.dashId, {
+                method: "PUT",
+                headers: { "X-API-Key": "xxxxxxxx" },
+                body: "{\"name\": \"" + newName + "\"}"
+            });
+            this.$logDetailed("Finished updating to the new name.");
+            this.$eventBus.$emit("update-dashboards");
+        }
+    },
+    mounted: function() {
+        this.$eventBus.$on("new-dashboard-name", this.sendNewDashboardName);
+        this.getDashboardById = this.$root.$children[0].getDashboardById;
+        this.updateDashboard();
+    },
+    beforeDestroy: function() {
+        this.$eventBus.$off("new-dashboard-name");
+    },
+    watch: {
+        $route: function() {
+            this.updateDashboard();
         }
     }
 }
