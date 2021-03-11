@@ -48,7 +48,9 @@
                         </form-row>
                         <form-row label="Location" :size="2" :centered="!editEnabled">
                             <form-dropdown id="createTeamParent"
-                                           :items="[]"
+                                           :items="this.teamLabels"
+                                           unselected="— Root"
+                                           :value="this.currentTeamParent"
                                            v-if="editEnabled"/>
                             <span v-else>{{ convertParent(this.teamParent) }}</span>
                         </form-row>
@@ -103,7 +105,9 @@ export default {
                     "+0.33%", "vs in last 31 days", "0.00%", "vs in last 365 days"],
                 ["Everything", "23.1 hrs", "+1.53%", "vs in last 7 days",
                     "0.00%", "vs in last 31 days", "0.00%", "vs in last 365 days"]
-            ]
+            ],
+            teamLabels: [],
+            currentTeamParent: null
         }
     },
     methods: {
@@ -139,27 +143,42 @@ export default {
                     this.teamName = el.value;
                 else if (el.id === "createTeamType")
                     this.teamType = el.value;
+                else if (el.id === "createTeamParent")
+                    this.currentTeamParent = el.value;
             }
 
-            this.$logDetailed("Renaming a Team ...");
+            this.$logDetailed("Updating a Team ...");
             this.$fetchSync("https://127.0.0.1:9090/team/" + this.teamId, {
                 method: "PUT",
                 headers: { "X-API-Key": "xxxxxxxx" },
                 body: JSON.stringify({
                     //id: this.teamId,
                     name: this.teamName,
-                    type: this.teamType
-                    //parentTeamId: this.teamParent
+                    type: this.teamType,
+                    parentTeam: (this.currentTeamParent === "") ? null
+                        : {"id": parseInt(this.currentTeamParent)}
                 })
             });
-            this.$logDetailed("Team renaming finished.");
+            this.$logDetailed("Team updating finished.");
             this.$eventBus.$emit("update-teams");
+            this.updateTeamValues();
             this.editEnabled = false;
             return false;
         },
         editClicked: function() {
             this.$logDetailed("edit clicked");
             this.editEnabled = true;
+
+            this.teamLabels = this.$root.$children[0].teams.map(function(team) {
+                return {
+                    id: team.id,
+                    label: "Team " + team.name
+                };
+            });
+            if (this.teamParent !== null)
+                this.currentTeamParent = this.teamParent.id.toString();
+            else
+                this.currentTeamParent = null;
         },
         editCancelled: function() {
             this.$logDetailed("cancelled!");
@@ -176,6 +195,7 @@ export default {
     },
     watch: {
         $route: function() {
+            this.editCancelled();
             this.updateTeamValues();
         }
     }
