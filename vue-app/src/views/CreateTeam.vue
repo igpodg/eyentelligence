@@ -18,7 +18,7 @@
                         <form-row label="Location" :size="2">
                             <form-dropdown id="createTeamParent"
                                            :items="this.teamLabels"
-                                           unselected="—– Root"/>
+                                           :unselected="rootLabel"/>
                         </form-row>
                         <form-button label="Create" :size="5" color="success"/>
                     </form>
@@ -46,6 +46,7 @@ export default {
     },
     data: function() {
         return {
+            rootLabel: "—– Root",
             teamTypes: [
                 {id: "O", label: "Organization"},
                 {id: "T", label: "Regular team"}

@@ -58,7 +58,7 @@
                         <form-row label="Location" :size="2" :centered="!editEnabled">
                             <form-dropdown id="createTeamParent"
                                            :items="this.teamLabels"
-                                           unselected="— Root"
+                                           :unselected="rootLabel"
                                            :value="this.currentTeamParent"
                                            v-if="editEnabled"/>
                             <span v-else>{{ convertParent(this.teamParent) }}</span>
@@ -96,6 +96,7 @@ export default {
     },
     data: function() {
         return {
+            rootLabel: "—– Root",
             teamTypes: [
                 {id: "O", label: "Organization"},
                 {id: "T", label: "Regular team"}
@@ -144,7 +145,7 @@ export default {
             //let parentTeam = this.getTeamById(id);
             //console.log(parentTeam);
             if (parentTeam === null)
-                return "—– Root";
+                return this.rootLabel;
 
             return "Team " + parentTeam.name;
         },
