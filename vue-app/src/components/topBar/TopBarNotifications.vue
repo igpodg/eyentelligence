@@ -10,13 +10,13 @@
             </a>
             <popup name="notification" title="3 New Notifications" bottom-text="View all">
                 <popup-item-noti color="primary" icon="user-follow" time="2 min ago">
+                    New user invited
+                </popup-item-noti>
+                <popup-item-noti color="success" icon="user-follow" time="8:45 PM">
                     New user registered
                 </popup-item-noti>
-                <popup-item-noti color="success" icon="basket-loaded" time="8:45 PM">
-                    New order placed
-                </popup-item-noti>
-                <popup-item-noti color="danger" icon="like" time="Yesterday">
-                    John like your photo.
+                <popup-item-noti color="danger" icon="close" time="Yesterday">
+                    My Dashboard #2 removed
                 </popup-item-noti>
             </popup>
         </div>

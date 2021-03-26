@@ -8,10 +8,11 @@
                         <router-link :to="'/team/' + this.$route.params.id + '/dashboards'">
                             View details...</router-link>
                     </div>
-                    <div v-else>
-                        <form-element v-for="(dash, i) in dashboards" :key="dash.id"
-                                      :label="dash.name"
-                                      :last="i === dashboards.length-1"/>
+                    <div v-else v-for="(dash, i) in dashboards" :key="dash.id">
+                        <router-link :to="'/team/' + dash.team.id + '/dashboard/' + dash.id">
+                            <form-element :label="dash.name"
+                                          :last="i === dashboards.length-1"/>
+                        </router-link>
                     </div>
                 </card>
                 <card heading="Statistics — Detailed" subtitle="The detailed usage statistics are shown here.
@@ -74,12 +75,12 @@
 <script>
 import Card from "@/components/card/Card.vue";
 import ActivityRow from "@/components/ActivityRow.vue";
-import StatisticsDetailed from "@/components/StatisticsDetailed.vue";
-import FormElement from "@/components/FormElement.vue";
-import FormRow from "@/components/FormRow.vue";
-import FormInput from "@/components/FormInput.vue";
-import FormDropdown from "@/components/FormDropdown.vue";
-import FormTwoButtons from "@/components/FormTwoButtons.vue";
+import StatisticsDetailed from "@/components/statistics/StatisticsDetailed.vue";
+import FormElement from "@/components/form/FormElement.vue";
+import FormRow from "@/components/form/FormRow.vue";
+import FormInput from "@/components/form/FormInput.vue";
+import FormDropdown from "@/components/form/FormDropdown.vue";
+import FormTwoButtons from "@/components/form/FormTwoButtons.vue";
 
 export default {
     name: "TeamHome",
@@ -143,7 +144,7 @@ export default {
             //let parentTeam = this.getTeamById(id);
             //console.log(parentTeam);
             if (parentTeam === null)
-                return "— Root";
+                return "—– Root";
 
             return "Team " + parentTeam.name;
         },

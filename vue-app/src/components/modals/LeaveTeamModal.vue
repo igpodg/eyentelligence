@@ -29,8 +29,8 @@
 </template>
 
 <script>
-import FormRow from "@/components/FormRow.vue";
-import FormDropdown from "@/components/FormDropdown.vue";
+import FormRow from "@/components/form/FormRow.vue";
+import FormDropdown from "@/components/form/FormDropdown.vue";
 
 export default {
     name: "LeaveTeamModal",

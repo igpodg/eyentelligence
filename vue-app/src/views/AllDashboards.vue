@@ -1,14 +1,17 @@
 <template>
     <div class="all-dashboards">
-        <card heading="Dashboards..." subtitle="See a detailed list of all dashboards available for the team."
+        <card :heading="teamName + '\'s Dashboards'"
+              subtitle="See a detailed list of all dashboards available for the team."
               :perform-func="createNewDashboard" button-icon="note" button-text="Create New">
             <div class="row alldash-row">
                 <div class="col-md-12 col-lg-12 col-xl-6">
                     <h4 class="alldash-error" v-if="dashboards.length === 0">
-                        No dashboards have been found yet for this team!
+                        No dashboards have been found for this team yet!
                     </h4>
                     <div v-else v-for="(dash, i) in dashboards" :key="dash.id">
-                        <form-element :label="dash.name"/>
+                        <router-link :to="'/team/' + dash.team.id + '/dashboard/' + dash.id">
+                            <form-element :label="dash.name"/>
+                        </router-link>
                         <div>
                             <span><b>Created on:</b> {{ timestampToDate(dash.createdDateTime) }}</span><br>
                             <span><b>Modified on:</b> {{ timestampToDate(dash.lastModifiedDateTime) }}</span>
@@ -25,8 +28,8 @@
 
 <script>
 import Card from "@/components/card/Card.vue";
-import FormButton from "@/components/FormButton.vue";
-import FormElement from "@/components/FormElement.vue";
+import FormButton from "@/components/form/FormButton.vue";
+import FormElement from "@/components/form/FormElement.vue";
 
 export default {
     name: "AllDashboards",
@@ -38,7 +41,9 @@ export default {
     data: function() {
         return {
             teamId: null,
-            dashboards: []
+            dashboards: [],
+            getTeamById: null,
+            teamName: ""
         }
     },
     methods: {
@@ -49,6 +54,10 @@ export default {
                 this.dashboards = this.$root.$children[0].dashboards[teamId];
             else
                 this.dashboards = [];
+        },
+        updateTeamName: function() {
+            let team = this.getTeamById(this.teamId);
+            this.teamName = team.name;
         },
         timestampToDate: function(timestamp) {
             let date = new Date(timestamp * 1000);
@@ -95,7 +104,9 @@ export default {
         }
     },
     mounted: function() {
+        this.getTeamById = this.$root.$children[0].getTeamById;
         this.updateDashboards();
+        this.updateTeamName();
         this.$eventBus.$on("delete-dashboard", this.deleteDashboard);
     },
     beforeDestroy: function() {
@@ -104,6 +115,7 @@ export default {
     watch: {
         $route: function() {
             this.updateDashboards();
+            this.updateTeamName();
         }
     }
 }

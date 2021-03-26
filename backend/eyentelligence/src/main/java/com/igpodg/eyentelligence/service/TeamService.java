@@ -33,7 +33,8 @@ public class TeamService {
     }
 
     public List<TeamDto> getAllTeams() {
-        return DtoConversion.convertToTeamDto(this.teamRepository.findAll());
+        return DtoConversion.convertToTeamDto(
+                this.teamRepository.findAllByOrderByIdAsc());
     }
 
     public TeamDto getTeamById(Integer id) {

@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface UserRepository extends CrudRepository<User, Integer> {
     void deleteAll();
 
-    List<User> findAll();
+    List<User> findAllByOrderByIdAsc();
 
     Optional<User> findById(Integer id);
 

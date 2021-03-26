@@ -9,7 +9,8 @@
                 </h5>
                 <p class="mb-0">
                     <slot></slot>
-                    <span v-if="badge !== undefined" class="badge badge-pill badge-success float-right">{{ badge }}</span>
+                    <span v-if="badge !== undefined"
+                          class="badge badge-pill badge-success float-right">{{ badge }}</span>
                 </p>
             </a>
         </div>
@@ -41,6 +42,8 @@ $color-popup-item-time: #8a98ac;
 $color-popup-item-message: #8a98ac;
 $color-popup-item-hover: #f0f4f9;
 
+$avatar-size: 40px;
+
 .xp-msg {
     padding: 15px;
     background-color: $color-white;
@@ -48,6 +51,8 @@ $color-popup-item-hover: #f0f4f9;
 
     img {
         box-shadow: 0 0.5rem 1rem rgba($color-black, 0.15);
+        width: $avatar-size;
+        height: $avatar-size;
     }
 
     a {

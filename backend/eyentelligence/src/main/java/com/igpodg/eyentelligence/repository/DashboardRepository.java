@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface DashboardRepository extends JpaRefreshRepository<Dashboard, Integer> {
     void delete(Dashboard entity);
 
-    List<Dashboard> findAll();
+    List<Dashboard> findAllByOrderByIdAsc();
 
     Optional<Dashboard> findById(Integer id);
 

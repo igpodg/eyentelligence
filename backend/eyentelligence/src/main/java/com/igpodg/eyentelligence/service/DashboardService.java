@@ -37,7 +37,8 @@ public class DashboardService {
     }
 
     public List<DashboardDto> getAllDashboards() {
-        return DtoConversion.convertToDashboardDto(this.dashboardRepository.findAll());
+        return DtoConversion.convertToDashboardDto(
+                this.dashboardRepository.findAllByOrderByIdAsc());
     }
 
     public DashboardDto getDashboardById(Integer id) {

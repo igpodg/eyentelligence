@@ -5,36 +5,49 @@
                 <div class="align-self-center">
                     <p class="xp-icon-timer">
                         <i class="icon-paper-plane"></i>
+                        <span v-if="isInvited">Success!</span>
                     </p>
-                    <h4 class="mb-0 header">{{ header }}</h4>
-                    <p class="subtitle">{{ subtitle }}</p>
-                    <div class="col-5 mb-3 team-selector">
-                        <select class="form-control">
-                            <option disabled selected>Select a team</option>
-                            <option v-for="teamName in teamNames" :key="teamName">{{ teamName }}</option>
-                        </select>
-                    </div>
-                    <div>
-                        <div v-for="i in emailsDisplayedComputed" :key="i" class="input-group"
-                            :style="(i !== 1) ? 'padding-top: 10px;' : ''">
-                        <input type="search" class="form-control" :placeholder="'Email #' + i"
-                                   aria-label="Search" aria-describedby="button-addon-news">
-                            <div class="input-group-append">
-                                <button class="btn btn-remove" type="submit" :id="'button-addon-news' + (i+1)"
-                                        @click="tempRemove">
-                                    &mdash;
+                    <div class="card-body-inner" v-if="!isInvited">
+                        <h4 class="mb-0 header">{{ header }}</h4>
+                        <p class="subtitle">{{ subtitle }}</p>
+                        <form ref="inviteform" @submit="formSubmitted">
+                            <div class="col-5 mb-3 team-selector">
+                                <select class="form-control" required>
+                                    <option value="" disabled selected>Select a team</option>
+                                    <option v-for="team in teams" :key="team.id"
+                                            :value="team.id">{{ team.name }}</option>
+                                </select>
+                            </div>
+                            <div v-for="(email, i) in emailsComputed" :key="i" class="input-group"
+                                :style="(i !== 0) ? 'padding-top: 10px;' : ''">
+                                <input type="search" class="form-control"
+                                       :placeholder="'Email #' + (i+1)" v-model="emailsComputed[i]"
+                                       aria-label="Search" aria-describedby="button-addon-news"
+                                       required>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-remove" type="button"
+                                                :id="'button-addon-news' + i"
+                                                @click="removeElement">
+                                            &mdash;
+                                        </button>
+                                    </div>
+                            </div>
+                            <button type="button" class="btn btn-rounded btn-more"
+                                    @click="addMore">
+                                <i class="icon-plus"></i>&nbsp;More
+                            </button>
+                            <div class="bottom-row">
+                                <button class="mt-4 btn btn-white btn-rounded text-success">
+                                    Send invites
                                 </button>
                             </div>
-                        </div>
-                        <button type="button" class="btn btn-rounded btn-more"
-                                @click="addMore">
-                            <i class="icon-plus"></i>&nbsp;More
-                        </button>
-                        <div class="bottom-row">
-                            <button class="mt-4 btn btn-white btn-rounded text-success">
-                                Send invites
-                            </button>
-                        </div>
+                        </form>
+                    </div>
+                    <div class="card-body-inner-invited" v-else>
+                        <i class="icon-check"></i>
+                        <h5 class="mb-0 header">
+                            The invite emails have been sent!
+                        </h5>
                     </div>
                 </div>
             </div>
@@ -52,24 +65,45 @@ export default {
         },
         header: String,
         subtitle: String,
-        teamNames: Array,
-        emailsDisplayed: {
+        teams: Array,
+        emailAmount: {
             type: Number,
             default: 2
         }
     },
     data: function() {
         return {
-            emailsDisplayedComputed: this.emailsDisplayed
+            emailsComputed: [],
+            isInvited: false
+        }
+    },
+    mounted: function() {
+        for (let i = 0; i < this.emailAmount; i++) {
+            this.addEmptyElement();
         }
     },
     methods: {
-        addMore: function() {
-            this.emailsDisplayedComputed++;
+        addEmptyElement: function() {
+            this.emailsComputed.push("");
         },
-        tempRemove: function() {
-            if (this.emailsDisplayedComputed > 1)
-                this.emailsDisplayedComputed--;
+        addMore: function() {
+            this.addEmptyElement();
+        },
+        removeElement: function(event) {
+            let element = event.target;
+            let index = parseInt(element.id.charAt(
+                element.id.length-1));
+            this.emailsComputed.splice(index, 1);
+
+            if (this.emailsComputed.length === 0)
+                this.addEmptyElement();
+        },
+        formSubmitted: function(event) {
+            event.preventDefault();
+
+            this.isInvited = true;
+
+            return false;
         }
     }
 }
@@ -106,14 +140,17 @@ $gradient-danger-end: #ff7e4b;
     }
 }
 
+@mixin moveY($value) {
+    -webkit-transform: translateY($value);
+    -moz-transform: translateY($value);
+    -ms-transform: translateY($value);
+    transform: translateY($value);
+}
+
 @include colored-text("white", $color-white);
 @include colored-text("success", $color-success);
 
 $color-card-shadow: #c8c8c8;
-
-.card-body > .xp-widget-box {
-    color: #ffffff !important;
-}
 
 .card {
     border: none;
@@ -121,6 +158,24 @@ $color-card-shadow: #c8c8c8;
     border-radius: 15px;
 
     margin-bottom: 30px;
+
+    &-body {
+        >.xp-widget-box {
+            color: #ffffff !important;
+        }
+
+        &-inner-invited {
+            text-align: center;
+            padding-top: 50px;
+            >i {
+                font-size: 50px;
+            }
+            >h5 {
+                padding-top: 50px;
+                padding-bottom: 100px;
+            }
+        }
+    }
 }
 
 .align-self-center {
@@ -132,13 +187,22 @@ $color-card-shadow: #c8c8c8;
     margin-top: 20px;
     margin-bottom: 25px;
 
-    i {
+    >i {
         width: 30px;
         height: 30px;
         padding: 15px;
         font-size: 20px;
         border-radius: 50px;
         background-color: rgba($color-black, 0.2);
+    }
+
+    >span {
+        font-size: 16px;
+        font-weight: bold;
+        padding-left: 10px;
+
+        display: inline-block;
+        @include moveY(-3px);
     }
 }
 

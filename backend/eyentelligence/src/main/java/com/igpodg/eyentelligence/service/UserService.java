@@ -20,7 +20,8 @@ public class UserService {
             "The specified user has not been found.";
 
     public List<UserDto> getAllUsers() {
-        return DtoConversion.convertToUserDto(this.userRepository.findAll());
+        return DtoConversion.convertToUserDto(
+                this.userRepository.findAllByOrderByIdAsc());
     }
 
     public UserDto getUserById(Integer id) {

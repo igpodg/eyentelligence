@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface TeamRepository extends JpaRefreshRepository<Team, Integer> {
     void delete(Team entity);
 
-    List<Team> findAll();
+    List<Team> findAllByOrderByIdAsc();
 
     Optional<Team> findById(Integer id);
 

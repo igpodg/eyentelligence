@@ -32,7 +32,7 @@ $color-shadow: #c8c8c8;
     width: 100% !important;
     margin-bottom: 20px;
     box-shadow: 0 0 30px 0 rgba($color-shadow, 0.22);
-    cursor: pointer;
+    //cursor: pointer;
     &.last {
         margin-bottom: 10px;
     }

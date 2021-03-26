@@ -18,7 +18,7 @@
                         <form-row label="Location" :size="2">
                             <form-dropdown id="createTeamParent"
                                            :items="this.teamLabels"
-                                           unselected="— Root"/>
+                                           unselected="—– Root"/>
                         </form-row>
                         <form-button label="Create" :size="5" color="success"/>
                     </form>
@@ -30,10 +30,10 @@
 
 <script>
 import Card from "@/components/card/Card.vue";
-import FormRow from "@/components/FormRow.vue";
-import FormInput from "@/components/FormInput.vue";
-import FormDropdown from "@/components/FormDropdown.vue";
-import FormButton from "@/components/FormButton.vue";
+import FormRow from "@/components/form/FormRow.vue";
+import FormInput from "@/components/form/FormInput.vue";
+import FormDropdown from "@/components/form/FormDropdown.vue";
+import FormButton from "@/components/form/FormButton.vue";
 
 export default {
     name: "CreateTeam",

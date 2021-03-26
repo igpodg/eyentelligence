@@ -4,13 +4,13 @@
             <div class="col-md-12 col-lg-12 col-xl-7">
                 <card heading="Recent Changes" subtitle="Here you can see the changes you've made in the past week.">
                     <card heading="My Dashboard #2" inner>
-                        <div style="text-align: center;">
+                        <div class="dashboard-card">
                             <img src="assets/img/tempthumb.png">
                         </div>
                     </card>
-                    <span style="width: 30px; float: left; visibility: hidden;">.</span>
+                    <span class="dashboard-card-sep">.</span>
                     <card heading="My Dashboard" inner>
-                        <div style="text-align: center;">
+                        <div class="dashboard-card">
                             <img src="assets/img/tempthumb.png">
                         </div>
                     </card>
@@ -23,7 +23,7 @@
             <div class="col-md-12 col-lg-12 col-xl-5">
                 <card-invite header="Invite new members"
                              subtitle="Have anyone missing? Just add them using the form below."
-                             :team-names="availableTeams"/>
+                             :teams="availableTeams"/>
             </div>
         </div>
     </div>
@@ -32,7 +32,7 @@
 <script>
 import Card from "@/components/card/Card.vue";
 import CardInvite from "@/components/card/CardInvite.vue";
-import StatisticsBrief from "@/components/StatisticsBrief.vue";
+import StatisticsBrief from "@/components/statistics/StatisticsBrief.vue";
 
 export default {
     name: "Overview",
@@ -62,8 +62,7 @@ export default {
     },
     methods: {
         updateTeamNames: function() {
-            this.availableTeams = this.$root.$children[0]
-                .teams.map(team => team.name);
+            this.availableTeams = this.$root.$children[0].teams;
         }
     },
     created: function() {
@@ -77,3 +76,19 @@ export default {
     },
 }
 </script>
+
+<style scoped lang="scss">
+$thumbnail-height: 190px;
+
+.dashboard-card {
+    text-align: center;
+    min-height: $thumbnail-height;
+
+    &-sep {
+        width: 30px;
+        float: left;
+        visibility: hidden;
+    }
+}
+
+</style>

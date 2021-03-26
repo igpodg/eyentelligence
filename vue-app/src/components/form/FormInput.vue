@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import FormTip from "@/components/FormTip.vue";
+import FormTip from "@/components/form/FormTip.vue";
 
 export default {
     name: "FormInput",

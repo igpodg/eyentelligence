@@ -28,7 +28,9 @@ public class DashboardController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/dashboard")
-    public DashboardDto addDashboard(@RequestBody @Valid DashboardDto dashboard, HttpServletResponse response) {
+    public DashboardDto addDashboard(@RequestBody @Valid DashboardDto dashboard,
+                                     HttpServletResponse response)
+    {
         dashboard = this.dashboardService.saveDashboard(dashboard);
         response.setHeader("Location", "/dashboard/" + dashboard.getId());
         return dashboard;
@@ -36,8 +38,9 @@ public class DashboardController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PutMapping("/dashboard/{id}")
-    public DashboardDto updateDashboard(@PathVariable int id, @RequestBody @Valid DashboardDto dashboard,
-                              HttpServletResponse response)
+    public DashboardDto updateDashboard(@PathVariable int id,
+                                        @RequestBody @Valid DashboardDto dashboard,
+                                        HttpServletResponse response)
     {
         response.setHeader("Location", "/dashboard/" + id);
         return this.dashboardService.mergeDashboard(id, dashboard);
