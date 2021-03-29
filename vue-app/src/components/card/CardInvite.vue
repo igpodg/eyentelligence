@@ -33,7 +33,7 @@
                                     </div>
                             </div>
                             <button type="button" class="btn btn-rounded btn-more"
-                                    @click="addMore">
+                                    @click="addEmptyElement">
                                 <i class="icon-plus"></i>&nbsp;More
                             </button>
                             <div class="bottom-row">
@@ -48,6 +48,10 @@
                         <h5 class="mb-0 header">
                             The invite emails have been sent!
                         </h5>
+                        <button type="button" class="btn btn-rounded btn-more"
+                                @click="sendMoreAgain">
+                            Send More
+                        </button>
                     </div>
                 </div>
             </div>
@@ -78,16 +82,16 @@ export default {
         }
     },
     mounted: function() {
-        for (let i = 0; i < this.emailAmount; i++) {
-            this.addEmptyElement();
-        }
+        this.createEmailsComputed();
     },
     methods: {
         addEmptyElement: function() {
             this.emailsComputed.push("");
         },
-        addMore: function() {
-            this.addEmptyElement();
+        createEmailsComputed: function() {
+            for (let i = 0; i < this.emailAmount; i++) {
+                this.addEmptyElement();
+            }
         },
         removeElement: function(event) {
             let element = event.target;
@@ -104,6 +108,12 @@ export default {
             this.isInvited = true;
 
             return false;
+        },
+        sendMoreAgain: function() {
+            this.emailsComputed = [];
+            this.createEmailsComputed();
+
+            this.isInvited = false;
         }
     }
 }
@@ -172,7 +182,10 @@ $color-card-shadow: #c8c8c8;
             }
             >h5 {
                 padding-top: 50px;
-                padding-bottom: 100px;
+                padding-bottom: 80px;
+            }
+            >button {
+                margin-bottom: 40px;
             }
         }
     }

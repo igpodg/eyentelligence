@@ -6,14 +6,14 @@
                 <i class="icon-list"></i>
             </div>
             <div class="col-11 align-self-center text-black">
-                <p>{{ stat[0] }}</p>
-                <span class="mb-0 first">{{ stat[1] }}</span>,&nbsp;
-                <span class="f-w-7">{{ stat[2] }}</span>,&nbsp;
-                <span class="font-12">{{ stat[3] }}</span>,&nbsp;
-                <span class="f-w-7">{{ stat[4] }}</span>,&nbsp;
-                <span class="font-12">{{ stat[5] }}</span>,&nbsp;
-                <span class="f-w-7">{{ stat[6] }}</span>,&nbsp;
-                <span class="font-12">{{ stat[7] }}</span>
+                <p>{{ stat["label"] }}</p>
+                <span class="mb-0 first">{{ stat["total"] }} hrs</span>,&nbsp;
+                <span class="f-w-7">{{ $convertToPercentage(stat["7days"]) }}</span>,&nbsp;
+                <span class="font-12">vs in last 7 days</span>,&nbsp;
+                <span class="f-w-7">{{ $convertToPercentage(stat["31days"]) }}</span>,&nbsp;
+                <span class="font-12">vs in last 31 days</span>,&nbsp;
+                <span class="f-w-7">{{ $convertToPercentage(stat["365days"]) }}</span>,&nbsp;
+                <span class="font-12">vs in last 365 days</span>
             </div>
         </div>
     </div>

@@ -15,6 +15,15 @@ Vue.prototype.$logDetailed = function(message) {
     let msec = currentDateTime.getUTCMilliseconds().toString().padStart(3, "0");
     console.log(`# [${hour}:${min}:${sec}.${msec}] ${message}`);
 };
+Vue.prototype.$convertToPercentage = function(value) {
+    let splitted = parseFloat(value*100).toPrecision(12).split(".");
+    splitted[1] = splitted[1].replace(/0+$/, "");
+    if (splitted[0].charAt(0) !== '-' && (splitted[0] !== "0" || splitted[1] !== ""))
+        splitted[0] = "+" + splitted[0];
+    if (splitted[1] === "")
+        return splitted[0] + "%";
+    return splitted[0] + "." + splitted[1] + "%";
+};
 Vue.prototype.$fetchSync = function(url, options= {}) {
     let xhr = new XMLHttpRequest();
     if (!("method" in options))

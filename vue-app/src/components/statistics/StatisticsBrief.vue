@@ -6,19 +6,19 @@
                 <i class="icon-list ml-3"></i>
             </div>
             <div class="col-md-6 col-lg-5 align-self-center text-black">
-                <h4 class="mb-0 font-26">{{ stat.left[0] }}</h4>
-                <p class="mb-2">{{ stat.left[1] }}</p>
+                <h4 class="mb-0 font-26">{{ stat.left["average"] }} hrs</h4>
+                <p class="mb-2">Avg Members Sessions</p>
                 <p class="mb-0">
-                    <span class="f-w-7">{{ stat.left[2] }}</span>&nbsp;
-                    <span class="font-12">{{ stat.left[3] }}</span>
+                    <span class="f-w-7">{{ $convertToPercentage(stat.left["7days"]) }}</span>&nbsp;
+                    <span class="font-12">vs in last 7 days</span>
                 </p>
             </div>
             <div class="col-md-6 col-lg-5 align-self-center text-black">
-                <h4 class="mb-0 font-26">{{ stat.right[0] }}</h4>
-                <p class="mb-2">{{ stat.right[1] }}</p>
+                <h4 class="mb-0 font-26">{{ stat.right["average"] }} hrs</h4>
+                <p class="mb-2">Avg Members Sessions</p>
                 <p class="mb-0">
-                    <span class="f-w-7">{{ stat.right[2] }}</span>&nbsp;
-                    <span class="font-12">{{ stat.right[3] }}</span>
+                    <span class="f-w-7">{{ $convertToPercentage(stat.right["7days"]) }}</span>&nbsp;
+                    <span class="font-12">vs in last 7 days</span>
                 </p>
             </div>
         </div>

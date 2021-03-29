@@ -17,7 +17,7 @@
                 </card>
                 <card heading="Statistics — General" subtitle="The brief statistics of usage.
                     For more information, visit the appropriate section.">
-                    <statistics-brief :data="statisticsData"/>
+                    <statistics-brief :data="statisticsDataMock"/>
                 </card>
             </div>
             <div class="col-md-12 col-lg-12 col-xl-5">
@@ -43,19 +43,10 @@ export default {
     },
     data: function() {
         return {
-            statisticsData: [
-                {
-                    "left": ["5.3 hrs", "Avg Members Sessions", "+18.68%", "vs in last 7 days"],
-                    "right": ["6.4 hrs", "Avg Members Sessions", "+23.54%", "vs in last 7 days"]
-                },
-                {
-                    "left": ["2.1 hrs", "Avg Members Sessions", "+56.21%", "vs in last 7 days"],
-                    "right": ["4.9 hrs", "Avg Members Sessions", "+45.34%", "vs in last 7 days"]
-                },
-                {
-                    "left": ["11.2 hrs", "Avg Members Sessions", "+56.43%", "vs in last 7 days"],
-                    "right": ["0.4 hrs", "Avg Members Sessions", "+98.32%", "vs in last 7 days"]
-                }
+            statisticsDataMock: [
+                {"left": {"average": 5.3, "7days": 0.1868}, "right": {"average": 6.4, "7days": 0.2354}},
+                {"left": {"average": 2.1, "7days": 0}, "right": {"average": 4.9, "7days": 0.4534}},
+                {"left": {"average": 11.2, "7days": 0.5643}, "right": {"average": 0.4, "7days": 0.9832}}
             ],
             availableTeams: []
         }

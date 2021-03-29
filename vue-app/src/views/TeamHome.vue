@@ -17,22 +17,22 @@
                 </card>
                 <card heading="Statistics — Detailed" subtitle="The detailed usage statistics are shown here.
                     Determine how well your teamwork is going.">
-                    <statistics-detailed :data="generateStats()"/>
+                    <statistics-detailed :data="statsMock"/>
                 </card>
             </div>
             <div class="col-md-12 col-lg-12 col-xl-7">
                 <card heading="Last Activity" subtitle="Here you can see what recent actions
                     have been taken by the team members.">
-                    <div class="team-home-body">
-                        <activity-row name="Anderea Carson" :rank="1" last
-                                      tip="Resized tile &quot;Yearly&quot;" time="Today, 14:32"/>
-                        <hr>
-                        <activity-row name="John Johnson" :rank="2" small
-                                      tip="Changed &quot;My Dashboard #2&quot; visibility" time="Mon, 09:46"/>
-                        <activity-row name="Emily Watson" :rank="3" small
-                                      tip="No activity" time="Mon, 08:50"/>
-                        <activity-row name="Mike Anders" :rank="4" small last
-                                      tip="Resized tile &quot;Monthly Sales&quot;" time="Thu, 16:26"/>
+                    <div class="team-home-body" v-if="activitySecondary !== null">
+                        <activity-row :name="convertName(this.activityMain.user)" :rank="1" last
+                                      :tip="getTipString(this.activityMain.type, this.activityMain.subType)"
+                                      :time="convertTime(this.activityMain.dateTime)"/>
+                        <hr v-if="activitySecondary.length !== 0">
+                        <activity-row v-for="(activity, i) in activitySecondary" :key="i"
+                                      :name="convertName(activity.user)" :rank="i+2" small
+                                      :tip="getTipString(activity.type, activity.subType)"
+                                      :time="convertTime(activity.dateTime)"
+                                      :last="i === activitySecondary.length-1"/>
                     </div>
                 </card>
                 <card heading="Team Information" subtitle="View or edit basic
@@ -106,12 +106,32 @@ export default {
             teamName: "",
             teamType: "",
             teamParent: null,
-            stats: {
-                "first": {"total": 5.3, "7days": 0.1868, "31days": -0.3423, "365days": 0.2354},
-                "overall": {"total": 6.4, "7days": 0.2354, "31days": 0.0134, "365days": 0},
-                "lastYear": {"total": 12.8, "7days": 0.0529, "31days": 0.0033, "365days": 0},
-                "everything": {"total": 23.1, "7days": 0.0153, "31days": 0, "365days": 0}
-            },
+            statsMock: [
+                {"name": "first", "label": "First",
+                    "total": 5.3, "7days": 0.1868, "31days": -0.3423, "365days": 0.2354},
+                {"name": "overall", "label": "Overall",
+                    "total": 6.4, "7days": 0.2354, "31days": 0.0134, "365days": 0},
+                {"name": "lastYear", "label": "Last year only",
+                    "total": 12.8, "7days": 0.0529, "31days": 0.0033, "365days": 0},
+                {"name": "everything", "label": "Everything",
+                    "total": 23.1, "7days": 0.0153, "31days": 0, "365days": 0}
+            ],
+            activityMock: [
+                {"type": 2, "subType": {"id": 790, "name": "Yearly"},
+                    "user": {"id": 990, "firstName": "Anderea", "middleName": "Matilda", "lastName": "Carson"},
+                    "dateTime": 1617012742},
+                {"type": 1, "subType": {"id": 890, "name": "My Dashboard #2"},
+                    "user": {"id": 991, "firstName": "John", "middleName": null, "lastName": "Johnson"},
+                    "dateTime": 1616906787},
+                {"type": 0, "subType": null,
+                    "user": {"id": 992, "firstName": "Emily", "middleName": null, "lastName": "Watson"},
+                    "dateTime": 1616482216},
+                {"type": 2, "subType": {"id": 791, "name": "Monthly Sales"},
+                    "user": {"id": 993, "firstName": "Mike", "middleName": null, "lastName": "Anders"},
+                    "dateTime": 1616705805}
+            ],
+            activityMain: null,
+            activitySecondary: null,
             teamLabels: [],
             currentTeamParent: null,
             dashboards: []
@@ -134,6 +154,14 @@ export default {
             else
                 this.dashboards = [];
         },
+        updateActivity: function() {
+            this.$logDetailed("updating activity...");
+            if (this.activityMock.length > 0) {
+                this.activityMain = this.activityMock[0];
+                this.activitySecondary = this.activityMock.slice(1);
+            }
+            this.$logDetailed("updated activity!");
+        },
         convertTeamType: function(id) {
             for (let type of this.teamTypes) {
                 if (type.id === id)
@@ -148,6 +176,68 @@ export default {
                 return this.rootLabel;
 
             return "Team " + parentTeam.name;
+        },
+        convertTime: function(timestamp) {
+            let original = new Date(timestamp*1000);
+
+            let today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            let yesterday = new Date(today.getTime());
+            yesterday.setDate(yesterday.getDate()-1);
+
+            let compared = new Date(timestamp*1000);
+            compared.setHours(0, 0, 0, 0);
+            let comparedTs = compared.getTime();
+
+            if (comparedTs === today.getTime()) {
+                return "Today, " + original.toLocaleString("default", {
+                    hour: "numeric",
+                    hourCycle: "h23",
+                    minute: "numeric"
+                });
+            } else if (comparedTs === yesterday.getTime()) {
+                return "Yesterday, " + original.toLocaleString("default", {
+                    hour: "numeric",
+                    hourCycle: "h23",
+                    minute: "numeric"
+                });
+            } else if (compared.getFullYear() === today.getFullYear()) {
+                return original.toLocaleString("default", {
+                    day: "numeric",
+                    month: "short",
+                    hour: "numeric",
+                    hourCycle: "h23",
+                    minute: "numeric"
+                });
+            } else {
+                return original.toLocaleString("en-GB", {
+                    day: "numeric",
+                    month: "numeric",
+                    year: "numeric",
+                    hour: "numeric",
+                    hourCycle: "h23",
+                    minute: "numeric"
+                });
+            }
+        },
+        convertName: function(user) {
+            let middleName = "";
+            if (user.middleName !== null) {
+                middleName = user.middleName.trim()
+                    .charAt(0).toUpperCase() + ". ";
+            }
+            return user.firstName + " " + middleName + user.lastName;
+        },
+        getTipString: function(type, subType) {
+            switch (type) {
+                case 0:
+                    return "No activity";
+                case 1:
+                    return "Changed \"" + subType.name + "\" visibility";
+                case 2:
+                    return "Resized tile \"" + subType.name + "\"";
+            }
         },
         formSubmitted: function(event) {
             event.preventDefault();
@@ -198,38 +288,6 @@ export default {
         editCancelled: function() {
             this.$logDetailed("cancelled!");
             this.editEnabled = false;
-        },
-        generateStats: function() {
-            return [
-                ["First", this.stats.first.total + " hrs",
-                    this.stats.first["7days"]*100 + "%",
-                    "vs in last 7 days",
-                    this.stats.first["31days"]*100 + "%",
-                    "vs in last 31 days",
-                    this.stats.first["365days"]*100 + "%",
-                    "vs in last 365 days"],
-                ["Overall", this.stats.overall.total + " hrs",
-                    this.stats.overall["7days"]*100 + "%",
-                    "vs in last 7 days",
-                    this.stats.overall["31days"]*100 + "%",
-                    "vs in last 31 days",
-                    this.stats.overall["365days"]*100 + "%",
-                    "vs in last 365 days"],
-                ["Last year only", this.stats.lastYear.total + " hrs",
-                    this.stats.lastYear["7days"]*100 + "%",
-                    "vs in last 7 days",
-                    this.stats.lastYear["31days"]*100 + "%",
-                    "vs in last 31 days",
-                    this.stats.lastYear["365days"]*100 + "%",
-                    "vs in last 365 days"],
-                ["Everything", this.stats.everything.total + " hrs",
-                    this.stats.everything["7days"]*100 + "%",
-                    "vs in last 7 days",
-                    this.stats.everything["31days"]*100 + "%",
-                    "vs in last 31 days",
-                    this.stats.everything["365days"]*100 + "%",
-                    "vs in last 365 days"]
-            ];
         }
     },
     mounted: function() {
@@ -237,6 +295,7 @@ export default {
         this.getTeamById = this.$root.$children[0].getTeamById;
         this.updateTeamValues();
         this.updateDashboards();
+        this.updateActivity();
     },
     beforeDestroy: function() {
         this.$eventBus.$off("edit-cancelled");
@@ -246,6 +305,7 @@ export default {
             this.editCancelled();
             this.updateTeamValues();
             this.updateDashboards();
+            this.updateActivity();
         }
     }
 }
