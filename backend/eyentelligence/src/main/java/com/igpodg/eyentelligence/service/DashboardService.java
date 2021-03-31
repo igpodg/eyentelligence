@@ -15,6 +15,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import static com.igpodg.eyentelligence.exception.ExceptionMessages.*;
+
 @Service
 public class DashboardService {
     @Autowired
@@ -22,15 +24,6 @@ public class DashboardService {
 
     @Autowired
     private TeamRepository teamRepository;
-
-    private final static String ERR_DASHBOARD_NOT_FOUND =
-            "The specified dashboard has not been found.";
-    private final static String ERR_DASHBOARD_CREATE_NOT_ENOUGH_FIELDS =
-            "Not enough required fields to create a new dashboard.";
-    private final static String ERR_TEAM_OBJ_INVALID_ID =
-            "The team object has a missing/invalid ID.";
-    private final static String ERR_TEAM_INVALID_ID =
-            "The ID that the team is referring to is invalid.";
 
     public Boolean doesTeamExistById(Integer id) {
         return this.teamRepository.findById(id).isPresent();

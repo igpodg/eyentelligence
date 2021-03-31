@@ -49,7 +49,7 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
             JSONObject result = new JSONObject(SERVER, new String[] {"error"});
             result.put("reason", exception.getMessage());
             return ResponseEntity
-                    .status(HttpStatus.NOT_IMPLEMENTED)
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .header(contentType, applicationJson)
                     .body(result.toString());
         }

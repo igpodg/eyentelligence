@@ -524,6 +524,20 @@ class EyentelligenceApplicationTests {
         Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
 
+    @Sql("classpath:schema.sql") // remove this if you want to see the effects in DB
+    @Test
+    public void testDeleteParentById() {
+        String expectedResponse = "{\"id\":4,\"name\":\"Tres-Zap\",\"type\":\"O\"," +
+                "\"parentTeam\":null}";
+
+        ResponseEntity<String> response = this.restTemplate.exchange(
+                this.apiPrefix + "/team/4/parent/3", HttpMethod.DELETE,
+                new HttpEntity<>("{}"), String.class);
+
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.ACCEPTED);
+        Assertions.assertThat(response.getBody()).isEqualTo(expectedResponse);
+    }
+
     // ------------------------------------------------------------
     // ------------------------- TODO FIX -------------------------
     // ------------------------------------------------------------

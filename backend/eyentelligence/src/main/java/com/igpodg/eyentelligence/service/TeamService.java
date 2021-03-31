@@ -12,21 +12,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+import static com.igpodg.eyentelligence.exception.ExceptionMessages.*;
+
 @Service
 public class TeamService {
     @Autowired
     private TeamRepository teamRepository;
-
-    private final static String ERR_TEAM_NOT_FOUND =
-            "The specified team has not been found.";
-    private final static String ERR_TEAM_CREATE_NOT_ENOUGH_FIELDS =
-            "Not enough required fields to create a new team.";
-    private final static String ERR_PARENT_TEAM_OBJ_INVALID_ID =
-            "The parent team object has a missing/invalid ID.";
-    private final static String ERR_PARENT_TEAM_INVALID_ID =
-            "The ID that the parent team is referring to is invalid.";
-    private final static String ERR_PARENT_TEAM_SELF_REFERENCE =
-            "The ID of the parent team cannot refer to itself.";
 
     public Boolean doesTeamExistById(Integer id) {
         return this.teamRepository.findById(id).isPresent();
@@ -66,31 +57,57 @@ public class TeamService {
     }
 
     public TeamDto mergeTeam(Integer id, TeamDto request) {
-        TeamDto team = this.getTeamById(id);
+        // first work on entity level
+        Optional<Team> teamAsOptional = this.teamRepository.findById(id);
+        Team teamAsModel = teamAsOptional.orElseThrow(() ->
+                new EyenUserException(ERR_TEAM_NOT_FOUND));
+        // merge "not null" fields
         if (OptionalUtil.isValid(request.getName()))
-            team.setName(request.getName().get());
+            teamAsModel.setName(request.getName().get());
         if (OptionalUtil.isValid(request.getType()))
-            team.setType(request.getType().get());
-        if (OptionalUtil.isValid(request.getParentTeam())) {
-            TeamDto parentTeam = request.getParentTeam().get();
-            if (parentTeam.getId() == null)
-                throw new EyenUserException(ERR_PARENT_TEAM_OBJ_INVALID_ID);
-            else if (!this.doesTeamExistById(parentTeam.getId()))
-                throw new EyenUserException(ERR_PARENT_TEAM_INVALID_ID);
+            teamAsModel.setType(request.getType().get());
 
-            if (parentTeam.getId().equals(id))
-                throw new EyenUserException(ERR_PARENT_TEAM_SELF_REFERENCE);
+        // if request contains a parent team
+        if (request.getParentTeam().isPresent()) {
+            Optional<Team> parentTeamAsOptional =
+                    this.teamRepository.findById(request.getParentTeam().get().getId());
+            Team parentTeamAsModel = parentTeamAsOptional.orElseThrow(() ->
+                    new EyenUserException(ERR_PARENT_TEAM_NOT_FOUND));
 
-            team.setParentTeam(parentTeam);
+            // IF new parent team is different than previous THEN update it
+            Integer newParentId = parentTeamAsModel.getId();
+            Team existingParent = teamAsModel.getParentTeam();
+            if (existingParent == null || !newParentId.equals(existingParent.getId())) {
+                // self-reference
+                if (newParentId.equals(id))
+                    throw new EyenUserException(ERR_PARENT_TEAM_SELF_REFERENCE);
+
+                teamAsModel.setParentTeam(parentTeamAsModel);
+            }
         }
 
-        Team entity = this.teamRepository.save(DtoConversion.convertToTeam(team));
-        this.teamRepository.refresh(entity);
+        Team entity = this.teamRepository.save(teamAsModel);
+        //this.teamRepository.refresh(entity);
         return DtoConversion.convertToTeamDto(entity);
     }
 
     public void deleteTeamById(Integer id) {
         TeamDto team = this.getTeamById(id);
         this.teamRepository.delete(DtoConversion.convertToTeam(team));
+    }
+
+    public TeamDto deleteParentTeamById(Integer teamId, int parentTeamId) {
+        Optional<Team> teamAsOptional = this.teamRepository.findById(teamId);
+        Team team = teamAsOptional.orElseThrow(() -> new EyenUserException(ERR_TEAM_NOT_FOUND));
+
+        if (team.getParentTeam() == null ||
+                !(team.getParentTeam().getId().equals(parentTeamId)))
+        {
+            throw new EyenUserException(ERR_PARENT_TEAM_INVALID_ID);
+        }
+
+        team.setParentTeam(null);
+        this.teamRepository.save(team);
+        return DtoConversion.convertToTeamDto(team);
     }
 }

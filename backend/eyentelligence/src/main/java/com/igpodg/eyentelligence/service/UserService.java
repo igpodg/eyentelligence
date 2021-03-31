@@ -11,13 +11,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+import static com.igpodg.eyentelligence.exception.ExceptionMessages.ERR_USER_NOT_FOUND;
+
 @Service
 public class UserService {
     @Autowired
     private UserRepository userRepository;
-
-    private final static String ERR_USER_NOT_FOUND =
-            "The specified user has not been found.";
 
     public List<UserDto> getAllUsers() {
         return DtoConversion.convertToUserDto(
