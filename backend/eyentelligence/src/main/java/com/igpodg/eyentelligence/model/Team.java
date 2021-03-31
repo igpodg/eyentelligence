@@ -27,7 +27,7 @@ public class Team {
     @Column(columnDefinition = "char(1)", nullable = false)
     private String type;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parentTeamId")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Team parentTeam;

@@ -1,6 +1,7 @@
 package com.igpodg.eyentelligence.util;
 
 import com.igpodg.eyentelligence.dto.DashboardDto;
+import com.igpodg.eyentelligence.dto.ParentTeamDto;
 import com.igpodg.eyentelligence.dto.TeamDto;
 import com.igpodg.eyentelligence.dto.UserDto;
 import com.igpodg.eyentelligence.model.Dashboard;
@@ -68,8 +69,18 @@ public class DtoConversion {
         teamDto.setId(team.getId());
         teamDto.setName(team.getName());
         teamDto.setType(team.getType());
-        teamDto.setParentTeam(convertToTeamDto(team.getParentTeam()));
+        teamDto.setParentTeam(convertToParentTeamDto(team.getParentTeam()));
         return teamDto;
+    }
+
+    public static ParentTeamDto convertToParentTeamDto(Team team) {
+        if (team == null)
+            return null;
+        ParentTeamDto parentTeamDto = new ParentTeamDto();
+        parentTeamDto.setId(team.getId());
+        parentTeamDto.setName(team.getName());
+        parentTeamDto.setType(team.getType());
+        return parentTeamDto;
     }
 
     public static List<TeamDto> convertToTeamDto(List<Team> teams) {

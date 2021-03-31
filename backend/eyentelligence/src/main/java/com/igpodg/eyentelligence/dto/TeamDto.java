@@ -14,7 +14,7 @@ import java.util.Optional;
 public class TeamDto {
     public TeamDto() {}
     public TeamDto(Optional<String> name, Optional<String> type,
-                   Optional<TeamDto> parentTeam)
+                   Optional<ParentTeamDto> parentTeam)
     {
         this.name = name;
         this.type = type;
@@ -25,7 +25,7 @@ public class TeamDto {
     private Integer id;
     private Optional<@NotNull @NotBlank String> name;
     private Optional<@NotNull @Pattern(regexp = "^[TO]{1}$") String> type;
-    private Optional<TeamDto> parentTeam;
+    private Optional<ParentTeamDto> parentTeam;
 
     public void setId(Integer id) {
         this.id = id;
@@ -39,7 +39,7 @@ public class TeamDto {
         this.type = Optional.ofNullable(type);
     }
 
-    public void setParentTeam(TeamDto parentTeam) {
+    public void setParentTeam(ParentTeamDto parentTeam) {
         this.parentTeam = Optional.ofNullable(parentTeam);
     }
 

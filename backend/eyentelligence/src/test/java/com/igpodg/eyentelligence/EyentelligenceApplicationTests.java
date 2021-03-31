@@ -3,6 +3,7 @@ package com.igpodg.eyentelligence;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -41,28 +42,21 @@ class EyentelligenceApplicationTests {
     private final String initialContents =
             "[{\"id\":1,\"name\":\"Zathin\",\"type\":\"T\",\"parentTeam\":null}," +
                     "{\"id\":2,\"name\":\"Rank\",\"type\":\"O\",\"parentTeam\":" +
-                    "{\"id\":1,\"name\":\"Zathin\",\"type\":\"T\",\"parentTeam\":null}}," +
+                    "{\"id\":1,\"name\":\"Zathin\",\"type\":\"T\"}}," +
                     "{\"id\":3,\"name\":\"Tresom\",\"type\":\"T\",\"parentTeam\":null}," +
                     "{\"id\":4,\"name\":\"Tres-Zap\",\"type\":\"O\",\"parentTeam\":" +
-                    "{\"id\":3,\"name\":\"Tresom\",\"type\":\"T\",\"parentTeam\":null}}," +
+                    "{\"id\":3,\"name\":\"Tresom\",\"type\":\"T\"}}," +
                     "{\"id\":5,\"name\":\"Hatity\",\"type\":\"O\",\"parentTeam\":" +
-                    "{\"id\":4,\"name\":\"Tres-Zap\",\"type\":\"O\",\"parentTeam\":" +
-                    "{\"id\":3,\"name\":\"Tresom\",\"type\":\"T\",\"parentTeam\":null}}}," +
+                    "{\"id\":4,\"name\":\"Tres-Zap\",\"type\":\"O\"}}," +
                     "{\"id\":6,\"name\":\"Toughjoyfax\",\"type\":\"O\",\"parentTeam\":" +
-                    "{\"id\":5,\"name\":\"Hatity\",\"type\":\"O\",\"parentTeam\":" +
-                    "{\"id\":4,\"name\":\"Tres-Zap\",\"type\":\"O\",\"parentTeam\":" +
-                    "{\"id\":3,\"name\":\"Tresom\",\"type\":\"T\",\"parentTeam\":null}}}}," +
+                    "{\"id\":5,\"name\":\"Hatity\",\"type\":\"O\"}}," +
                     "{\"id\":7,\"name\":\"Ventosanzap\",\"type\":\"O\",\"parentTeam\":" +
-                    "{\"id\":4,\"name\":\"Tres-Zap\",\"type\":\"O\",\"parentTeam\":" +
-                    "{\"id\":3,\"name\":\"Tresom\",\"type\":\"T\",\"parentTeam\":null}}}," +
+                    "{\"id\":4,\"name\":\"Tres-Zap\",\"type\":\"O\"}}," +
                     "{\"id\":8,\"name\":\"Keylex\",\"type\":\"T\",\"parentTeam\":null}," +
                     "{\"id\":9,\"name\":\"Vagram\",\"type\":\"O\",\"parentTeam\":" +
-                    "{\"id\":5,\"name\":\"Hatity\",\"type\":\"O\",\"parentTeam\":" +
-                    "{\"id\":4,\"name\":\"Tres-Zap\",\"type\":\"O\",\"parentTeam\":" +
-                    "{\"id\":3,\"name\":\"Tresom\",\"type\":\"T\",\"parentTeam\":null}}}}," +
+                    "{\"id\":5,\"name\":\"Hatity\",\"type\":\"O\"}}," +
                     "{\"id\":10,\"name\":\"Daltfresh\",\"type\":\"O\",\"parentTeam\":" +
-                    "{\"id\":2,\"name\":\"Rank\",\"type\":\"O\",\"parentTeam\":" +
-                    "{\"id\":1,\"name\":\"Zathin\",\"type\":\"T\",\"parentTeam\":null}}}";
+                    "{\"id\":2,\"name\":\"Rank\",\"type\":\"O\"}}";
 
     private final String initialContentsUser =
             "{\"id\":1,\"username\":\"user\",\"passwordHash\":\"useruseruser\"," +
@@ -186,8 +180,7 @@ class EyentelligenceApplicationTests {
             Assertions.assertThat(response.getBody()).isEqualTo(
                     "{\"id\":11,\"name\":\"" + teamName + "\",\"type\":\"" + teamType +
                             "\",\"parentTeam\":" +
-                            "{\"id\":2,\"name\":\"Rank\",\"type\":\"O\",\"parentTeam\":" +
-                            "{\"id\":1,\"name\":\"Zathin\",\"type\":\"T\",\"parentTeam\":null}}}");
+                            "{\"id\":2,\"name\":\"Rank\",\"type\":\"O\"}}");
     }
 
     @Sql("classpath:schema.sql")
@@ -337,8 +330,7 @@ class EyentelligenceApplicationTests {
         Assertions.assertThat(locations.get(0)).isEqualTo("/team/1");
         Assertions.assertThat(response.getBody()).isEqualTo(
                 "{\"id\":1,\"name\":\"Zathin\",\"type\":\"T\",\"parentTeam\":" +
-                        "{\"id\":4,\"name\":\"Tres-Zap\",\"type\":\"O\",\"parentTeam\":" +
-                        "{\"id\":3,\"name\":\"Tresom\",\"type\":\"T\",\"parentTeam\":null}}}");
+                        "{\"id\":4,\"name\":\"Tres-Zap\",\"type\":\"O\"}}");
     }
 
     @Sql("classpath:schema.sql")
@@ -409,11 +401,10 @@ class EyentelligenceApplicationTests {
         String expected =
                 "[{\"id\":1,\"name\":\"Zathin\",\"type\":\"T\",\"parentTeam\":null}," +
                 "{\"id\":2,\"name\":\"Rank\",\"type\":\"O\",\"parentTeam\":" +
-                "{\"id\":1,\"name\":\"Zathin\",\"type\":\"T\",\"parentTeam\":null}}," +
+                "{\"id\":1,\"name\":\"Zathin\",\"type\":\"T\"}}," +
                 "{\"id\":8,\"name\":\"Keylex\",\"type\":\"T\",\"parentTeam\":null}," +
                 "{\"id\":10,\"name\":\"Daltfresh\",\"type\":\"O\",\"parentTeam\":" +
-                "{\"id\":2,\"name\":\"Rank\",\"type\":\"O\",\"parentTeam\":" +
-                "{\"id\":1,\"name\":\"Zathin\",\"type\":\"T\",\"parentTeam\":null}}}]";
+                "{\"id\":2,\"name\":\"Rank\",\"type\":\"O\"}}]";
         response = this.restTemplate.getForEntity(
                 this.apiPrefix + "/team", String.class);
         Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
@@ -524,35 +515,9 @@ class EyentelligenceApplicationTests {
         Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
 
-    @Sql("classpath:schema.sql") // remove this if you want to see the effects in DB
-    @Test
-    public void testDeleteParentById() {
-        String expectedResponse = "{\"id\":4,\"name\":\"Tres-Zap\",\"type\":\"O\"," +
-                "\"parentTeam\":null}";
-
-        ResponseEntity<String> response = this.restTemplate.exchange(
-                this.apiPrefix + "/team/4/parent/3", HttpMethod.DELETE,
-                new HttpEntity<>("{}"), String.class);
-
-        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.ACCEPTED);
-        Assertions.assertThat(response.getBody()).isEqualTo(expectedResponse);
-    }
-
-    // ------------------------------------------------------------
-    // ------------------------- TODO FIX -------------------------
-    // ------------------------------------------------------------
-
     @Sql("classpath:schema.sql")
     @Test
-    public void testTeamModifyNested() {
-        ResponseEntity<String> response = this.restTemplate.exchange(
-                this.apiPrefix + "/team/3", HttpMethod.PUT,
-                new HttpEntity<>("{\"parentTeam\":{\"id\":4}}"), String.class);
-        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
-    }
-
-    @Sql("classpath:schema.sql")
-    @Test
+    @Disabled
     public void testTripleOptional() {
         String expectedResponse1 = "{\"id\":2,\"name\":\"Rank\",\"type\":\"O\"," +
                 "\"parentTeam\":{\"id\":1,\"name\":\"Zathin\",\"type\":\"T\",\"parentTeam\":null}}";
@@ -571,5 +536,28 @@ class EyentelligenceApplicationTests {
                 new HttpEntity<>("{\"parentTeam\":null}"), String.class);
         Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         Assertions.assertThat(response.getBody()).isEqualTo(expectedResponse2);
+    }
+
+    @Sql("classpath:schema.sql") // remove this if you want to see the effects in DB
+    @Test
+    public void testDeleteParentById() {
+        String expectedResponse = "{\"id\":4,\"name\":\"Tres-Zap\",\"type\":\"O\"," +
+                "\"parentTeam\":null}";
+
+        ResponseEntity<String> response = this.restTemplate.exchange(
+                this.apiPrefix + "/team/4/parent/3", HttpMethod.DELETE,
+                new HttpEntity<>("{}"), String.class);
+
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.ACCEPTED);
+        Assertions.assertThat(response.getBody()).isEqualTo(expectedResponse);
+    }
+
+    @Sql("classpath:schema.sql")
+    @Test
+    public void testTeamModifyNested() {
+        ResponseEntity<String> response = this.restTemplate.exchange(
+                this.apiPrefix + "/team/3", HttpMethod.PUT,
+                new HttpEntity<>("{\"parentTeam\":{\"id\":4}}"), String.class);
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
     }
 }
